@@ -50,3 +50,5 @@ Archive/*
 derived/
 
 competitionData/
+
+out/

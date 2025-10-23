@@ -64,7 +64,7 @@ batchesPerSave: 0
 batchesPerVal: 50
 
 #how many minibatches to use total
-nBatchesToTrain: 100000
+nBatchesToTrain: 10
 
 #number of sentence snippets to include in the minibatch
 batchSize: 64

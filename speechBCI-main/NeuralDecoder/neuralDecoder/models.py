@@ -44,14 +44,17 @@ class GRU(Model):
 
         self.rnnLayers = []
         for _ in range(nLayers):
-            rnn = tf.keras.layers.GRU(units,
-                                      return_sequences=True,
-                                      return_state=True,
-                                      kernel_regularizer=weightReg,
-                                      activity_regularizer=actReg,
-                                      recurrent_initializer=recurrent_init,
-                                      kernel_initializer=kernel_init,
-                                      dropout=dropout)
+            rnn = tf.keras.layers.GRU(
+                units,
+                return_sequences=True,
+                return_state=True,
+                kernel_regularizer=weightReg,
+                activity_regularizer=actReg,
+                recurrent_initializer=recurrent_init,
+                kernel_initializer=kernel_init,
+                dropout=dropout,
+                reset_after=False
+            )
             self.rnnLayers.append(rnn)
         if bidirectional:
             self.rnnLayers = [tf.keras.layers.Bidirectional(rnn) for rnn in self.rnnLayers]

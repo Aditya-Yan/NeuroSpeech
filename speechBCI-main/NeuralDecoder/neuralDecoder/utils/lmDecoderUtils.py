@@ -5,7 +5,7 @@ import numpy as np
 from tqdm.notebook import trange, tqdm
 import tensorflow as tf
 
-import lm_decoder # type: ignore
+import lm_decoder
 import neuralDecoder.utils.rnnEval as rnnEval
 
 '''
