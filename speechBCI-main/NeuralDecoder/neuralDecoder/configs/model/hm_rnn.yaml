@@ -1,0 +1,55 @@
+# HM-RNN (Hierarchical Multi-scale RNN) Model Configuration
+# Multi-scale processing for speech decoding
+
+# Model class to instantiate
+_target_: neuralDecoder.models.HMRNN
+
+# Number of units at each hierarchical level
+# Can be single value (same for all layers) or list [fast, medium, slow]
+nUnits: 1024
+# Alternative: [512, 768, 1024] for different sizes per layer
+
+# Number of hierarchical layers (typically 3)
+nLayers: 3
+
+# Time scales for each hierarchical level
+# Layer 1: processes every time step (phoneme level ~10ms)
+# Layer 2: processes every 4 steps (syllable level ~40ms)  
+# Layer 3: processes every 16 steps (word level ~160ms)
+time_scales: [1, 4, 16]
+
+# Subsampling factor for final output
+subsampleFactor: 4
+
+# Number of output classes (phonemes)
+nClasses: 40
+
+# Regularization
+weightReg: 0.0001
+actReg: 0.0
+
+# Dropout rate (0.0 = no dropout, 0.1 = 10% dropout)
+dropout: 0.1
+
+# Bidirectional processing (processes forward and backward in time)
+bidirectional: false
+
+# Optional: Input convolutional layer parameters
+# Set to null to disable
+conv_kwargs: null
+# Example with conv:
+# conv_kwargs:
+#   kernel_size: 5
+#   depth_multiplier: 1
+
+# Optional: Input stacking/patching parameters
+# Stacks multiple time steps into feature vector
+stack_kwargs:
+  kernel_size: 32
+  strides: 1
+
+# Notes:
+# - Increase nUnits for more model capacity (but slower training)
+# - Adjust time_scales based on your speech rate
+# - Use dropout if overfitting occurs
+# - Set bidirectional=true for better accuracy (but 2x slower)
