@@ -1,0 +1,262 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPSJQQ1zSUCC79F3zGS4Mk2",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Aditya-Yan/NeuroSpeech/blob/yumna-khan/HMRNN%20implementation%20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import torch\n",
+        "import torch.nn as nn\n",
+        "import torch.nn.functional as F"
+      ],
+      "metadata": {
+        "id": "1GOBhKGLZDRx"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "train_text = \"the cat sat on the mat\"\n",
+        "valid_text = \"the dog sat\"\n",
+        "test_text  = \"the cat\"\n",
+        "\n",
+        "# Build vocabulary (unique characters)\n",
+        "vocab = sorted(set(train_text + valid_text + test_text))\n",
+        "stoi = {ch: i for i, ch in enumerate(vocab)}  # char → int\n",
+        "itos = {i: ch for ch, i in stoi.items()}      # int → char\n",
+        "\n",
+        "def encode(s): return [stoi[ch] for ch in s]\n",
+        "def decode(ids): return \"\".join([itos[i] for i in ids])\n",
+        "\n",
+        "train_data = torch.tensor(encode(train_text), dtype=torch.long)\n",
+        "valid_data = torch.tensor(encode(valid_text), dtype=torch.long)\n",
+        "test_data  = torch.tensor(encode(test_text), dtype=torch.long)\n"
+      ],
+      "metadata": {
+        "id": "oDPZK5NpZjE-"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"Vocabulary:\", vocab)\n",
+        "print(\"Encoded train:\", train_data)\n",
+        "print(\"Decoded back:\", decode(train_data.tolist()))"
+      ],
+      "metadata": {
+        "id": "SUMctsOsZkjJ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from torch.utils.data import Dataset, DataLoader\n",
+        "\n",
+        "class CharDataset(Dataset):\n",
+        "    def __init__(self, data, seq_len=10):\n",
+        "        self.data = data\n",
+        "        self.seq_len = seq_len\n",
+        "\n",
+        "    def __len__(self):\n",
+        "        return len(self.data) - self.seq_len\n",
+        "\n",
+        "    def __getitem__(self, idx):\n",
+        "        x = self.data[idx:idx+self.seq_len]\n",
+        "        y = self.data[idx+1:idx+self.seq_len+1]\n",
+        "        return x, y\n",
+        "\n",
+        "seq_len = 10\n",
+        "train_ds = CharDataset(train_data, seq_len)\n",
+        "train_loader = DataLoader(train_ds, batch_size=2, shuffle=True)\n",
+        "\n",
+        "# Peek\n",
+        "for x, y in train_loader:\n",
+        "    print(\"X:\", decode(x[0].tolist()))\n",
+        "    print(\"Y:\", decode(y[0].tolist()))\n",
+        "    break"
+      ],
+      "metadata": {
+        "id": "ENWlNtZOcWT5"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "class HMLSTMCell(nn.Module):\n",
+        "    def __init__(self, input_size, hidden_size):\n",
+        "        super().__init__()\n",
+        "        self.hidden_size = hidden_size\n",
+        "        self.linear = nn.Linear(input_size + hidden_size, 4*hidden_size + 1)\n",
+        "\n",
+        "    def forward(self, x, h_prev, c_prev, z_prev, z_below=1):\n",
+        "        combined = torch.cat([x, h_prev], dim=-1)\n",
+        "        gates = self.linear(combined)\n",
+        "\n",
+        "        f, i, o, g, z_tilde = torch.split(gates, [self.hidden_size]*4 + [1], dim=-1)\n",
+        "        f, i, o = torch.sigmoid(f), torch.sigmoid(i), torch.sigmoid(o)\n",
+        "        g = torch.tanh(g)\n",
+        "\n",
+        "        # Boundary detector (straight-through estimator idea)\n",
+        "        z_t = (torch.sigmoid(z_tilde) > 0.5).float()\n",
+        "\n",
+        "        if z_prev == 0 and z_below == 0:  # COPY\n",
+        "            h, c = h_prev, c_prev\n",
+        "        elif z_prev == 0 and z_below == 1:  # UPDATE\n",
+        "            c = f * c_prev + i * g\n",
+        "            h = o * torch.tanh(c)\n",
+        "        elif z_prev == 1:  # FLUSH\n",
+        "            c = i * g\n",
+        "            h = o * torch.tanh(c)\n",
+        "\n",
+        "        return h, c, z_t\n"
+      ],
+      "metadata": {
+        "id": "hqgyBdrftaKf"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "class HMLSTMModel(nn.Module):\n",
+        "    def __init__(self, vocab_size, hidden_size=32):\n",
+        "        super().__init__()\n",
+        "        self.embedding = nn.Embedding(vocab_size, hidden_size)\n",
+        "        self.rnn_cell = HMLSTMCell(hidden_size, hidden_size)\n",
+        "        self.fc = nn.Linear(hidden_size, vocab_size)\n",
+        "\n",
+        "    def forward(self, x):\n",
+        "        batch_size, seq_len = x.shape\n",
+        "        h = torch.zeros(batch_size, self.rnn_cell.hidden_size)\n",
+        "        c = torch.zeros(batch_size, self.rnn_cell.hidden_size)\n",
+        "        z = torch.zeros(batch_size, 1)\n",
+        "\n",
+        "        outputs = []\n",
+        "        for t in range(seq_len):\n",
+        "            emb = self.embedding(x[:, t])\n",
+        "            h, c, z = self.rnn_cell(emb, h, c, z)\n",
+        "            outputs.append(self.fc(h))\n",
+        "\n",
+        "        return torch.stack(outputs, dim=1)\n"
+      ],
+      "metadata": {
+        "id": "JIlk2A5OtkCS"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import torch\n",
+        "import torch.nn as nn\n",
+        "\n",
+        "class HMLSTMCell(nn.Module):\n",
+        "    def __init__(self, input_size, hidden_size):\n",
+        "        super().__init__()\n",
+        "        self.hidden_size = hidden_size\n",
+        "        # Linear layer produces 4 gates + 1 boundary signal\n",
+        "        self.linear = nn.Linear(input_size + hidden_size, 4*hidden_size + 1)\n",
+        "\n",
+        "    def forward(self, x, h_prev, c_prev, z_prev, z_below=None):\n",
+        "        if z_below is None:\n",
+        "            z_below = torch.ones_like(z_prev)  # assume active if not provided\n",
+        "\n",
+        "        # Combine input + hidden\n",
+        "        combined = torch.cat([x, h_prev], dim=-1)\n",
+        "        gates = self.linear(combined)\n",
+        "\n",
+        "        f, i, o, g, z_tilde = torch.split(\n",
+        "            gates, [self.hidden_size]*4 + [1], dim=-1\n",
+        "        )\n",
+        "        f, i, o = torch.sigmoid(f), torch.sigmoid(i), torch.sigmoid(o)\n",
+        "        g = torch.tanh(g)\n",
+        "\n",
+        "        # Boundary detector (straight-through)\n",
+        "        z_t = (torch.sigmoid(z_tilde) > 0.5).float()\n",
+        "\n",
+        "        # Start with COPY by default\n",
+        "        h, c = h_prev.clone(), c_prev.clone()\n",
+        "\n",
+        "        # Masks\n",
+        "        update_mask = (z_prev == 0) & (z_below == 1)\n",
+        "        flush_mask  = (z_prev == 1)\n",
+        "\n",
+        "        # UPDATE\n",
+        "        if update_mask.any():\n",
+        "            idx = update_mask.squeeze()\n",
+        "            c[idx] = f[idx] * c_prev[idx] + i[idx] * g[idx]\n",
+        "            h[idx] = o[idx] * torch.tanh(c[idx])\n",
+        "\n",
+        "        # FLUSH\n",
+        "        if flush_mask.any():\n",
+        "            idx = flush_mask.squeeze()\n",
+        "            c[idx] = i[idx] * g[idx]\n",
+        "            h[idx] = o[idx] * torch.tanh(c[idx])\n",
+        "\n",
+        "        return h, c, z_t\n"
+      ],
+      "metadata": {
+        "id": "7JTcbGzvtlIu"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def predict(model, start=\"the\", length=20):\n",
+        "    model.eval()\n",
+        "    x = torch.tensor([stoi[ch] for ch in start], dtype=torch.long).unsqueeze(0)\n",
+        "    h_text = start\n",
+        "    with torch.no_grad():\n",
+        "        for _ in range(length):\n",
+        "            outputs = model(x)\n",
+        "            next_char = outputs[0, -1].argmax().item()\n",
+        "            h_text += itos[next_char]\n",
+        "            x = torch.tensor([[next_char]])\n",
+        "    return h_text\n",
+        "\n",
+        "print(predict(model, start=\"the \"))\n"
+      ],
+      "metadata": {
+        "id": "IEsUCBGqtnTo"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
