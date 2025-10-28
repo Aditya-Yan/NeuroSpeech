@@ -22,6 +22,7 @@
 extern "C" {
 #endif
 
+#include <cstring>
 #include <cfuncproto.h>
 
 /*

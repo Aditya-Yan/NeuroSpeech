@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/HMMofNgrams.cc,
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 
@@ -164,7 +164,7 @@ HMMofNgrams::read(File &file, Boolean limitVocab)
 	 * Read LM for state
 	 */
 	if (stateIndex == initialState || stateIndex == finalState) {
-	    if (strcmp(fields[1], NO_LM) != 0) {
+	    if (std::strcmp(fields[1], NO_LM) != 0) {
 		file.position() << "ngram not allowed on initial/final state\n";
 		return false;
 	    }
@@ -177,8 +177,8 @@ HMMofNgrams::read(File &file, Boolean limitVocab)
 	     * are the same and avoid reloading them.
 	     */
 	    if (state->ngramName &&
-		strcmp(state->ngramName, INLINE_LM) != 0 &&
-		strcmp(state->ngramName, fields[1]) == 0)
+		std::strcmp(state->ngramName, INLINE_LM) != 0 &&
+		std::strcmp(state->ngramName, fields[1]) == 0)
 	    {
 		if (debug(DEBUG_READ_STATS)) {
 		    dout() << "reusing state ngram " << state->ngramName
@@ -196,7 +196,7 @@ HMMofNgrams::read(File &file, Boolean limitVocab)
 		state->ngram->debugme(debuglevel());
 
 		Boolean status;
-		if (strcmp(state->ngramName, INLINE_LM) == 0) {
+		if (std::strcmp(state->ngramName, INLINE_LM) == 0) {
 		    status = state->ngram->read(file, limitVocab);
 
 		} else {

@@ -23,6 +23,7 @@
 #ifndef _LHash_h_
 #define _LHash_h_
 
+#include <cstring>
 #include "Map.h"
 
 /* 
@@ -48,7 +49,7 @@ class LHashBody
 				     	 	 *  = log2 (maxEntries) */
     unsigned nEntries:LHASH_MAXENTRY_NBITS;	/* number of entries */
 
-    MapEntry<KeyT,DataT> data[1];	/* hashed array of key-value pairs */
+    MapEntry<KeyT,DataT> data[1];	/* hashed array of key-value std::pairs */
 };
 
 /*
@@ -148,7 +149,7 @@ LHash_equalKey(KeyT key1, KeyT key2)
 inline Boolean
 LHash_equalKey(const char *key1, const char *key2)
 {
-    return (strcmp(key1, key2) == 0);
+    return (std::strcmp(key1, key2) == 0);
 }
 
 /*

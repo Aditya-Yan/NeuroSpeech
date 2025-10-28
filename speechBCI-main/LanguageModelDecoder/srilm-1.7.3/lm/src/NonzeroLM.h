@@ -14,6 +14,7 @@
 #ifndef _NonzeroLM_h_
 #define _NonzeroLM_h_
 
+#include <cstring>
 #include "LM.h"
 
 class NonzeroLM: public LM

@@ -11,11 +11,16 @@
 #ifndef _LatticeLM_h_
 #define _LatticeLM_h_
 
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "Lattice.h"
+#include <cstring>
 #include "Trellis.h"
+#include <cstring>
 #include "Array.h"
 
 class LatticeLM: public LM

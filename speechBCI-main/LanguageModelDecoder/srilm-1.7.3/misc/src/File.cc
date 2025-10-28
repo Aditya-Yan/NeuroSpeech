@@ -53,9 +53,9 @@ File::File(const char *name, const char *mode, int exitOnError)
 {
     assert(buffer != 0);
 
-    unsigned len = name?strlen(name):0;
+    unsigned len = name?std::strlen(name):0;
     if (len > sizeof(GZIP_SUFFIX)-1 &&
-        (strcmp(name + len - (sizeof(GZIP_SUFFIX)-1), GZIP_SUFFIX) == 0))
+        (std::strcmp(name + len - (sizeof(GZIP_SUFFIX)-1), GZIP_SUFFIX) == 0))
     {
         gzf = gzopen(name, mode);
     } else if (name) {
@@ -81,7 +81,7 @@ File::File(FILE *fp, int exitOnError)
     strFile = "";
 }
 
-File::File(const char *fileStr, size_t fileStrLen, int exitOnError, int reserved_length)
+File::File(const char *fileStr, size_t filestd::strlen, int exitOnError, int reserved_length)
     : name(0), lineno(0), exitOnError(exitOnError), skipComments(true),
       fp(NULL), gzf(NULL), buffer((char *)malloc(START_BUF_LEN)), bufLen(START_BUF_LEN),
       reuseBuffer(false), atFirstLine(true), encoding(ASCII), iconvID(iconvNone),
@@ -181,9 +181,9 @@ File::reopen(const char *newName, const char *mode)
      */
     name = newName?strdup(newName):0;
 
-    unsigned len = name?strlen(name):0;
+    unsigned len = name?std::strlen(name):0;
     if (len > sizeof(GZIP_SUFFIX)-1 &&
-        (strcmp(name + len - (sizeof(GZIP_SUFFIX)-1), GZIP_SUFFIX) == 0))
+        (std::strcmp(name + len - (sizeof(GZIP_SUFFIX)-1), GZIP_SUFFIX) == 0))
     {
         gzf = gzopen(name, mode);
     } else if (name) {
@@ -240,7 +240,7 @@ File::reopen(const char *mode)
 }
 
 Boolean
-File::reopen(const char *fileStr, size_t fileStrLen, int reserved_length)
+File::reopen(const char *fileStr, size_t filestd::strlen, int reserved_length)
 {
     atFirstLine = true;
     encoding = ASCII;
@@ -412,7 +412,7 @@ File::fgetsUTF8(char *buffer, int buflen)
 	     * fgets() only reads up the \n --
 	     * need to skip the following \0 byte
 	     */
-	    unsigned len = strlen(buffer);
+	    unsigned len = std::strlen(buffer);
 	    if (len > 0 && buffer[len-1] == '\n') fgetc();
 	}
     }
@@ -445,7 +445,7 @@ File::getline()
 	    /*
 	     * Check if line end has been reached
 	     */
-	    unsigned numbytes = strlen(buffer+bufOffset);
+	    unsigned numbytes = std::strlen(buffer+bufOffset);
 
 	    if (numbytes > 0 && buffer[bufOffset+numbytes-1] != '\n') {
 		if (bufOffset + numbytes >= bufLen - START_BUF_LEN) {

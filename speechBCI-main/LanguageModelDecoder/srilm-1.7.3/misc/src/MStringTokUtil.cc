@@ -37,7 +37,7 @@ MStringTokUtil::strtok_r(char* s1, const char* s2, char** lasts)
     // Count the number of separator characters in s2
     int numcheck = 0;
     if (s2 != NULL) {
-        numcheck = strlen(s2);
+        numcheck = std::strlen(s2);
     }
 
     // Skip any initial separator characters

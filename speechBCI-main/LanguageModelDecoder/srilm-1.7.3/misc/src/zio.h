@@ -64,7 +64,9 @@ extern "C" {
 
 /* Include declarations files. */
 
+#include <cstring>
 #include <stdio.h>
+#include <cstring>
 #include <signal.h>		// to check for SIGPIPE
 
 /* Avoid conflict with library function */

@@ -3,7 +3,7 @@
  *	Maps based based on sorted arrays.
  *
  * SArray<KeyT,DataT> implements Map<KeyT,DataT> using a single, sorted
- * array of key-value pairs.  This is very space-efficient and lookups
+ * array of key-value std::pairs.  This is very space-efficient and lookups
  * take logarithmic time.  However, insertion and deletions are linear
  * in the size of the array.
  *
@@ -19,6 +19,7 @@
 #ifndef _SArray_h_
 #define _SArray_h_
 
+#include <cstring>
 #include "Map.h"
 
 template <class KeyT, class DataT> class SArray;	// forward declaration
@@ -33,7 +34,7 @@ class SArrayBody
     unsigned deleted:1;			/* signals deletions to iterator */
     unsigned maxEntries:31;		/* total allocated entries */
 
-    MapEntry<KeyT,DataT> data[1];	/* sorted array of key-value pairs */
+    MapEntry<KeyT,DataT> data[1];	/* sorted array of key-value std::pairs */
 };
 
 template <class KeyT, class DataT>
@@ -145,7 +146,7 @@ SArray_compareKey(const char *key1, const char *key2)
 	if (key2 == 0) {
 	    return +1;
 	} else {
-	    return strcmp(key1, key2);
+	    return std::strcmp(key1, key2);
 	}
    }
 }

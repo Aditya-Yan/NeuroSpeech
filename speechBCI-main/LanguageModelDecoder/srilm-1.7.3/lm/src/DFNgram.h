@@ -11,10 +11,14 @@
 #ifndef _DFNgram_h_
 #define _DFNgram_h_
 
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "Ngram.h"
+#include <cstring>
 #include "Trellis.h"
+#include <cstring>
 #include "Array.h"
 
 /*

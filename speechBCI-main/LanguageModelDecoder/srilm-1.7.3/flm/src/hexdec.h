@@ -26,7 +26,9 @@
 
 #else 
 
+#include <cstring>
 #include <ios>
+#include <cstring>
 #include <iomanip>
 
 #define HEX std::setbase(16)

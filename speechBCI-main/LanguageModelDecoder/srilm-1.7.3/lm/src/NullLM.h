@@ -15,6 +15,7 @@
 #ifndef _NullLM_h_
 #define _NullLM_h_
 
+#include <cstring>
 #include "LM.h"
 
 class NullLM: public LM

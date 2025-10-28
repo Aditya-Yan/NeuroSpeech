@@ -11,8 +11,10 @@
 #ifndef _DecipherNgram_h_
 #define _DecipherNgram_h_
 
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "Ngram.h"
 
 class DecipherNgram: public Ngram

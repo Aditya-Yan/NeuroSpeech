@@ -12,12 +12,18 @@
 #ifndef _WordMesh_h_
 #define _WordMesh_h_
 
+#include <cstring>
 #include "MultiAlign.h"
+#include <cstring>
 #include "VocabDistance.h"
+#include <cstring>
 #include "WordAlign.h"
 
+#include <cstring>
 #include "Array.h"
+#include <cstring>
 #include "LHash.h"
+#include <cstring>
 #include "SArray.h"
 
 class WordMeshIter;

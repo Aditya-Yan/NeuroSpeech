@@ -11,7 +11,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/testHash.cc,v 1
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdio.h>
 
@@ -67,7 +67,7 @@ main(int argc, char *argv[])
       
 	while (iter.next()) {
 	    unsigned long hash = myLHash_hashKey(key, numBits);
-	    cout << key << " " << hash << endl;
+	    std::cout << key << " " << hash << endl;
 	}
     }
 

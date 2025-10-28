@@ -12,7 +12,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/TaggedVocab.cc,
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdio.h>
 #include <string.h>
@@ -26,7 +26,7 @@ const char tagSep = '/';		/* delimiter separating word from tag */
 static char *
 findTagSep(VocabString name)
 {
-    unsigned len = strlen(name);
+    unsigned len = std::strlen(name);
 
     for (const char *p = &name[len-1]; p >= name; p --) {
 	if (*p == tagSep &&
@@ -145,7 +145,7 @@ TaggedVocab::getWord(VocabIndex index)
 	if (wordStr == 0 || tagStr == 0) {
 	    return 0;
 	} else {
-	    unsigned resultLen = strlen(wordStr) + 1 + strlen(tagStr) + 1;
+	    unsigned resultLen = std::strlen(wordStr) + 1 + std::strlen(tagStr) + 1;
 
 	    char *thisResult = (char *)malloc(resultLen + 1);
 	    assert(thisResult != 0);

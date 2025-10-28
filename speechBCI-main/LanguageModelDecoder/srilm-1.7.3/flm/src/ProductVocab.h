@@ -15,10 +15,14 @@
 #ifndef _ProductVocab_h_
 #define _ProductVocab_h_
 
+#include <cstring>
 #include "Vocab.h"
 
+#include <cstring>
 #include "FactoredVocab.h"
+#include <cstring>
 #include "LHash.h"
+#include <cstring>
 #include "Array.h"
 
 class ProductNgram;

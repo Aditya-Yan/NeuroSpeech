@@ -15,6 +15,7 @@
 #ifndef _MultiwordVocab_h_
 #define _MultiwordVocab_h_
 
+#include <cstring>
 #include "Vocab.h"
 
 extern const char *MultiwordSeparator;

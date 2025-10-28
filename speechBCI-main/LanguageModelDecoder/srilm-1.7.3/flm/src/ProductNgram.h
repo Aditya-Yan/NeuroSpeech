@@ -13,9 +13,12 @@
 #define _ProductNgram_h_
 
 
+#include <cstring>
 #include "Ngram.h"
+#include <cstring>
 #include "ProductVocab.h"
 
+#include <cstring>
 #include "FNgram.h"
 
 class ProductNgram: public Ngram

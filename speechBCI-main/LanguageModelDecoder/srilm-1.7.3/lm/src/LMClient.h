@@ -11,16 +11,21 @@
 #ifndef _LMClient_h_
 #define _LMClient_h_
 
+#include <cstring>
 #include <stdio.h>
 
 #if defined(_MSC_VER) || defined(WIN32)
+#include <cstring>
 #include <winsock.h>
 #else
 typedef int	SOCKET;		// for MS compatibility
 #endif
 
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "Ngram.h"
+#include <cstring>
 #include "Array.h"
 
 class LMClient: public LM

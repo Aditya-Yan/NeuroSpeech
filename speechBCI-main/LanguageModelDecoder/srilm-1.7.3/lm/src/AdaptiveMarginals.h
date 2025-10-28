@@ -11,8 +11,11 @@
 #ifndef _AdaptiveMarginals_h
 #define _AdaptiveMarginals_h
 
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "LHash.h"
+#include <cstring>
 #include "Trie.h"
 
 class AdaptiveMarginals: public LM

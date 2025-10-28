@@ -13,7 +13,7 @@ static char LMStats_RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/LMStats
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <string.h>
 

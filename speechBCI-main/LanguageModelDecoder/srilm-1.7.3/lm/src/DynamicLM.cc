@@ -54,7 +54,7 @@ DynamicLM::setState(const char *state)
     /*
      * Avoid redundant model reloading
      */
-    if (currentState && strcmp(state, currentState) == 0) {
+    if (currentState && std::strcmp(state, currentState) == 0) {
 	return;
     }
 

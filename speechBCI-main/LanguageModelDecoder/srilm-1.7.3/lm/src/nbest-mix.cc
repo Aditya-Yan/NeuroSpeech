@@ -214,7 +214,7 @@ main (int argc, char *argv[])
 	result->write(output, false);
     } else {
 	result->sortHyps();
-	cout << (vocab.use(), result->getHyp(0).words) << endl;
+	std::cout << (vocab.use(), result->getHyp(0).words) << endl;
     }
  
     exit(0);

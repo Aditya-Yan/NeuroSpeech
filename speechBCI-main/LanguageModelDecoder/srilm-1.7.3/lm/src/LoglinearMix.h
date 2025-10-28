@@ -11,8 +11,11 @@
 #ifndef _LoglinearMix_h_
 #define _LoglinearMix_h_
 
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "Array.h"
+#include <cstring>
 #include "Trie.h"
 
 class LoglinearMix: public LM

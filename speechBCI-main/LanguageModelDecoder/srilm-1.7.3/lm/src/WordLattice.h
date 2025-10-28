@@ -11,8 +11,10 @@
 #ifndef _WordLattice_h_
 #define _WordLattice_h_
 
+#include <cstring>
 #include "MultiAlign.h"
 
+#include <cstring>
 #include "Array.h"
 
 /*

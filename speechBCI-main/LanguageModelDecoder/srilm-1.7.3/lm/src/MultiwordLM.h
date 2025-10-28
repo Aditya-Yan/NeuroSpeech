@@ -18,7 +18,9 @@
 #ifndef _MultiwordLM_h_
 #define _MultiwordLM_h_
 
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "MultiwordVocab.h"
 
 class MultiwordLM: public LM

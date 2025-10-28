@@ -49,6 +49,10 @@ Archive/*
 
 derived/
 
+out.zip
+
+languageModel/
+
 competitionData/
 
 out/

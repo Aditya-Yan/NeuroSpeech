@@ -12,7 +12,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/testParseFloat.
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 #include <stdio.h>
@@ -45,7 +45,7 @@ main(int argc, char **argv)
 
     LogP x;
     Boolean result = parseLogP(floatString, x);
-    cout << "result = " << result 
+    std::cout << "result = " << result 
 	 << " float = " << x << endl;
 
     if (newp) {

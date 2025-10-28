@@ -15,7 +15,7 @@ static char CachedMem_RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/dstruct/src/
 #include "CachedMem.h"
 
 #include <iostream>
-using namespace std;
+
 
 template <class T>
 TLSW_DEF(T *, CachedMem<T>::__freelistTLS);

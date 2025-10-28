@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Id: segment.cc,v 1.23 2019/09/09 23:13:13 stolcke Ex
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdio.h>
 #include <stdlib.h>
@@ -300,14 +300,14 @@ segmentFile(File &file, LM &lm, double bias)
 				(posteriors[i] > 0.5) :
 				(states[i] == S))
 		    {
-			cout << sTag << " ";
+			std::cout << sTag << " ";
 		    }
-		    cout << lm.vocab.getWord(wids[i]);
+		    std::cout << lm.vocab.getWord(wids[i]);
 		    if (i != len - 1) {
-			cout << " ";
+			std::cout << " ";
 		    }
 		}
-		cout << endl;
+		std::cout << endl;
 	    }
 	}
     }
@@ -372,15 +372,15 @@ segmentFileContinuous(File &file, LM &lm, double bias)
 			(posteriors[i] > 0.5) :
 			(states[i] == S))
 	    {
-		cout << sTag << endl;
+		std::cout << sTag << endl;
 	    }
-	    cout << lm.vocab.getWord(wids[i]);
+	    std::cout << lm.vocab.getWord(wids[i]);
 
 	    if (usePosteriors) {
-		cout << " " << posteriors[i];
+		std::cout << " " << posteriors[i];
 	    }
 
-	    cout << endl;
+	    std::cout << endl;
 	}
     }
 }

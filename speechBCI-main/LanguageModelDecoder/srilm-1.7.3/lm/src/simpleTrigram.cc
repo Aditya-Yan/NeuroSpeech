@@ -12,7 +12,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/simpleTrigram.c
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 
 #include "File.h"

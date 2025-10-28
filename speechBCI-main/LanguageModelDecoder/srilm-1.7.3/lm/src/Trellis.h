@@ -17,13 +17,17 @@
 #else
 # include <iostream>
 # include <iomanip>
-using namespace std;
+
 #endif
 
+#include <cstring>
 #include "LHash.h"
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "Prob.h"
+#include <cstring>
 #include "MemStats.h"
 
 #ifdef max

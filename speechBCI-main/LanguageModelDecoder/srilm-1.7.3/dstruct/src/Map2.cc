@@ -18,7 +18,7 @@ static char Map2_RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/dstruct/src/Map2.
 #else
 # include <new>
 # include <iostream>
-using namespace std;
+
 #endif
 #include <string.h>
 #include <stdlib.h>

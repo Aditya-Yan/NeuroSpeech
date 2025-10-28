@@ -11,9 +11,12 @@
 #ifndef _Array_h_
 #define _Array_h_
 
+#include <cstring>
 #include <assert.h>
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "MemStats.h"
 
 template <class DataT>
@@ -144,7 +147,8 @@ private:
  * and your code should either simply explicitly include Array.cc directly
  * or paste the following after including Array.h for selective inclusion:
  * #ifdef SRILM_NEED_ARRAY_CC_FOR_MAKE_ARRAY
- * #include "Array.cc"
+ * #include <cstring>
+#include "Array.cc"
  * #endif
  */
 #if !defined(DEBUG) && defined(__GNUC__) && !defined(__clang__) && (!defined(__INTEL_COMPILER) || __INTEL_COMPILER >=900)

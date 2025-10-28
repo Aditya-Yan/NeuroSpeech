@@ -15,13 +15,18 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "File.h"
+#include <cstring>
 #include "Vocab.h"
+#include <cstring>
 #include "LHash.h"
+#include <cstring>
 #include "Array.h"
 
 typedef const char *RefString;

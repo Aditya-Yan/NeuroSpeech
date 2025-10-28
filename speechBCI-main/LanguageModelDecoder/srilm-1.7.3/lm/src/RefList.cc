@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/RefList.cc,v 1.
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <string.h>
 #include <stdlib.h>
@@ -63,13 +63,13 @@ idFromFilename(const char *filename)
     result = strdup(root);
     assert(result != 0);
 
-    unsigned rootlen = strlen(result);
+    unsigned rootlen = std::strlen(result);
 
     for (unsigned i = 0; suffixes[i] != 0; i++) {
-	unsigned suffixlen = strlen(suffixes[i]);
+	unsigned suffixlen = std::strlen(suffixes[i]);
 
 	if (suffixlen < rootlen &&
-	    strcmp(&result[rootlen - suffixlen], suffixes[i]) == 0)
+	    std::strcmp(&result[rootlen - suffixlen], suffixes[i]) == 0)
 	{
 	    result[rootlen - suffixlen] = '\0';
 	    rootlen -= suffixlen;
@@ -145,7 +145,7 @@ RefList::write(File &file)
 	/* 
 	 * Output sorted by ID
 	 */
-	LHashIter<RefString, VocabIndex *> iter(reflist, strcmp);
+	LHashIter<RefString, VocabIndex *> iter(reflist, std::strcmp);
 
 	RefString id;
 	VocabIndex **wids;

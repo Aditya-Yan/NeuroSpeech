@@ -74,7 +74,7 @@
  * An iteration returns the elements of a Vocab in random, but deterministic
  * order. Furthermore, when copied or used in initialization of other objects,
  * VocabIter objects retain the current "position" in an iteration.  This
- * allows nested iterations that enumerate all pairs of distinct elements.
+ * allows nested iterations that enumerate all std::pairs of distinct elements.
  *
  * Copyright (c) 1995-2012 SRI International, 2012 Andreas Stolcke, Microsoft Corp.  All Rights Reserved.
  *
@@ -89,15 +89,22 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "File.h"
+#include <cstring>
 #include "LHash.h"
+#include <cstring>
 #include "SArray.h"
+#include <cstring>
 #include "Array.h"
+#include <cstring>
 #include "MemStats.h"
+#include <cstring>
 #include "TLSWrapper.h"
 
 #ifdef USE_SHORT_VOCAB
@@ -214,7 +221,7 @@ public:
     static int compare(VocabIndex word1, VocabIndex word2);
 				/* order on word indices induced by Vocab */
     static int compare(VocabString word1, VocabString word2)
-	{ return strcmp(word1, word2); };
+	{ return std::strcmp(word1, word2); };
     static int compare(const VocabIndex *word1, const VocabIndex *word2);
 				/* order on word index sequences */
     static int compare(const VocabString *word1, const VocabString *word2);

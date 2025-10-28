@@ -15,7 +15,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/NgramLM.cc,v 1.
 #else
 # include <new>
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 #include <math.h>
@@ -445,7 +445,7 @@ Ngram::read(File &file, Boolean limitVocab)
 
 	case -1: 	/* looking for start of header */
 
-            if (strcmp(line, Ngram_BinaryFormatString) == 0) {
+            if (std::strcmp(line, Ngram_BinaryFormatString) == 0) {
 		// reopen file in binary mode
 		File binaryFile(file.name, "rb");
 
@@ -469,7 +469,7 @@ Ngram::read(File &file, Boolean limitVocab)
 		    }
 		}
 		return success;
-	    } else if (strcmp(line, Ngram_BinaryV1FormatString) == 0) {
+	    } else if (std::strcmp(line, Ngram_BinaryV1FormatString) == 0) {
 		if (debug(DEBUG_READ_STATS)) {
 		    dout() << "reading " << file.name
 		    	   << " in old binary format\n";
@@ -1153,7 +1153,7 @@ Ngram::readBinary(File &file, Boolean limitVocab)
 {
     char *line = file.getline();
 
-    if (!line || strcmp(line, Ngram_BinaryFormatString) != 0) {
+    if (!line || std::strcmp(line, Ngram_BinaryFormatString) != 0) {
 	file.position() << "bad binary format\n";
 	return false;
     }
@@ -1322,12 +1322,12 @@ Ngram::readBinaryV1(File &file, Boolean limitVocab)
     }
 
     if (file.name && idxFile[0] == NgramBinaryIOWildcard) {
-	makeArray(char, buffer, strlen(file.name) + strlen(idxFile));
+	makeArray(char, buffer, std::strlen(file.name) + std::strlen(idxFile));
     	sprintf(buffer, "%s%s", file.name, &idxFile[1]);
 	sprintf(idxFile, "%.1023s", (char *)buffer);
     }
     if (file.name && datFile[0] == NgramBinaryIOWildcard) {
-	makeArray(char, buffer, strlen(file.name) + strlen(datFile));
+	makeArray(char, buffer, std::strlen(file.name) + std::strlen(datFile));
     	sprintf(buffer, "%s%s", file.name, &datFile[1]);
 	sprintf(datFile, "%.1023s", (char *)buffer);
     }

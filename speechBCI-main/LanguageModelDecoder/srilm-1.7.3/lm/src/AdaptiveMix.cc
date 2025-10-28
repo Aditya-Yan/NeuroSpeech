@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/AdaptiveMix.cc,
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 #include <string.h>
@@ -72,7 +72,7 @@ AdaptiveMix::read(File &file, Boolean limitVocab)
 	compLMs[numComps]->debugme(debuglevel());
 
 	Boolean ok;
-	if (strcmp(filename, "-") == 0) {
+	if (std::strcmp(filename, "-") == 0) {
 	    ok = compLMs[numComps]->read(file, limitVocab);
 	} else {
 	    File lmFile(filename, "r");

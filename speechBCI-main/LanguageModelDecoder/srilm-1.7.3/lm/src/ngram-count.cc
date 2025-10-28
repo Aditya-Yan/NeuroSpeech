@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Id: ngram-count.cc,v 1.81 2019/09/09 23:13:13 stolck
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 #include <locale.h>

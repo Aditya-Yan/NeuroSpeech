@@ -11,11 +11,16 @@
 #ifndef _NgramProbArrayTrie_h_
 #define _NgramProbArrayTrie_h_
 
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "Vocab.h"
+#include <cstring>
 #include "Prob.h"
+#include <cstring>
 #include "Trie.h"
+#include <cstring>
 #include "Array.cc"
 
 #define NgramProbArrayTrieNode	Trie<VocabIndex,ZeroArray<Prob> >

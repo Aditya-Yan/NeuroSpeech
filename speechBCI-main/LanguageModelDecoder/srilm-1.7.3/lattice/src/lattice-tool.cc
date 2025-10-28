@@ -12,7 +12,7 @@ static char RcsId[] = "@(#)$Id: lattice-tool.cc,v 1.171 2019/09/09 23:13:12 stol
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdio.h>
 #include <math.h>
@@ -313,7 +313,7 @@ static Option options[] = {
     { OPT_FLOAT, "min-count", &minCount, "prune ngram counts below this value" },
     { OPT_FLOAT, "ngrams-max-pause", &ngramsMaxPause, "maximum pause duration allowed inside indexed ngrams" },
     { OPT_FLOAT, "ngrams-time-tolerance", &ngramsTimeTolerance, "timestamp tolerance for ngram indexing" },
-    { OPT_STRING, "index-name", &indexName, "print a list of node index-name pairs to this file" },
+    { OPT_STRING, "index-name", &indexName, "print a list of node index-name std::pairs to this file" },
     { OPT_TRUE, "no-pause", &noPause, "output lattices with no pauses" },
     { OPT_TRUE, "insert-pause", &insertPause, "insert optional pauses" },
     { OPT_TRUE, "no-nulls", &noNulls, "eliminate null nodes" },
@@ -374,13 +374,13 @@ static void
 printCTM(Vocab &vocab, const NBestWordInfo *winfo, const char *name)
 {
     for (unsigned i = 0; winfo[i].word != Vocab_None; i ++) {
-	cout << name << " 1 ";
+	std::cout << name << " 1 ";
 	if (winfo[i].valid()) {
-	    cout << winfo[i].start << " " << winfo[i].duration;
+	    std::cout << winfo[i].start << " " << winfo[i].duration;
 	} else {
-	    cout << "? ?";
+	    std::cout << "? ?";
 	}
-	cout << " " << vocab.getWord(winfo[i].word)
+	std::cout << " " << vocab.getWord(winfo[i].word)
 	     << " " << winfo[i].wordPosterior << endl;
     }
 }
@@ -438,18 +438,18 @@ computeWordPosteriors(WordMesh &mesh, File &file)
 		    LogP logPos = nd->htkinfo->xscore1;
 		    Prob pos = LogPtoProb(logPos);
 
-		    cout << words[i] << " (" << pos << ") ";
+		    std::cout << words[i] << " (" << pos << ") ";
 		    i++;
 		    sumPosterior += pos;
 		}
 	    }
-	    cout << "(Average posterior: " << sumPosterior/numWords << ")\n";
+	    std::cout << "(Average posterior: " << sumPosterior/numWords << ")\n";
 	} else {
 	    // not in lattice
 	    for (unsigned i = 0; i < numWords; i++) {
-		cout << words[i] << " (0) ";
+		std::cout << words[i] << " (0) ";
 	    }
-	    cout << "(Average posterior: 0)\n";
+	    std::cout << "(Average posterior: 0)\n";
 	}
     }
 }
@@ -558,8 +558,8 @@ void processLattice(char *inLat, char *outLat, Lattice *lattice2,
     }
     if (writePosteriorsDir) {
 	makeArray(char, outfile,
-		  strlen(writePosteriorsDir) + 1 +
-		  strlen(lat.getName()) + sizeof(GZIP_SUFFIX));
+		  std::strlen(writePosteriorsDir) + 1 +
+		  std::strlen(lat.getName()) + sizeof(GZIP_SUFFIX));
 	sprintf(outfile, "%s/%s%s", writePosteriorsDir,
 					lat.getName(), GZIP_SUFFIX);
 
@@ -607,10 +607,10 @@ void processLattice(char *inLat, char *outLat, Lattice *lattice2,
 	    }
 
 	    if (prob != LogP_Zero || bestwords[0] != Vocab_None) {
-		cout << lat.getName() << " "
+		std::cout << lat.getName() << " "
 		     << (lat.vocab.use(), bestwords) << endl;
 	    } else {
-		cout << lat.getName()<< endl;
+		std::cout << lat.getName()<< endl;
 	    }
 	    delete [] bestwords;
 	}
@@ -656,7 +656,7 @@ void processLattice(char *inLat, char *outLat, Lattice *lattice2,
 	if (d == HUGE_VAL) {
 	    cerr << "WARNING: duration for lattice " << inLat << " unknown\n";
 	} else {
-	    cout << lat.getName() << " " << lat.computeDensity() << endl;
+	    std::cout << lat.getName() << " " << lat.computeDensity() << endl;
 	}
     }
 
@@ -690,7 +690,7 @@ void processLattice(char *inLat, char *outLat, Lattice *lattice2,
 	    unsigned total, sub, ins, del;
 	    total = lat.latticeWER(refIndices, sub, ins, del, noiseWords);
 	    
-	    cout << "sub " << sub 
+	    std::cout << "sub " << sub 
 		 << " ins " << ins
 		 << " del " << del
 		 << " wer " << total
@@ -906,9 +906,9 @@ void processLattice(char *inLat, char *outLat, Lattice *lattice2,
     if (operation && lattice2 != 0) {
         resultLat.debugme(debug);
     
-	if (!strcmp(operation, LATTICE_OR)) {
+	if (!std::strcmp(operation, LATTICE_OR)) {
 	    resultLat.latticeOr(lat, *lattice2);
-	} else if (!strcmp(operation, LATTICE_CONCATE)) {
+	} else if (!std::strcmp(operation, LATTICE_CONCATE)) {
 	    resultLat.latticeCat(lat, *lattice2, interSegmentTime);
 	} else {
 	    cerr << "unknown operation (" << operation << ")\n";
@@ -994,7 +994,7 @@ void processLattice(char *inLat, char *outLat, Lattice *lattice2,
 		double errors = mesh.minimizeWordError(bestWords, maxLength + 1,
 							      subs, inss, dels);
 
-		cout << lat.getName() << " "
+		std::cout << lat.getName() << " "
 		     << (mesh.vocab.use(), bestWords) << endl;
 	    }
 	}
@@ -1024,8 +1024,8 @@ void processLattice(char *inLat, char *outLat, Lattice *lattice2,
 	}
 	if (writeMeshDir) {
 	    makeArray(char, outfile,
-		      strlen(writeMeshDir) + 1 +
-		      strlen(lat.getName()) + sizeof(GZIP_SUFFIX));
+		      std::strlen(writeMeshDir) + 1 +
+		      std::strlen(lat.getName()) + sizeof(GZIP_SUFFIX));
 	    sprintf(outfile, "%s/%s%s", writeMeshDir,
 					lat.getName(), GZIP_SUFFIX);
 
@@ -1064,11 +1064,11 @@ void processLattice(char *inLat, char *outLat, Lattice *lattice2,
         /*
          * Send perplexity info to stdout 
          */
-        latlm.dout(cout);
+        latlm.dout(std::cout);
         latlm.pplFile(file, stats);
         latlm.dout(cerr);
 
-        cout << "file " << pplFile << ": " << stats;
+        std::cout << "file " << pplFile << ": " << stats;
     }
 
     if (outLattice || outLatticeDir) {
@@ -1528,8 +1528,8 @@ main (int argc, char *argv[])
 // END
 
 	makeArray(char, fileName,
-		  outLatticeDir ? strlen(outLatticeDir) + 1024
-		                : strlen(LATTICE_NONAME) + 1); 
+		  outLatticeDir ? std::strlen(outLatticeDir) + 1024
+		                : std::strlen(LATTICE_NONAME) + 1); 
 	if (!outLattice && outLatticeDir) {
 	    char *sentid = strrchr(inLattice, '/');
 	    if (sentid != NULL) {  
@@ -1568,7 +1568,7 @@ main (int argc, char *argv[])
 	
 	File listOfFiles(inLatticeList, "r"); 
 	makeArray(char, fileName,
-		  outLatticeDir ? strlen(outLatticeDir) + 1024 : 1); 
+		  outLatticeDir ? std::strlen(outLatticeDir) + 1024 : 1); 
 	char buffer[1024]; 
 	unsigned latticeCount = 0;
 	char *line;

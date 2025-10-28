@@ -11,11 +11,16 @@
 #ifndef _LMStats_h_
 #define _LMStats_h_
 
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "Vocab.h"
+#include <cstring>
 #include "TextStats.h"
+#include <cstring>
 #include "Debug.h"
 
 class LMStats: public Debug

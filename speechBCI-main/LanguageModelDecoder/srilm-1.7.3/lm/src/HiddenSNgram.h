@@ -12,7 +12,9 @@
 #ifndef _HiddenSNgram_h_
 #define _HiddenSNgram_h_
 
+#include <cstring>
 #include "Vocab.h"
+#include <cstring>
 #include "Ngram.h"
 
 const VocabString	HiddenSent = "<#s>";

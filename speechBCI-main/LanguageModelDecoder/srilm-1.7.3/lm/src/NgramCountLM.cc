@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/NgramCountLM.cc
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 #include <math.h>
@@ -282,7 +282,7 @@ NgramCountLM::read(File &file, Boolean limitVocab)
 	    ngramCounts.clear();
 	    useGoogle = false;
 
-	    if (strcmp(arg1, "-") == 0) {
+	    if (std::strcmp(arg1, "-") == 0) {
 	    	if (countsName) free(countsName);
 		countsName = 0;
 		if (!ngramCounts.read(file, order, limitVocab)) {

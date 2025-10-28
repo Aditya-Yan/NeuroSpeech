@@ -39,12 +39,16 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
+#include <cstring>
 #include <stdlib.h>
+#include <cstring>
 #include <assert.h>
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "Array.cc"
 
 template <class _Tp>

@@ -195,7 +195,7 @@ PQCodebook::read(File &file)
     if (!line || 
 	(sscanf(line, "Codeword Mean %9s", buffer) != 1 &&
 	 sscanf(line, "Codword Mean %9s", buffer) != 1) ||
- 	strcmp(buffer, "Count") != 0)
+ 	std::strcmp(buffer, "Count") != 0)
     {
 	file.position() << "malformed Codeword header\n";
 	return false;

@@ -5,7 +5,7 @@
 #else
 # include <new>
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 #include <math.h>
@@ -55,7 +55,7 @@ int compKeys(KEY_T key1, KEY_T key2)
 void
 printmap(MAP_T &myarray)
 {
-    cout << myarray.numEntries() << " distinct entries" << endl;
+    std::cout << myarray.numEntries() << " distinct entries" << endl;
 
     { 
 	int i;
@@ -63,18 +63,18 @@ printmap(MAP_T &myarray)
 	KEY_T key;
 	DATA_T *value;
 
-	cout << PRINTN <<  " first keys:";
+	std::cout << PRINTN <<  " first keys:";
 	for (i = 0; i < PRINTN && myiter.next(key); i++) {
-	    cout << " " << key;
+	    std::cout << " " << key;
 	}
-	cout << endl;
+	std::cout << endl;
 
-	cout << PRINTN <<  " first values:";
+	std::cout << PRINTN <<  " first values:";
 	myiter.init();
 	for (i = 0; i < PRINTN && (value = myiter.next(key)); i++) {
-	    cout << " " << *value;
+	    std::cout << " " << *value;
 	}
-	cout << endl;
+	std::cout << endl;
     }
 }
 
@@ -104,10 +104,10 @@ main(int argc, char **argv)
     fprintf(stderr, "long nokey value = %lx\n", LongNokeyValue);
     fprintf(stderr, "unsigned long nokey value = %lx\n", ULongNokeyValue);
 
-    cout << "sizeof(_Map) = " << sizeof(_Map) << endl;
-    cout << "sizeof(myarray) = " << sizeof(myarray) << endl;
+    std::cout << "sizeof(_Map) = " << sizeof(_Map) << endl;
+    std::cout << "sizeof(myarray) = " << sizeof(myarray) << endl;
 
-    cout << "inserting ..." << endl;
+    std::cout << "inserting ..." << endl;
 
     srandom(0);
     for (i = 1; i <= size; i++) {
@@ -118,7 +118,7 @@ main(int argc, char **argv)
 	assert(i == val);
     }
 
-    cout << "checking ..." << endl;
+    std::cout << "checking ..." << endl;
 
     srandom(0);
     for (i = 1; i <= size; i++) {
@@ -127,7 +127,7 @@ main(int argc, char **argv)
 
 	assert (val != 0);
 	if (i != *val) {
-	    cout << "key " << key << " was overwritten with " << *val << endl;
+	    std::cout << "key " << key << " was overwritten with " << *val << endl;
 	}
     }
 
@@ -137,7 +137,7 @@ main(int argc, char **argv)
     stats.print();
 
 
-    cout << "deleting ..." << endl;
+    std::cout << "deleting ..." << endl;
 
     /*
      * now delete half the entries
@@ -149,7 +149,7 @@ main(int argc, char **argv)
 	assert(found);
     }
 
-    cout << "checking ..." << endl;
+    std::cout << "checking ..." << endl;
 
     /*
      * Check the result
@@ -166,9 +166,9 @@ main(int argc, char **argv)
 	DATA_T *val = myarray.find(key);
 
 	if (val == 0) {
-	    cout << "key " << key << " was deleted" << endl;
+	    std::cout << "key " << key << " was deleted" << endl;
 	} else if (i != *val) {
-	    cout << "key " << key << " was reassigned to " << *val << endl;
+	    std::cout << "key " << key << " was reassigned to " << *val << endl;
 	}
     }
 

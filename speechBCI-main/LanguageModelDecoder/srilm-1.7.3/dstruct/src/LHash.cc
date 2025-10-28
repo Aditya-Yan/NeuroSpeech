@@ -18,7 +18,7 @@ static char LHash_RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/dstruct/src/LHas
 #else
 # include <new>
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 #include <string.h>

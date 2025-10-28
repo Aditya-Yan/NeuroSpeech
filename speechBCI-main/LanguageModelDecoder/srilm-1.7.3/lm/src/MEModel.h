@@ -15,11 +15,16 @@
 #ifndef MEMODEL_H_
 #define MEMODEL_H_
 
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "LHash.h"
+#include <cstring>
 #include "Trie.h"
+#include <cstring>
 #include "Ngram.h"
 
+#include <cstring>
 #include "hmaxent.h"
 
 typedef unsigned int NodeIndex;

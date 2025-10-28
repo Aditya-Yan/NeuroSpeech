@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/testProb.cc,v 1
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 #include <stdio.h>
@@ -39,11 +39,11 @@ main(int argc, char **argv)
 	exit(2);
     }
 
-    cout << "log(0) = " << LogP_Zero << " ; isfinite = " << isfinite(LogP_Zero) << endl;
-    cout << "log(inf) = " << LogP_Inf << " ; isfinite = " << isfinite(LogP_Inf) << endl;
+    std::cout << "log(0) = " << LogP_Zero << " ; isfinite = " << isfinite(LogP_Zero) << endl;
+    std::cout << "log(inf) = " << LogP_Inf << " ; isfinite = " << isfinite(LogP_Inf) << endl;
     double n = 0.0;
     n = n / 0.0;
-    cout << "NaN = " << n << " ; isnan = " << isnan(n) << endl;
+    std::cout << "NaN = " << n << " ; isnan = " << isnan(n) << endl;
 
     if (argc < 3) {
     	Prob p;
@@ -54,19 +54,19 @@ main(int argc, char **argv)
 	}
 	LogP lp = ProbToLogP(p);
 
-    	cout << "log(p) = " << lp << " " << LogPtoProb(lp) << endl;
+    	std::cout << "log(p) = " << lp << " " << LogPtoProb(lp) << endl;
 
 	char buffer[200];
 	LogP lp2;
 
 	sprintf(buffer, "%.*lf ", LogP_Precision, lp);
 	if (parseLogP(buffer, lp2)) {
-		cout << "lp read back = " << lp2 << endl;
+		std::cout << "lp read back = " << lp2 << endl;
 	} else {
-		cout << "lp read back FAILED\n";
+		std::cout << "lp read back FAILED\n";
 	}
 
-    	cout << "Decipher log(p) = " << RoundToBytelog(lp)
+    	std::cout << "Decipher log(p) = " << RoundToBytelog(lp)
 		<< " " << LogPtoProb(RoundToBytelog(lp))
 		<< " " << LogPtoIntlog(lp)
 		<< " " << IntlogToBytelog(LogPtoIntlog(lp)) << endl;
@@ -86,18 +86,18 @@ main(int argc, char **argv)
 	LogP lq = ProbToLogP(q);
 	LogP lpq = AddLogP(lp,lq);
 
-    	cout << "log(p + q) = " << lpq << " " << LogPtoProb(lpq) << endl;
+    	std::cout << "log(p + q) = " << lpq << " " << LogPtoProb(lpq) << endl;
 
 	if (lp >= lq) {
 	    lpq = SubLogP(lp,lq);
 
-	    cout << "log(p - q) = " << lpq << " " << LogPtoProb(lpq) << endl;
+	    std::cout << "log(p - q) = " << lpq << " " << LogPtoProb(lpq) << endl;
 	}
     }
 
-    cout << "LogP_Precision = " << LogP_Precision << endl;
-    cout << "Prob_Precision = " << Prob_Precision << endl;
-    cout << "FloatCount_Precision = " << FloatCount_Precision << endl;
+    std::cout << "LogP_Precision = " << LogP_Precision << endl;
+    std::cout << "Prob_Precision = " << Prob_Precision << endl;
+    std::cout << "FloatCount_Precision = " << FloatCount_Precision << endl;
 
     exit(0);
 }

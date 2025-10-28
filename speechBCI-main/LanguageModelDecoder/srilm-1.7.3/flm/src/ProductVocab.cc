@@ -12,7 +12,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/flm/src/ProductVocab.c
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdio.h>
 #include <string.h>

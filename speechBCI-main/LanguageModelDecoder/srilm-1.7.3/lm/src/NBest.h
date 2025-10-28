@@ -15,19 +15,30 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "Prob.h"
+#include <cstring>
 #include "Counts.h"
+#include <cstring>
 #include "File.h"
+#include <cstring>
 #include "Map.h"
+#include <cstring>
 #include "Vocab.h"
+#include <cstring>
 #include "Array.h"
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "MemStats.h"
+#include <cstring>
 #include "Debug.h"
+#include <cstring>
 #include "Bleu.h"
 
 #undef valid		/* avoids conflict with class member on some systems */

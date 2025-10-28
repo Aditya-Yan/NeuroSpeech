@@ -11,15 +11,24 @@
 #ifndef _Prob_h_
 #define _Prob_h_
 
+#include <cstring>
 #include <stdlib.h>		/* for atof() */
+#include <cstring>
 #include <math.h>
+#include <cstring>
 #include <limits.h>
+#include <cstring>
 #include <assert.h>
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "Counts.h"
+#include <cstring>
 #include "File.h"
+#include <cstring>
 #include "Array.h"
+#include <cstring>
 #include "SArray.h"
 
 #ifndef M_E
@@ -34,6 +43,7 @@
  */
 #ifdef _MSC_VER
 
+#include <cstring>
 #include <float.h>
 
 inline double rint(double x) 
@@ -51,11 +61,13 @@ inline double rint(double x)
 #endif /* _MSC_VER */
 
 #if defined(sun) && !defined(isfinite)
+#include <cstring>
 #include <ieeefp.h>
 #define isfinite(x)	finite(x)
 #endif
 
 #if defined(sgi)
+#include <cstring>
 #include <ieeefp.h>
 #define isnan(x)	isnand(x)
 #define isfinite(x)	finite(x)

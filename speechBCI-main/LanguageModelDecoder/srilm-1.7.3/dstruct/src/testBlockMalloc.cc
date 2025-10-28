@@ -13,7 +13,7 @@ extern "C" {
 }
 #endif
 
-using namespace std;
+
 
 #define NUM_ITERS	3
 #define NUM_MALLOCS	10000000

@@ -14,7 +14,7 @@ static char RcsId[] = "@(#)$Id: segment-nbest.cc,v 1.32 2019/09/09 23:13:13 stol
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdio.h>
 #include <stdlib.h>
@@ -138,7 +138,7 @@ segmentHyp(NBestHyp &hyp, const VocabIndex *leftContext, LM &lm,
     if (len == 0) {
 	NOSscore = Sscore = 0.0;
 	if (lastState != NOSTATE) {
-	    cout << endl;
+	    std::cout << endl;
 	}
 	return;
     }
@@ -242,14 +242,14 @@ segmentHyp(NBestHyp &hyp, const VocabIndex *leftContext, LM &lm,
 	} else {
 	    for (unsigned i = 0; i < len; i++) {
 		if (segs[i] == S) {
-		    cout << sTag << " ";
+		    std::cout << sTag << " ";
 		}
-		cout << vocab.getWord(hyp.words[i]);
+		std::cout << vocab.getWord(hyp.words[i]);
 		if (i != len - 1) {
-		    cout << " ";
+		    std::cout << " ";
 		}
 	    }
-	    cout << endl;
+	    std::cout << endl;
 	}
     }
 }
@@ -587,7 +587,7 @@ forwardBackNbest(Array<NBestList *> &nbestLists, Array<char *> &nbestNames,
      */
     for (h = 0; h < numLists; h ++) {
 	if (writeNbestDir) {
-	    makeArray(char, outputName, strlen(writeNbestDir) + 2 + 256);
+	    makeArray(char, outputName, std::strlen(writeNbestDir) + 2 + 256);
 
 	    char *rootname = strrchr(nbestNames[h], '/');
 	    if (rootname) {
@@ -601,7 +601,7 @@ forwardBackNbest(Array<NBestList *> &nbestLists, Array<char *> &nbestNames,
 
 	    nbestLists[h]->write(file, false, maxRescore);
 	} else {
-	    cout << "<nbestlist " << (h + 1) << ">\n";
+	    std::cout << "<nbestlist " << (h + 1) << ">\n";
 
 	    File sout(stdout);
 
@@ -977,7 +977,7 @@ main(int argc, char **argv)
      */
     for (unsigned i = 1; argv[i] != 0; i ++) {
 	if (!(fbRescore && writeNbestDir)) {
-	    cout << "<nbestfile " << argv[i] << ">\n";
+	    std::cout << "<nbestfile " << argv[i] << ">\n";
 	}
 	processNbestLists(argv[i], *useLM, oldLM, startTagIndex, endTagIndex);
     }

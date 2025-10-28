@@ -14,7 +14,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lattice/src/LatticeDec
 
 #include <vector>
 #include <algorithm>
-using namespace std;
+
 
 #include "Lattice.h"
 #include "LatticeNBest.h"
@@ -1123,7 +1123,7 @@ Lattice::findBestPath(unsigned n, VocabString *words, NodeIndex *path, unsigned 
 
 }
 
-inline bool mySortFunc(pair<NodeIndex, LogP> p1, pair<NodeIndex, LogP> p2)
+inline bool mySortFunc(std::pair<NodeIndex, LogP> p1, std::pair<NodeIndex, LogP> p2)
 {
   return (p2.second < p1.second);
 }
@@ -1138,7 +1138,7 @@ Lattice::pathFinder(NodeIndex nodeIndex, LatticeNode * node, unsigned depth, Voc
   if (depth >= maxNodes)
     return;
 
-  // Since numMatched <= maxNodes is always true, so the pair 
+  // Since numMatched <= maxNodes is always true, so the std::pair 
   // (numMatched, nodeIndex) has a one-to-one map to the key defined below
   long key = (long) numMatched + (long) maxNodes * (long) nodeIndex;
 
@@ -1178,7 +1178,7 @@ Lattice::pathFinder(NodeIndex nodeIndex, LatticeNode * node, unsigned depth, Voc
   TRANSITER_T<NodeIndex, LatticeTransition> outTransIter(node->outTransitions);
 
   NodeIndex toIndex;
-  vector<pair<NodeIndex, LogP> > trans;
+  vector<std::pair<NodeIndex, LogP> > trans;
   
   while (LatticeTransition * outTrans = outTransIter.next(toIndex)) {
 
@@ -1189,12 +1189,12 @@ Lattice::pathFinder(NodeIndex nodeIndex, LatticeNode * node, unsigned depth, Voc
     
     LogP newProb = prob + outTrans->weight;
 
-    trans.push_back(pair<NodeIndex, LogP>(toIndex, newProb));
+    trans.push_back(std::pair<NodeIndex, LogP>(toIndex, newProb));
   }
 
   sort(trans.begin(), trans.end(), mySortFunc);
   
-  for (vector<pair<NodeIndex,LogP> >::iterator it = trans.begin(); it != trans.end(); it++) {
+  for (vector<std::pair<NodeIndex,LogP> >::iterator it = trans.begin(); it != trans.end(); it++) {
 
     NodeIndex toIndex = it->first;
     LatticeNode * to = findNode(toIndex);

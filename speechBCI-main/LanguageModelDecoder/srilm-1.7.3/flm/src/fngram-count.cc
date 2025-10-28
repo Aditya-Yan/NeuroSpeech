@@ -17,7 +17,7 @@ static char RcsId[] = "@(#)$Id: fngram-count.cc,v 1.57 2012/05/17 06:46:49 stolc
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 #include <locale.h>
@@ -128,7 +128,7 @@ main(int argc, char **argv)
     setlocale(LC_COLLATE, "");
 
     // print 0x in front of hex numbers.
-    SHOWBASE(cout);
+    SHOWBASE(std::cout);
     SHOWBASE(cerr);
 
     Opt_Parse(argc, argv, options, Opt_Number(options), 0);

@@ -15,12 +15,16 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "XCount.h"
+#include <cstring>
 #include "File.h"
 
 #ifdef USE_LONGLONG_COUNTS

@@ -16,7 +16,7 @@ static char NgramStats_RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/Ngra
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <string.h>
 #include <stdio.h>
@@ -258,7 +258,7 @@ NgramCounts<CountT>::read(File &file, unsigned int order, Boolean limitVocab)
     if (!firstLine) {
     	return true;
     } else {
-	if (strcmp(firstLine, NgramStats_BinaryFormatString) == 0) {
+	if (std::strcmp(firstLine, NgramStats_BinaryFormatString) == 0) {
 	    File binaryFile(file.name, "rb");
 	    return readBinary(binaryFile, order, limitVocab);
 	} else {
@@ -326,7 +326,7 @@ NgramCounts<CountT>::readBinary(File &file, unsigned order, Boolean limitVocab)
 {
     char *line = file.getline();
 
-    if (!line || strcmp(line, NgramStats_BinaryFormatString) != 0) {
+    if (!line || std::strcmp(line, NgramStats_BinaryFormatString) != 0) {
 	file.position() << "bad binary format\n";
 	return false;
     }
@@ -502,7 +502,7 @@ Boolean
 NgramCounts<CountT>::readGoogle(const char *dir, unsigned order,
 							Boolean limitVocab)
 {
-    makeArray(char, filename, strlen(dir) + 20);
+    makeArray(char, filename, std::strlen(dir) + 20);
 
     {
 	sprintf(filename, "%s/1gms/vocab%s", dir, GZIP_SUFFIX);
@@ -654,7 +654,7 @@ NgramCounts<CountT>::readMinCounts(File &file, unsigned order,
     if (!firstLine) {
     	return true;
     } else {
-	if (strcmp(firstLine, NgramStats_BinaryFormatString) == 0) {
+	if (std::strcmp(firstLine, NgramStats_BinaryFormatString) == 0) {
 	    cerr << "binary format not yet support in readMinCounts\n";
 	    return false;
 	} else {

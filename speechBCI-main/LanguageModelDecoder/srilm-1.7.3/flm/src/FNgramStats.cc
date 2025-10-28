@@ -19,7 +19,7 @@ static char FNgramStats_RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/flm/src/FN
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <string.h>
 #include <ctype.h>
@@ -670,7 +670,7 @@ void
 FNgramCounts<CountT>::write(const Boolean sorted)
 {
   for (unsigned i = 0; i < fnSpecs.fnSpecArray.size(); i++) {
-    if (strcmp(fnSpecs.fnSpecArray[i].countFileName,FNGRAM_DEV_NULL_FILE) != 0) {
+    if (std::strcmp(fnSpecs.fnSpecArray[i].countFileName,FNGRAM_DEV_NULL_FILE) != 0) {
       File f(fnSpecs.fnSpecArray[i].countFileName, "w");
       writeSpec(f,i,sorted);
     }

@@ -17,7 +17,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/flm/src/FactoredVocab.
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <string.h>
 #include <ctype.h>

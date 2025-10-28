@@ -11,9 +11,13 @@
 #ifndef _Trellis_h_
 #define _Trellis_h_
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "Prob.h"
+#include <cstring>
 #include "LHash.h"
+#include <cstring>
 #include "MemStats.h"
 
 typedef unsigned TrellisState;

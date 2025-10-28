@@ -11,6 +11,7 @@
 #ifndef _WORD_ALIGN_H_
 #define _WORD_ALIGN_H_
 
+#include <cstring>
 #include "Vocab.h"
 
 /*

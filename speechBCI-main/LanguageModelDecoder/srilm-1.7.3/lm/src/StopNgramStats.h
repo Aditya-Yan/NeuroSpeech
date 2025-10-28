@@ -11,7 +11,9 @@
 #ifndef _StopNgramStats_h_
 #define _StopNgramStats_h_
 
+#include <cstring>
 #include "NgramStats.h"
+#include <cstring>
 #include "SubVocab.h"
 
 class StopNgramStats: public NgramStats

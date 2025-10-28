@@ -12,7 +12,9 @@
 #ifndef _SkipNgram_h_
 #define _SkipNgram_h_
 
+#include <cstring>
 #include "Ngram.h"
+#include <cstring>
 #include "LHash.h"
 
 class SkipNgram: public Ngram

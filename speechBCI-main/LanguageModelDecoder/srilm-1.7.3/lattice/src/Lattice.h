@@ -14,25 +14,43 @@
 /* ******************************************************************
    header files 
    ****************************************************************** */
+#include <cstring>
 #include <math.h>
 
+#include <cstring>
 #include "Prob.h"
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "Array.h"
+#include <cstring>
 #include "LHash.h"
+#include <cstring>
 #include "SArray.h"
+#include <cstring>
 #include "Map2.h"
+#include <cstring>
 #include "Vocab.h"
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "SubVocab.h"
+#include <cstring>
 #include "File.h"
+#include <cstring>
 #include "Debug.h"
+#include <cstring>
 #include "Ngram.h"
+#include <cstring>
 #include "VocabMultiMap.h"
+#include <cstring>
 #include "MultiwordVocab.h"
+#include <cstring>
 #include "WordMesh.h"
+#include <cstring>
 #include "NBest.h"
 
+#include <cstring>
 #include "HTKLattice.h"
 
 class Lattice;               /* forward declaration */

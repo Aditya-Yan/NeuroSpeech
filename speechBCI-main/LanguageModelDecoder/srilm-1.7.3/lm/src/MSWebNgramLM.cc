@@ -136,13 +136,13 @@ MSWebNgramLM::callServer(const char *request, const char *data, unsigned respons
     static Array<char> requestBuffer;
 
     if (data == 0) {
-        requestBuffer[strlen(request) + 18 + strlen(serverHost) + 4] = '\0';
+        requestBuffer[std::strlen(request) + 18 + std::strlen(serverHost) + 4] = '\0';
 	sprintf(requestBuffer, "%s HTTP/1.1\r\nHost: %s%s",
 			request, serverHost, HTTP_EMPTY_LINE);
     } else {
-        requestBuffer[strlen(request) + 18 + strlen(serverHost) + 30 + strlen(data)] = '\0';
+        requestBuffer[std::strlen(request) + 18 + std::strlen(serverHost) + 30 + std::strlen(data)] = '\0';
 	sprintf(requestBuffer, "%s HTTP/1.1\r\nHost: %s\r\nContent-Length: %u%s%s",
-			request, serverHost, (unsigned)strlen(data), HTTP_EMPTY_LINE, data);
+			request, serverHost, (unsigned)std::strlen(data), HTTP_EMPTY_LINE, data);
     }
 
     if (tracing) {
@@ -153,7 +153,7 @@ MSWebNgramLM::callServer(const char *request, const char *data, unsigned respons
     unsigned numTries = 0;
 
 retry:
-    if (send(serverSocket, requestBuffer, strlen(requestBuffer), 0) == SOCKET_ERROR) {
+    if (send(serverSocket, requestBuffer, std::strlen(requestBuffer), 0) == SOCKET_ERROR) {
         if (numTries++ < retries) {
 	    if (connectToServer()) goto retry;
 	}
@@ -254,7 +254,7 @@ MSWebNgramLM::getModelNames()
      * Assume we're connected to server
      */
 
-    makeArray(char, command, strlen(urlPrefix) + 20);
+    makeArray(char, command, std::strlen(urlPrefix) + 20);
 
     /* the complete URL is
 	http://web-ngram.research.microsoft.com/rest/lookup.svc/{catalog}/{version}/{order}/{operation}?{parameters}
@@ -413,11 +413,11 @@ MSWebNgramLM::read(File &file, Boolean limitVocab /* ignored */)
      */
     char model[100];
     sprintf(model, "%s/%s/%u", catalogName, catalogVersion, modelOrder);
-    assert(strlen(model) < sizeof(model)-1);
+    assert(std::strlen(model) < sizeof(model)-1);
 
     unsigned i;
     for (i = 0; i < numModels; i ++) {
-	if (strcmp(model, modelNames[i]) == 0) break;
+	if (std::strcmp(model, modelNames[i]) == 0) break;
     }
     if (i == numModels) {
 	file.position() << "model " << model << " not found on server\n";

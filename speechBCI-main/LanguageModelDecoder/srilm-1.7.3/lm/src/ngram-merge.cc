@@ -15,7 +15,7 @@ static char RcsId[] = "@(#)$Id: ngram-merge.cc,v 1.20 2014-08-29 21:35:48 frands
 #else
 # include <new>
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 #include <locale.h>

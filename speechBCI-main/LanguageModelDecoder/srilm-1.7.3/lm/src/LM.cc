@@ -792,8 +792,8 @@ LM::pplCountsFile(File &file, unsigned order, TextStats &stats,
 			NgramCounts<CountT> *counts)
 {
     char *line;
-    unsigned escapeLen = escapeString ? strlen(escapeString) : 0;
-    unsigned stateTagLen = stateTag ? strlen(stateTag) : 0;
+    unsigned escapeLen = escapeString ? std::strlen(escapeString) : 0;
+    unsigned stateTagLen = stateTag ? std::strlen(stateTag) : 0;
 
     VocabString words[maxNgramOrder + 1];
     makeArray(VocabIndex, wids, order + 1);
@@ -935,8 +935,8 @@ LM::pplFile(File &file, TextStats &stats,
 		const char *escapeString, Boolean weighted)
 {
     char *line;
-    unsigned escapeLen = escapeString ? strlen(escapeString) : 0;
-    unsigned stateTagLen = stateTag ? strlen(stateTag) : 0;
+    unsigned escapeLen = escapeString ? std::strlen(escapeString) : 0;
+    unsigned stateTagLen = stateTag ? std::strlen(stateTag) : 0;
     VocabString sentence[maxWordsPerLine + 1];
     unsigned totalWords = 0;
     unsigned sentNo = 0;
@@ -1029,8 +1029,8 @@ LM::rescoreFile(File &file, double lmScale, double wtScale,
 		   const char *escapeString)
 {
     char *line;
-    unsigned escapeLen = escapeString ? strlen(escapeString) : 0;
-    unsigned stateTagLen = stateTag ? strlen(stateTag) : 0;
+    unsigned escapeLen = escapeString ? std::strlen(escapeString) : 0;
+    unsigned stateTagLen = stateTag ? std::strlen(stateTag) : 0;
     unsigned sentNo = 0;
 
     while ((line = file.getline())) {
@@ -1200,7 +1200,7 @@ LM::probServer(unsigned port, unsigned maxClients)
 	    unsigned numProcessed = 0;
 
 	    const char *msg = "probserver ready\n";
-	    if (send(client, msg, strlen(msg), 0) == SOCKET_ERROR) {
+	    if (send(client, msg, std::strlen(msg), 0) == SOCKET_ERROR) {
 		cerr << "client " << clientPort << "@" << clientName
 		     << ": send: " << SOCKET_ERROR_STRING << endl;
 		exit(-1);
@@ -1247,12 +1247,12 @@ LM::probServer(unsigned port, unsigned maxClients)
 			/*
 			 * Decode Remote LM command
 			 */
-			if (strcmp(words[0], REMOTELM_VERSION2) == 0) {
+			if (std::strcmp(words[0], REMOTELM_VERSION2) == 0) {
 			    protocolVersion = 2;
 
 			    sprintf(outbuf, "%s\n", REMOTELM_OK);
 			} else if (protocolVersion == 1 ||
-				   strcmp(words[0], REMOTELM_WORDPROB) == 0)
+				   std::strcmp(words[0], REMOTELM_WORDPROB) == 0)
 			{
 			    /*
 			     * Handle old or new protocol wordProb call
@@ -1273,7 +1273,7 @@ LM::probServer(unsigned port, unsigned maxClients)
 							     LogP_Precision, prob);
 			    }
 			    numProcessed += 1;
-			} else if (strcmp(words[0], REMOTELM_CONTEXTID1) == 0) {
+			} else if (std::strcmp(words[0], REMOTELM_CONTEXTID1) == 0) {
 			    VocabIndex wids[maxWordsPerLine + 1];
 
 			    vocab.getIndices(words + 1, wids, maxWordsPerLine,
@@ -1287,7 +1287,7 @@ LM::probServer(unsigned port, unsigned maxClients)
 
 			    sprintf(outbuf, "%s %llu %u\n", REMOTELM_OK,
 						(long long unsigned)(size_t)cid, clen);
-			} else if (strcmp(words[0], REMOTELM_CONTEXTID2) == 0) {
+			} else if (std::strcmp(words[0], REMOTELM_CONTEXTID2) == 0) {
 			    VocabIndex wids[maxWordsPerLine + 1];
 
 			    vocab.getIndices(words + 1, wids, maxWordsPerLine,
@@ -1303,7 +1303,7 @@ LM::probServer(unsigned port, unsigned maxClients)
 
 			    sprintf(outbuf, "%s %llu %u\n", REMOTELM_OK,
 						(long long unsigned)(size_t)cid, clen);
-			} else if (strcmp(words[0], REMOTELM_CONTEXTBOW) == 0) {
+			} else if (std::strcmp(words[0], REMOTELM_CONTEXTBOW) == 0) {
 			    unsigned clen;
 			    sscanf(words[len - 1], "%u", &clen);
 			    words[len - 1] = 0;

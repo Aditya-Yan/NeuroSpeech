@@ -17,7 +17,7 @@ static char FNgramSpecs_RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/flm/src/FN
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <string.h>
 #include <ctype.h>
@@ -963,7 +963,7 @@ FNgramSpecs<CountT>::FNgramSpecs(File& f,
 
     startGetOptions:
       for (;tok<howmany;tok++) {
-	if (strcmp(tokens[tok],"gtmin") == 0) {
+	if (std::strcmp(tokens[tok],"gtmin") == 0) {
 	  if (tok+1==howmany) {
 	    fprintf(stderr,"Error: gtmin argument needs a value"
 		    "reading factored spec file\n");
@@ -975,7 +975,7 @@ FNgramSpecs<CountT>::FNgramSpecs(File& f,
 	    fprintf(stderr,"Error: gtmin argument needs integer value");
 	    exit(-1);
 	  }
-	} else if (strcmp(tokens[tok],"gtmax") == 0) {
+	} else if (std::strcmp(tokens[tok],"gtmax") == 0) {
 	  if (tok+1==howmany) {
 	    fprintf(stderr,"Error: gtmax argument needs a value"
 		    "reading factored spec file\n");
@@ -986,7 +986,7 @@ FNgramSpecs<CountT>::FNgramSpecs(File& f,
 	    fprintf(stderr,"Error: gtmax argument needs integer value");
 	    exit(-1);
 	  }
-	} else if (strcmp(tokens[tok],"gt") == 0) {
+	} else if (std::strcmp(tokens[tok],"gt") == 0) {
 	  if (tok+1==howmany) {
 	    fprintf(stderr,"Error: gt argument needs a value"
 		    "reading factored spec file\n");
@@ -995,7 +995,7 @@ FNgramSpecs<CountT>::FNgramSpecs(File& f,
 	  tok++;
 	  delete [] fnSpecArray[i].parentSubsets[nodeId].gtFile;
 	  fnSpecArray[i].parentSubsets[nodeId].gtFile = strdup(tokens[tok]);
-	} else if (strcmp(tokens[tok],"cdiscount") == 0) {
+	} else if (std::strcmp(tokens[tok],"cdiscount") == 0) {
 	  if (tok+1==howmany) {
 	    fprintf(stderr,"Error: cdiscount argument needs a value");
 	    exit(-1);
@@ -1010,19 +1010,19 @@ FNgramSpecs<CountT>::FNgramSpecs(File& f,
 	    exit(-1);
 	  }
 	  fnSpecArray[i].parentSubsets[nodeId].cdiscount = tmp;
-	} else if (strcmp(tokens[tok],"ndiscount") == 0) {
+	} else if (std::strcmp(tokens[tok],"ndiscount") == 0) {
 	  fnSpecArray[i].parentSubsets[nodeId].ndiscount = true;
-	} else if (strcmp(tokens[tok],"wbdiscount") == 0) {
+	} else if (std::strcmp(tokens[tok],"wbdiscount") == 0) {
 	  fnSpecArray[i].parentSubsets[nodeId].wbdiscount = true;
-	} else if (strcmp(tokens[tok],"kndiscount") == 0) {
+	} else if (std::strcmp(tokens[tok],"kndiscount") == 0) {
 	  fnSpecArray[i].parentSubsets[nodeId].kndiscount = true;
-	} else if (strcmp(tokens[tok],"ukndiscount") == 0) {
+	} else if (std::strcmp(tokens[tok],"ukndiscount") == 0) {
 	  fnSpecArray[i].parentSubsets[nodeId].ukndiscount = true;
-	} else if (strcmp(tokens[tok],"kn-counts-modified") == 0) {
+	} else if (std::strcmp(tokens[tok],"kn-counts-modified") == 0) {
 	  fnSpecArray[i].parentSubsets[nodeId].knCountsModified = true;
-	} else if (strcmp(tokens[tok],"kn-counts-modify-at-end") == 0) {
+	} else if (std::strcmp(tokens[tok],"kn-counts-modify-at-end") == 0) {
 	  fnSpecArray[i].parentSubsets[nodeId].knCountsModifyAtEnd= true;
-	} else if (strcmp(tokens[tok],"kn-count-parent") == 0) {
+	} else if (std::strcmp(tokens[tok],"kn-count-parent") == 0) {
 	  if (tok+1==howmany) {
 	    fprintf(stderr,"Error: kn-count-parent argument needs a parent specifier\n");
 	    exit(-1);
@@ -1034,7 +1034,7 @@ FNgramSpecs<CountT>::FNgramSpecs(File& f,
 	    exit(-1);
 	  }
 	  fnSpecArray[i].parentSubsets[nodeId].knCountParent = par;
-	} else if (strcmp(tokens[tok],"kn") == 0) {
+	} else if (std::strcmp(tokens[tok],"kn") == 0) {
 	  if (tok+1==howmany) {
 	    fprintf(stderr,"Error: kn argument needs a value"
 		    "reading factored spec file\n");
@@ -1043,9 +1043,9 @@ FNgramSpecs<CountT>::FNgramSpecs(File& f,
 	  tok++;
 	  delete [] fnSpecArray[i].parentSubsets[nodeId].knFile;
 	  fnSpecArray[i].parentSubsets[nodeId].knFile = strdup(tokens[tok]);
-	} else if (strcmp(tokens[tok],"interpolate") == 0) {
+	} else if (std::strcmp(tokens[tok],"interpolate") == 0) {
 	  fnSpecArray[i].parentSubsets[nodeId].interpolate = true;
-	} else if (strcmp(tokens[tok],"write") == 0) {
+	} else if (std::strcmp(tokens[tok],"write") == 0) {
 	  if (tok+1==howmany) {
 	    fprintf(stderr,"Error: write argument needs a value"
 		    "reading factored spec file\n");
@@ -1054,32 +1054,32 @@ FNgramSpecs<CountT>::FNgramSpecs(File& f,
 	  tok++;
 	  delete [] fnSpecArray[i].parentSubsets[nodeId].writeFile;
 	  fnSpecArray[i].parentSubsets[nodeId].writeFile = strdup(tokens[tok]);
-	} else if (strcmp(tokens[tok],"strategy") == 0) {
+	} else if (std::strcmp(tokens[tok],"strategy") == 0) {
 	  if (tok+1==howmany) {
 	    fprintf(stderr,"Error: strategy argument needs a value"
 		    "reading factored spec file\n");
 	    exit(-1);
 	  }
 	  tok++;
-	  if (strcmp(tokens[tok],"counts_no_norm") == 0) {
+	  if (std::strcmp(tokens[tok],"counts_no_norm") == 0) {
 	    fnSpecArray[i].parentSubsets[nodeId].backoffStrategy
 	      = CountsNoNorm;
-	  } else if (strcmp(tokens[tok],"counts_sum_counts_norm") == 0) {
+	  } else if (std::strcmp(tokens[tok],"counts_sum_counts_norm") == 0) {
 	    fnSpecArray[i].parentSubsets[nodeId].backoffStrategy
 	      = CountsSumCountsNorm;
-	  } else if (strcmp(tokens[tok],"counts_sum_num_words_norm") == 0) {
+	  } else if (std::strcmp(tokens[tok],"counts_sum_num_words_norm") == 0) {
 	    fnSpecArray[i].parentSubsets[nodeId].backoffStrategy
 	      = CountsSumNumWordsNorm;
-	  } else if (strcmp(tokens[tok],"counts_prod_card_norm") == 0) {
+	  } else if (std::strcmp(tokens[tok],"counts_prod_card_norm") == 0) {
 	    fnSpecArray[i].parentSubsets[nodeId].backoffStrategy
 	      = CountsProdCardinalityNorm;
-	  } else if (strcmp(tokens[tok],"counts_sum_card_norm") == 0) {
+	  } else if (std::strcmp(tokens[tok],"counts_sum_card_norm") == 0) {
 	    fnSpecArray[i].parentSubsets[nodeId].backoffStrategy
 	      = CountsSumCardinalityNorm;
-	  } else if (strcmp(tokens[tok],"counts_sum_log_card_norm") == 0) {
+	  } else if (std::strcmp(tokens[tok],"counts_sum_log_card_norm") == 0) {
 	    fnSpecArray[i].parentSubsets[nodeId].backoffStrategy
 	      = CountsSumLogCardinalityNorm;
-	  } else if (strcmp(tokens[tok],"bog_node_prob") == 0) {
+	  } else if (std::strcmp(tokens[tok],"bog_node_prob") == 0) {
 	    fnSpecArray[i].parentSubsets[nodeId].backoffStrategy
 	      = BogNodeProb;
 	  } else {
@@ -1087,24 +1087,24 @@ FNgramSpecs<CountT>::FNgramSpecs(File& f,
 		  "reading factored spec file\n",tokens[tok]);
 	    exit(-1);
 	  }
-	} else if (strcmp(tokens[tok],"combine") == 0) {
+	} else if (std::strcmp(tokens[tok],"combine") == 0) {
 	  if (tok+1==howmany) {
 	    fprintf(stderr,"Error: combine argument needs a value "
 		    "reading factored spec file\n");
 	    exit(-1);
 	  }
 	  tok++;
-	  if (strcmp(tokens[tok],"max") == 0) {
+	  if (std::strcmp(tokens[tok],"max") == 0) {
 	    fnSpecArray[i].parentSubsets[nodeId].backoffCombine
 	      = MaxBgChild;
-	  } else if (strcmp(tokens[tok],"min") == 0) {
+	  } else if (std::strcmp(tokens[tok],"min") == 0) {
 	    fnSpecArray[i].parentSubsets[nodeId].backoffCombine
 	      = MinBgChild;
-	  } else if ((strcmp(tokens[tok],"avg") == 0) ||
-		     (strcmp(tokens[tok],"mean") == 0)) {
+	  } else if ((std::strcmp(tokens[tok],"avg") == 0) ||
+		     (std::strcmp(tokens[tok],"mean") == 0)) {
 	    fnSpecArray[i].parentSubsets[nodeId].backoffCombine
 	      = AvgBgChild;
-	  } else if (strcmp(tokens[tok],"wmean") == 0) {
+	  } else if (std::strcmp(tokens[tok],"wmean") == 0) {
 	    fnSpecArray[i].parentSubsets[nodeId].backoffCombine
 	      = WmeanBgChild;
 	    // next set of tokens must have a combination of (node_spec, weight)
@@ -1119,7 +1119,7 @@ FNgramSpecs<CountT>::FNgramSpecs(File& f,
 	    }
 	    if (tok+2*numChildrenUsed >= howmany) {
 	      f.position() << "Error: combine wmean needs " << numChildrenUsed << 
-		" node & weight pairs, one for each child\n";
+		" node & weight std::pairs, one for each child\n";
 	      exit(-1);
 	    }
 	    // TODO: add to destructor
@@ -1168,13 +1168,13 @@ FNgramSpecs<CountT>::FNgramSpecs(File& f,
 	    for (unsigned cnum=0;cnum<numChildrenUsed;cnum++) 
 	      { wmean[cnum] = ProbToLogP(wmean[cnum]) - ProbToLogP(sum); }
 	    fnSpecArray[i].parentSubsets[nodeId].wmean = wmean;
-	  } else if (strcmp(tokens[tok],"sum") == 0) {
+	  } else if (std::strcmp(tokens[tok],"sum") == 0) {
 	    fnSpecArray[i].parentSubsets[nodeId].backoffCombine
 	      = SumBgChild;
-	  } else if (strcmp(tokens[tok],"prod") == 0) {
+	  } else if (std::strcmp(tokens[tok],"prod") == 0) {
 	    fnSpecArray[i].parentSubsets[nodeId].backoffCombine
 	      = ProdBgChild;
-	  } else if (strcmp(tokens[tok],"gmean") == 0) {
+	  } else if (std::strcmp(tokens[tok],"gmean") == 0) {
 	    fnSpecArray[i].parentSubsets[nodeId].backoffCombine
 	      = GmeanBgChild;
 	  } else {
@@ -1182,7 +1182,7 @@ FNgramSpecs<CountT>::FNgramSpecs(File& f,
 		  "reading factored spec file\n",tokens[tok]);
 	    exit(-1);
 	  }
-	} else if ((strcmp(tokens[tok],"\\") == 0) &&
+	} else if ((std::strcmp(tokens[tok],"\\") == 0) &&
 		   tok == (howmany-1)) {
 	  // do poor man's next line parsing.
 	  line = f.getline();
@@ -1451,7 +1451,7 @@ FNgramSpecs<CountT>::FNgramSpec::parseNodeString(char *str, Boolean &success)
     unsigned i;
     for (i=0;i<numParents;i++) {
       if (parentOffsets[i] == (!plusMinusPresent?(-1):(+1))*parPos &&
-	  strcmp(parents[i],buff) == 0) {
+	  std::strcmp(parents[i],buff) == 0) {
 	// found 
 	if (bits & (1<<i)) {
 	  // already set, might be an oversite or error by user, give warning

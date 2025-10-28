@@ -1,6 +1,6 @@
 #include <iostream>
 #include "CachedMem.cc"
-using namespace std;
+
 
 template <class T> 
 class A : public CachedMem< A<T> > {  

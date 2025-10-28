@@ -14,7 +14,7 @@ static char RcsId[] = "@(#)$Id: nbest-optimize.cc,v 1.81 2019/09/09 23:13:13 sto
 #else
 # include <iostream>
 # include <sstream>
-using namespace std;
+
 #endif
 #include <stdio.h>
 #include <stdlib.h>
@@ -2261,7 +2261,7 @@ readScoreFile(const char *scoreDir, RefString id, NBestScore *scores,
 							unsigned numHyps) 
 {
     makeArray(char, fileName,
-	      strlen(scoreDir) + 1 + strlen(id) + strlen(GZIP_SUFFIX) + 1);
+	      std::strlen(scoreDir) + 1 + std::strlen(id) + std::strlen(GZIP_SUFFIX) + 1);
 					
     sprintf(fileName, "%s/%s", scoreDir, id);
 
@@ -2344,7 +2344,7 @@ readErrorsFile(const char *errorsDir, RefString id, NBestList &nbest,
 {
     unsigned numHyps = nbest.numHyps();
     makeArray(char, fileName,
-	      strlen(errorsDir) + 1 + strlen(id) + strlen(GZIP_SUFFIX) + 1);
+	      std::strlen(errorsDir) + 1 + std::strlen(id) + std::strlen(GZIP_SUFFIX) + 1);
 					
     sprintf(fileName, "%s/%s", errorsDir, id);
 
@@ -2437,7 +2437,7 @@ readBleuCountsFile(const char *countsDir, RefString id, NBestList &nbest,
     unsigned numHyps = nbest.numHyps();
 
     makeArray(char, fileName,
-     	      strlen(bleuCountsDir) + 1 + strlen(id) + strlen(GZIP_SUFFIX) + 1);
+     	      std::strlen(bleuCountsDir) + 1 + std::strlen(id) + std::strlen(GZIP_SUFFIX) + 1);
 					
     sprintf(fileName, "%s/%s", bleuCountsDir, id);
 
@@ -2775,7 +2775,7 @@ findOracleBleu(NBestSet &nbestSet, int numIters, unsigned *hypIdxs = 0,
 	    }
 	}    
 
-	cout << "iteration " << (it + 1) << ", oracle bleu: " << bestBleu << endl;
+	std::cout << "iteration " << (it + 1) << ", oracle bleu: " << bestBleu << endl;
     }
 
     delete [] data;
@@ -3490,7 +3490,7 @@ main(int argc, char **argv)
 	    xvalErrors = (int) computeErrors(xvalSet, lambdas.data());
 	}
 
-	printLambdas(cout, lambdas);
+	printLambdas(std::cout, lambdas);
 
 	if (initSimplex == 0 && initPowell == 0) {
 	    train(trainSet, xvalSet);
@@ -3501,17 +3501,17 @@ main(int argc, char **argv)
 	}
 
         if (!optimizeBleu) {
-	    cout << "original errors = " << errors
+	    std::cout << "original errors = " << errors
 		 << " (" << ((double)errors/numRefWords) << "/word)"
 		 << endl;
-	    cout << "best errors = " << bestError
+	    std::cout << "best errors = " << bestError
 		 << " (" << ((double)bestError/numRefWords) << "/word)" 
 		 << endl;
 	    if (numXvalWords) {
-		cout << "original xval errors = " << xvalErrors
+		std::cout << "original xval errors = " << xvalErrors
 		     << " (" << ((double)xvalErrors/numXvalWords) << "/word)"
 		     << endl;
-		cout << "xval errors = " << bestXvalError
+		std::cout << "xval errors = " << bestXvalError
 		     << " (" << ((double)bestXvalError/numXvalWords) << "/word)" 
 		     << endl;
 	    }
@@ -3519,14 +3519,14 @@ main(int argc, char **argv)
 	    double bleu = 1.0 - (errors / bleuScale);
 	    double bestBleu = 1.0 - (bestError / bleuScale);
 
-	    cout << "original bleu = " << bleu << endl;
-	    cout << "best bleu = " << bestBleu << endl;          
+	    std::cout << "original bleu = " << bleu << endl;
+	    std::cout << "best bleu = " << bestBleu << endl;          
         } else {
 	    double met = 1.0 - (errors / bleuScale);
 	    double bestMet = 1.0 - (bestError / bleuScale);
 	    
-	    cout << "original metric = " << met << endl;
-	    cout << "best metric = " << bestMet << endl;
+	    std::cout << "original metric = " << met << endl;
+	    std::cout << "best metric = " << bestMet << endl;
 	}
     }
 
@@ -3575,30 +3575,30 @@ main(int argc, char **argv)
 	if (xvalFiles) {
 	    xvalErrors = (int) computeErrors(xvalSet, lambdas.data());
 	}
-	printLambdas(cout, lambdas);
+	printLambdas(std::cout, lambdas);
 
 	if (initSimplex == 0) {
 	    train(trainSet, xvalSet);
 	} else {
 	    trainAmoeba(trainSet, xvalSet);
 	}
-	cout << "original errors = " << errors
+	std::cout << "original errors = " << errors
 	     << " (" << ((double)errors/numRefWords) << "/word)"
 	     << endl;
-	cout << "best errors = " << bestError
+	std::cout << "best errors = " << bestError
 	     << " (" << ((double)bestError/numRefWords) << "/word)" 
 	     << endl;
 	if (numXvalWords) {
-	    cout << "original xval errors = " << xvalErrors
+	    std::cout << "original xval errors = " << xvalErrors
 		 << " (" << ((double)xvalErrors/numXvalWords) << "/word)"
 		 << endl;
-	    cout << "best xval errors = " << bestXvalError
+	    std::cout << "best xval errors = " << bestXvalError
 		 << " (" << ((double)bestXvalError/numXvalWords) << "/word)" 
 		 << endl;
 	}
     }
 
-    printLambdas(cout, bestLambdas, writeRoverControl);
+    printLambdas(std::cout, bestLambdas, writeRoverControl);
 
     if (printHyps) {
 	outputHyps(trainSet);

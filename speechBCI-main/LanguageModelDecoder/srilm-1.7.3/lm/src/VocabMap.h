@@ -11,9 +11,13 @@
 #ifndef _VocabMap_h_
 #define _VocabMap_h_
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "Prob.h"
+#include <cstring>
 #include "Vocab.h"
+#include <cstring>
 #include "Map2.h"
 
 class VocabMap

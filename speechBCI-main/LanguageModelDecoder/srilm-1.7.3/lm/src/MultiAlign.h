@@ -11,16 +11,25 @@
 #ifndef _MultiAlign_h_
 #define _MultiAlign_h_
 
+#include <cstring>
 #include <string.h>
+#include <cstring>
 #include <assert.h>
+#include <cstring>
 #include <vector>
 
+#include <cstring>
 #include "NBest.h"
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "File.h"
+#include <cstring>
 #include "Vocab.h"
+#include <cstring>
 #include "Prob.h"
 
+#include <cstring>
 #include "Array.cc"
 
 typedef unsigned short HypID;	/* index identifying a sentence in the

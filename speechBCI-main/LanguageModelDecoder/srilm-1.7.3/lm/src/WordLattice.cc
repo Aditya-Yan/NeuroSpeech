@@ -24,7 +24,7 @@ INSTANTIATE_ARRAY(WordLatticeNode);
 #endif
 
 /*
- * LHash over lattice edges (pairs of nodes)
+ * LHash over lattice edges (std::pairs of nodes)
  */
 
 class NodePair
@@ -244,7 +244,7 @@ WordLattice::read1(File &file)
 		numNodes = arg1 + 1;
 	    }
 
-	    node.word = (strcmp(arg2, "NULL") == 0) ?
+	    node.word = (std::strcmp(arg2, "NULL") == 0) ?
 				Vocab_None : vocab.addWord(arg2);
 	    node.score = arg3;
 	    node.align = NO_ALIGN;
@@ -305,7 +305,7 @@ WordLattice::read(File &file)
 		numNodes = arg1 + 1;
 	    }
 
-	    node.word = (strcmp(arg2, "NULL") == 0) ?
+	    node.word = (std::strcmp(arg2, "NULL") == 0) ?
 				Vocab_None : vocab.addWord(arg2);
 	    node.score = arg3;
 	    node.align = arg4;

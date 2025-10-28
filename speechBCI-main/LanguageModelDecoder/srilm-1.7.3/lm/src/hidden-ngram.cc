@@ -10,11 +10,13 @@ static char Copyright[] = "Copyright (c) 1995-2010 SRI International, 2013 Micro
 static char RcsId[] = "@(#)$Id: hidden-ngram.cc,v 1.60 2014-08-29 21:35:48 frandsen Exp $";
 #endif
 
+#include <cstring>
+
 #ifdef PRE_ISO_CXX
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdio.h>
 #include <stdlib.h>
@@ -621,7 +623,7 @@ disambiguateSentence(VocabIndex *wids, VocabIndex *hiddenWids[],
 	     * Print posterior probabilities
 	     */
 	    if (posteriors) {
-		cout << lm.vocab.getWord(wids[pos - 1]) << "\t";
+		std::cout << lm.vocab.getWord(wids[pos - 1]) << "\t";
 
 		/*
 		 * Print events in sorted order
@@ -633,11 +635,11 @@ disambiguateSentence(VocabIndex *wids, VocabIndex *hiddenWids[],
 		    if (symbolProb != 0) {
 			LogP2 posterior = *symbolProb - totalPosterior;
 
-			cout << " " << symbolName
+			std::cout << " " << symbolName
 			     << " " << LogPtoProb(posterior);
 		    }
 		}
-		cout << endl;
+		std::cout << endl;
 	    }
 
 	    /*
@@ -704,7 +706,7 @@ disambiguateFile(File &file, SubVocab &hiddenVocab, LM &lm,
 
     char *line;
     VocabString sentence[maxWordsPerLine];
-    unsigned escapeLen = escape ? strlen(escape) : 0;
+    unsigned escapeLen = escape ? std::strlen(escape) : 0;
 
     while ((line = file.getline())) {
 
@@ -712,7 +714,7 @@ disambiguateFile(File &file, SubVocab &hiddenVocab, LM &lm,
 	 * Pass escaped lines through unprocessed
 	 */
         if (escape && strncmp(line, escape, escapeLen) == 0) {
-	    cout << line;
+	    std::cout << line;
 	    continue;
 	}
 
@@ -738,22 +740,22 @@ disambiguateFile(File &file, SubVocab &hiddenVocab, LM &lm,
 	    if (!numHyps) {
 		file.position() << "Disambiguation failed\n";
 	    } else if (totals) {
-		cout << totalProb[0] << endl;
+		std::cout << totalProb[0] << endl;
 	    } else if (!posteriors) {
 		for (unsigned n = 0; n < numHyps; n++) {
 		    if (numNbest > 1) {
-			cout << "NBEST_" << n << " " << totalProb[n] << " ";
+			std::cout << "NBEST_" << n << " " << totalProb[n] << " ";
 		    }
 		    for (unsigned i = 0; hiddenWids[n][i] != Vocab_None; i ++) {
-			cout << (i > 0 ? " " : "")
+			std::cout << (i > 0 ? " " : "")
 			     << (keepUnk ? sentence[i] :
 						lm.vocab.getWord(wids[i]));
 
 			if (hiddenWids[n][i] != noEventIndex) {
-			    cout << " " << lm.vocab.getWord(hiddenWids[n][i]);
+			    std::cout << " " << lm.vocab.getWord(hiddenWids[n][i]);
 			}
 		    }
-		    cout << endl;
+		    std::cout << endl;
 		}
 	    }
 	    for (unsigned n = 0; n < numNbest; n++) {
@@ -778,7 +780,7 @@ disambiguateFileContinuous(File &file, SubVocab &hiddenVocab, LM &lm,
     char *line;
     Array<VocabIndex> wids;
 
-    unsigned escapeLen = escape ? strlen(escape) : 0;
+    unsigned escapeLen = escape ? std::strlen(escape) : 0;
     unsigned lineStart = 0; // index into the above to mark the offset for the 
 			    // current line's data
 
@@ -789,7 +791,7 @@ disambiguateFileContinuous(File &file, SubVocab &hiddenVocab, LM &lm,
 	 * (although this is pretty useless in continuous mode)
 	 */
         if (escape && strncmp(line, escape, escapeLen) == 0) {
-	    cout << line;
+	    std::cout << line;
 	    continue;
 	}
 
@@ -829,21 +831,21 @@ disambiguateFileContinuous(File &file, SubVocab &hiddenVocab, LM &lm,
     if (!numHyps) {
 	file.position() << "Disambiguation failed\n";
     } else if (totals) {
-	cout << totalProb << endl;
+	std::cout << totalProb << endl;
     } else if (!posteriors) {
 	for (unsigned n = 0; n < numHyps; n++) {
 	    if (numNbest > 1) {
-		cout << "NBEST_" << n << " " << totalProb[n] << " ";
+		std::cout << "NBEST_" << n << " " << totalProb[n] << " ";
 	    }
 	    for (unsigned i = 0; hiddenWids[n][i] != Vocab_None; i ++) {
 		// XXX: keepUnk not implemented yet.
-		cout << lm.vocab.getWord(wids[i]) << " ";
+		std::cout << lm.vocab.getWord(wids[i]) << " ";
 
 		if (hiddenWids[n][i] != noEventIndex) {
-		    cout << lm.vocab.getWord(hiddenWids[n][i]) << " ";
+		    std::cout << lm.vocab.getWord(hiddenWids[n][i]) << " ";
 		}
 	    }
-	    cout << endl;
+	    std::cout << endl;
 	}
     }
     for (unsigned n = 0; n < numNbest; n++) {
@@ -862,7 +864,7 @@ disambiguateTextMap(File &file, SubVocab &hiddenVocab, LM &lm,
 {
     char *line;
 
-    unsigned escapeLen = escape ? strlen(escape) : 0;
+    unsigned escapeLen = escape ? std::strlen(escape) : 0;
 
     while ((line = file.getline())) {
 
@@ -954,19 +956,19 @@ disambiguateTextMap(File &file, SubVocab &hiddenVocab, LM &lm,
 	    if (!numHyps) {
 		file.position() << "Disambiguation failed\n";
 	    } else if (totals) {
-		cout << totalProb[0] << endl;
+		std::cout << totalProb[0] << endl;
 	    } else if (!posteriors) {
 		for (unsigned n = 0; n < numHyps; n++) {
 		    if (numNbest > 1) {
-		      cout << "NBEST_" << n << " " << totalProb[n] << " ";
+		      std::cout << "NBEST_" << n << " " << totalProb[n] << " ";
 		    }
 		    for (unsigned i = 0; hiddenWids[n][i] != Vocab_None; i ++) {
-			cout << lm.vocab.getWord(wids[i]) << " ";
+			std::cout << lm.vocab.getWord(wids[i]) << " ";
 			if (hiddenWids[n][i] != noEventIndex) {
-			    cout << lm.vocab.getWord(hiddenWids[n][i]) << " ";
+			    std::cout << lm.vocab.getWord(hiddenWids[n][i]) << " ";
 			}
 		    }
-		    cout << endl;
+		    std::cout << endl;
 		}
 	    }
 
@@ -976,7 +978,7 @@ disambiguateTextMap(File &file, SubVocab &hiddenVocab, LM &lm,
 	}
 
 	if (haveEscape) {
-	    cout << line;
+	    std::cout << line;
 	}
     }
 }

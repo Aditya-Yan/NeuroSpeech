@@ -62,7 +62,7 @@ MultiwordVocab::addWord(VocabString name)
 	/*
 	 * split multiword
 	 */
-	makeArray(char, wordString, strlen(name) + 1);
+	makeArray(char, wordString, std::strlen(name) + 1);
 	makeArray(VocabIndex, widString, maxWordsPerLine + 1);
 
 	strcpy(wordString, name);

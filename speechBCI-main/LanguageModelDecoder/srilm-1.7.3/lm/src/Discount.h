@@ -12,11 +12,16 @@
 #ifndef _Discount_h_
 #define _Discount_h_
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "File.h"
+#include <cstring>
 #include "Array.h"
+#include <cstring>
 #include "Debug.h"
 
+#include <cstring>
 #include "NgramStats.h"
 
 const Count GT_defaultMinCount = 1;

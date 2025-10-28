@@ -11,10 +11,15 @@
 #ifndef _VocabDistance_h_
 #define _VocabDistance_h_
 
+#include <cstring>
 #include "Vocab.h"
+#include <cstring>
 #include "SubVocab.h"
+#include <cstring>
 #include "VocabMultiMap.h"
+#include <cstring>
 #include "VocabMap.h"
+#include <cstring>
 #include "Map2.h"
 
 class VocabDistance

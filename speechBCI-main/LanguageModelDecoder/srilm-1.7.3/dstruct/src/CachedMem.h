@@ -9,8 +9,10 @@
 #ifndef _CachedMem_h_
 #define _CachedMem_h_
 
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "TLSWrapper.h"
 
 struct CachedMemUnit { 

@@ -15,8 +15,11 @@
 #ifndef _CacheLM_h_
 #define _CacheLM_h_
 
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "LHash.h"
+#include <cstring>
 #include "Array.h"
 
 class CacheLM: public LM

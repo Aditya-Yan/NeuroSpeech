@@ -15,14 +15,18 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "zio.h"
+#include <cstring>
 #include "zlib.h"
 
+#include <cstring>
 #include "Boolean.h"
 
 /*
@@ -77,7 +81,7 @@ public:
     // Initialize strFile with contents of string.  strFile will be
     // resized to "reserved_length" if this value is bigger than the
     // string size.
-    File(const char *fileStr, size_t fileStrLen, int exitOnError = 1, int reserved_length = 0);
+    File(const char *fileStr, size_t filembrlen, int exitOnError = 1, int reserved_length = 0);
     File(std::string& fileStr, int exitOnError = 1, int reserved_length = 0);
     ~File();
 
@@ -87,7 +91,7 @@ public:
     Boolean reopen(const char *name, const char *mode);
     Boolean reopen(const char *mode);		// switch to binary I/O
     // [close() and] reopen File and initialize strFile with contents of string
-    Boolean reopen(const char *fileStr, size_t fileStrLen, int reserved_length = 0);
+    Boolean reopen(const char *fileStr, size_t filembrlen, int reserved_length = 0);
     Boolean reopen(std::string& fileStr, int reserved_length = 0);
     Boolean error();
 

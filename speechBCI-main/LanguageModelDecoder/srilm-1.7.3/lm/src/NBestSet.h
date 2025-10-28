@@ -15,16 +15,24 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
+#include <cstring>
 #include <string.h>
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "File.h"
+#include <cstring>
 #include "Vocab.h"
+#include <cstring>
 #include "LHash.h"
+#include <cstring>
 #include "NBest.h"
+#include <cstring>
 #include "RefList.h"
+#include <cstring>
 #include "Debug.h"
 
 /*

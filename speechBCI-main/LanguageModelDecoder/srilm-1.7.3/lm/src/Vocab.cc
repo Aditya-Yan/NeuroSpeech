@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/Vocab.cc,v 1.61
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <string.h>
 #include <ctype.h>
@@ -111,7 +111,7 @@ Vocab::mapToLower(VocabString name)
     char* &lower = TLSW_GET(lowerTLS);
     unsigned &lowerSize = TLSW_GET(lowerSizeTLS);
 
-    unsigned len = strlen(name);
+    unsigned len = std::strlen(name);
 
     if (lower == 0 || len > lowerSize) {
 	if (lower != 0) delete [] lower;
@@ -164,7 +164,7 @@ Vocab::addWord(VocabString name)
 	     * Check for metatags, and intern them into our metatag type map
 	     */
 	    if (_metaTag != 0) {
-		unsigned metaTagLength = strlen(_metaTag);
+		unsigned metaTagLength = std::strlen(_metaTag);
 
 		if (strncmp(name, _metaTag, metaTagLength) == 0) {
 		    int type = -1;
@@ -197,7 +197,7 @@ Vocab::addWordAlias(VocabIndex word, VocabString name)
 	return Vocab_None;
     } else {
 	// avoid aliasing name to itself
-	if (strcmp(name, byIndex[word]) == 0) {
+	if (std::strcmp(name, byIndex[word]) == 0) {
 	    return word;
 	}
 
@@ -273,7 +273,7 @@ Vocab::getIndex(VocabString name, VocabIndex unkIndex)
      */
     if (indexPtr == 0 &&
 	_metaTag != 0 &&
-	strncmp(name, _metaTag, strlen(_metaTag)) == 0)
+	strncmp(name, _metaTag, std::strlen(_metaTag)) == 0)
     {
 	return addWord(name);
     } else {
@@ -291,7 +291,7 @@ Vocab::metaTagOfType(unsigned type)
 	if (type == 0) {
 	    return getIndex(_metaTag);
 	} else {
-	    makeArray(char, tagName, strlen(_metaTag) + 20);
+	    makeArray(char, tagName, std::strlen(_metaTag) + 20);
 
 	    sprintf(tagName, "%s%u", _metaTag, type);
 	    return getIndex(tagName);
@@ -322,7 +322,7 @@ Vocab::remove(VocabString name)
 
     if (indexPtr == 0) {
     	return;
-    } else if (strcmp(name, byIndex[*indexPtr]) != 0) {
+    } else if (std::strcmp(name, byIndex[*indexPtr]) != 0) {
 	// name is an alias: only remove the string mapping, not the index
 	byName.remove(name);
     } else {
@@ -575,7 +575,7 @@ Vocab::write(File &file, const VocabString *words)
 
     for (i = 0; words[i] != 0; i++) {
 	if (i > 0) file.fprintf(" ");
-	file.fwrite(words[i], 1, strlen(words[i]));
+	file.fwrite(words[i], 1, std::strlen(words[i]));
     }
 
     return i;
@@ -619,7 +619,7 @@ Vocab::compare(VocabIndex word1, VocabIndex word2)
     if (compareVocab == 0) {
 	return word2 - word1;
     } else {
-	return strcmp(compareVocab->getWord(word1),
+	return std::strcmp(compareVocab->getWord(word1),
 		      compareVocab->getWord(word2));
     }
 }
@@ -705,7 +705,7 @@ Vocab::write(File &file, Boolean sorted) const
     VocabString word;
 
     while (!file.error() && (word = iter.next())) {
-	file.fwrite(word, 1, strlen(word));
+	file.fwrite(word, 1, std::strlen(word));
 	file.fprintf("\n");
     }
 }
@@ -822,7 +822,7 @@ Vocab::ngramsInRange(VocabString *startRange, VocabString *endRange)
     {
 	return true;
     } else if (startRange && endRange &&
-               strcmp(startRange[0], endRange[0]) == 0 &&
+               std::strcmp(startRange[0], endRange[0]) == 0 &&
                getIndex(startRange[0]) != Vocab_None)
     {
 	return ngramsInRange(&startRange[1], &endRange[1]);
@@ -845,8 +845,8 @@ Vocab::ngramsInRange(VocabString *startRange, VocabString *endRange)
 	VocabString word;
 
 	while ((word = iter.next())) {
-	    if ((startRange == 0 || strcmp(startRange[0], word) < 0) &&
-	        (endRange == 0 || strcmp(word, endRange[0]) < 0))
+	    if ((startRange == 0 || std::strcmp(startRange[0], word) < 0) &&
+	        (endRange == 0 || std::strcmp(word, endRange[0]) < 0))
 	    {
 		return true;
 	    }
@@ -873,7 +873,7 @@ Vocab::writeIndexMap(File &file, Boolean writingLM)
     for (unsigned i = byIndex.base(); i < nextIndex; i ++) {
 	if (byIndex[i] && !(writingLM && isMetaTag(i))) {
 	    file.fprintf("%u ", i);
-	    file.fwrite(byIndex[i], 1, strlen(byIndex[i]));
+	    file.fwrite(byIndex[i], 1, std::strlen(byIndex[i]));
 	    file.fprintf("\n");
 	}
     }
@@ -925,7 +925,7 @@ Vocab::readIndexMap(File &file, Array<VocabIndex> &map, Boolean limitVocab)
  * Iteration
  */
 VocabIter::VocabIter(const Vocab &vocab, Boolean sorted)
-    : myIter(vocab.byName, !sorted ? 0 : (int(*)(const char*,const char*))strcmp)
+    : myIter(vocab.byName, !sorted ? 0 : (int(*)(const char*,const char*))std::strcmp)
 {
 }
 

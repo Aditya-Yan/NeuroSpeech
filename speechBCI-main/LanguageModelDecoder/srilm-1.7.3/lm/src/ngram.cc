@@ -12,7 +12,7 @@ static char RcsId[] = "@(#)$Id: ngram.cc,v 1.141 2019/09/09 23:13:13 stolcke Exp
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdio.h>
 #include <stdlib.h>
@@ -1212,11 +1212,11 @@ main(int argc, char **argv)
 	/*
 	 * Send perplexity info to stdout 
 	 */
-	useLM->dout(cout);
+	useLM->dout(std::cout);
 	useLM->pplFile(file, stats, escape, textFileHasWeights);
 	useLM->dout(cerr);
 
-	cout << "file " << pplFile << ": " << stats;
+	std::cout << "file " << pplFile << ": " << stats;
     }
 
     /*
@@ -1229,7 +1229,7 @@ main(int argc, char **argv)
 	/*
 	 * Send perplexity info to stdout 
 	 */
-	useLM->dout(cout);
+	useLM->dout(std::cout);
 	if (useFloatCounts) {
 	    useLM->pplCountsFile(file, countOrder ? countOrder : order,
 					stats, escape, countEntropy,
@@ -1241,7 +1241,7 @@ main(int argc, char **argv)
 	}
 	useLM->dout(cerr);
 
-	cout << "file " << countFile << ": " << stats;
+	std::cout << "file " << countFile << ": " << stats;
     }
 
     /*
@@ -1268,8 +1268,8 @@ main(int argc, char **argv)
 
 	    if (writeNbestDir) {
 		makeArray(char, scoreFile,
-			  strlen(writeNbestDir) + 1
-				 + strlen(sentid) + strlen(GZIP_SUFFIX) + 1);
+			  std::strlen(writeNbestDir) + 1
+				 + std::strlen(sentid) + std::strlen(GZIP_SUFFIX) + 1);
 		sprintf(scoreFile, "%s/%s%s", writeNbestDir, sentid,
 								GZIP_SUFFIX);
 		rescoreNbest(*useLM, fname, scoreFile);

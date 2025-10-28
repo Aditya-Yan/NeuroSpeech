@@ -12,21 +12,31 @@
 #ifndef _MSWebNgramLM_h_
 #define _MSWebNgramLM_h_
 
+#include <cstring>
 #include <stdio.h>
 
 #if defined(_MSC_VER) || defined(WIN32)
+#include <cstring>
 #include <winsock.h>
 #else
+#include <cstring>
 #include <arpa/inet.h>
+#include <cstring>
 #include <sys/types.h>
+#include <cstring>
 #include <sys/socket.h>
 typedef int	SOCKET;		// for MS compatibility
 #endif
 
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "Ngram.h"
+#include <cstring>
 #include "NgramStats.h"
+#include <cstring>
 #include "Array.h"
 
 class MSWebNgramLM: public LM

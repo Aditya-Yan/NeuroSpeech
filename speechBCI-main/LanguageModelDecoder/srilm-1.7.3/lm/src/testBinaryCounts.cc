@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/testBinaryCount
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 
 #include "Boolean.h"

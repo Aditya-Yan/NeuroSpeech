@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Id: multi-ngram.cc,v 1.12 2010/06/02 05:49:58 stolck
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdio.h>
 #include <stdlib.h>

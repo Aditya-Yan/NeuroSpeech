@@ -14,9 +14,13 @@
 #ifndef HMAXENT_HPP_
 #define HMAXENT_HPP_
 
+#include <cstring>
 #include <cstdlib>
+#include <cstring>
 #include <valarray>
+#include <cstring>
 #include <vector>
+#include <cstring>
 #include <map>
 
 namespace hmaxent {

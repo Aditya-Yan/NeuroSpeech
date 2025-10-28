@@ -18,9 +18,10 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 
+#include <cstring>
 #include <Boolean.h>
 
 /*
@@ -39,7 +40,7 @@ using namespace std;
  * of the object and/or redirecting the debugging output.
  *
  *      FOO foo;
- *	foo.debugme(4); foo.dout(cout);
+ *	foo.debugme(4); foo.dout(std::cout);
  *
  * Debugging can also be set globally (to affect all objects of
  * all classes.

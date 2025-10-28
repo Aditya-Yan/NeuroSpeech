@@ -6,6 +6,7 @@
 #ifndef _FCHECK_H_
 #define _FCHECK_H_
 
+#include <cstring>
 #include <stdio.h>
 
 #ifdef __cplusplus

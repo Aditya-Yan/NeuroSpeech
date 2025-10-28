@@ -16,21 +16,31 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "File.h"
+#include <cstring>
 #include "LHash.h"
+#include <cstring>
 #include "Array.h"
+#include <cstring>
 #include "XCount.h"
+#include <cstring>
 #include "MemStats.h"
+#include <cstring>
 #include "Vocab.h"
+#include <cstring>
 #include "SubVocab.h"
+#include <cstring>
 #include "Debug.h"
 
 const VocabString	Vocab_NULL = "<NULL>";
 
+#include <cstring>
 #include "FNgramStats.h"	// define FNgramCount
 
 // should be a word that can never occur in any database

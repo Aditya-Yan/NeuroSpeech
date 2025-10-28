@@ -15,11 +15,16 @@
 #ifndef _FNgramStats_h_
 #define _FNgramStats_h_
 
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "TLSWrapper.h"
+#include <cstring>
 #include "LMStats.h"
+#include <cstring>
 #include "XCount.h"
+#include <cstring>
 #include "SubVocab.h"
 
 #ifdef USE_XCOUNTS
@@ -32,12 +37,18 @@ typedef unsigned long FNgramCount;
 # endif
 #endif
 
+#include <cstring>
 #include "FactoredVocab.h"
+#include <cstring>
 #include "FNgramSpecs.h"
+#include <cstring>
 #include "wmatrix.h"
+#include <cstring>
 #include "NgramStats.h"		// for maxLineLength
 
+#include <cstring>
 #include "Trie.h"
+#include <cstring>
 #include "Array.h"
 
 const unsigned int	maxFNgramOrder = 100;	/* Used in allocating various

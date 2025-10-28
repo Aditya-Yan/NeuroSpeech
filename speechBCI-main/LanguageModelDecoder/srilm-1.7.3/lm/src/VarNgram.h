@@ -11,8 +11,10 @@
 #ifndef _VarNgram_h_
 #define _VarNgram_h_
 
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "Ngram.h"
 
 class VarNgram: public Ngram

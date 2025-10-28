@@ -18,10 +18,12 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 
+#include <cstring>
 #include "Prob.h"
+#include <cstring>
 #include "Counts.h"
 
 class TextStats

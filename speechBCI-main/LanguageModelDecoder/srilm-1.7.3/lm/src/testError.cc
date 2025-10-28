@@ -44,7 +44,7 @@ main (int argc, char *argv[])
 	    unsigned total, sub, ins, del;
 	    total = wordError(ref, hyp, sub, ins, del);
 
-	    cout << "sub " << sub 
+	    std::cout << "sub " << sub 
 		 << " ins " << ins
 		 << " del " << del
 		 << " wer " << total

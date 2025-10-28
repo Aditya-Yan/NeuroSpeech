@@ -15,11 +15,16 @@
 #ifndef _FNgram_h_
 #define _FNgram_h_
 
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "FNgramStats.h"
+#include <cstring>
 #include "FNgramSpecs.h"
+#include <cstring>
 #include "SubVocab.h"
 
 #ifdef USE_SARRAY

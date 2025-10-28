@@ -182,13 +182,13 @@ static void
 printCTM(Vocab &vocab, const NBestWordInfo *winfo, const char *name)
 {
     for (unsigned i = 0; winfo[i].word != Vocab_None; i ++) {
-	cout << name << " 1 ";
+	std::cout << name << " 1 ";
 	if (winfo[i].valid()) {
-	    cout << winfo[i].start << " " << winfo[i].duration;
+	    std::cout << winfo[i].start << " " << winfo[i].duration;
 	} else {
-	    cout << "? ?";
+	    std::cout << "? ?";
 	}
-	cout << " " << vocab.getWord(winfo[i].word)
+	std::cout << " " << vocab.getWord(winfo[i].word)
 	     << " " << winfo[i].wordPosterior << endl;
     }
 }
@@ -343,12 +343,12 @@ latticeRescore(const char *sentid, MultiAlign &lat, NBestList &nbestList,
 
 	    lat.alignWords(hyp.words, 0.0, posteriors);
 
-	    if (sentid) cout << sentid << ":" << i << " ";
-	    cout << hyp.posterior;
+	    if (sentid) std::cout << sentid << ":" << i << " ";
+	    std::cout << hyp.posterior;
 	    for (unsigned j = 0; j < hypLength; j ++) {
-		cout << " " << posteriors[j];
+		std::cout << " " << posteriors[j];
 	    }
-	    cout << endl;
+	    std::cout << endl;
 	}
     } else if (!dumpErrors) {
 	/*
@@ -392,8 +392,8 @@ latticeRescore(const char *sentid, MultiAlign &lat, NBestList &nbestList,
 					   suppressVocabFile ? &suppressVocab : 0);
 	    bestWords[maxWordsPerLine] = Vocab_None;
 
-	    if (sentid) cout << sentid << " ";
-	    cout << (lat.vocab.use(), bestWords) << endl;
+	    if (sentid) std::cout << sentid << " ";
+	    std::cout << (lat.vocab.use(), bestWords) << endl;
 
 	    if (debug >= DEBUG_ERRORS) {
 		if (sentid) cerr << sentid << " ";
@@ -442,8 +442,8 @@ wordErrorRescore(const char *sentid, NBestList &nbestList)
 	 * Dump hyp posteriors
 	 */
 	for (unsigned i = 0; i < howmany; i ++) {
-	    if (sentid) cout << sentid << ":" << i << " ";
-	    cout << nbestList.getHyp(i).posterior << endl;
+	    if (sentid) std::cout << sentid << ":" << i << " ";
+	    std::cout << nbestList.getHyp(i).posterior << endl;
 	}
     } else if (!dumpErrors) {
 	VocabIndex bestWords[maxWordsPerLine + 1];
@@ -454,8 +454,8 @@ wordErrorRescore(const char *sentid, NBestList &nbestList)
 				    subs, inss, dels, maxRescore, postPrune);
 	bestWords[maxWordsPerLine] = Vocab_None;
 
-	if (sentid) cout << sentid << " ";
-	cout << (nbestList.vocab.use(), bestWords) << endl;
+	if (sentid) std::cout << sentid << " ";
+	std::cout << (nbestList.vocab.use(), bestWords) << endl;
 
 	if (debug >= DEBUG_ERRORS) {
 	    if (sentid) cerr << sentid << " ";
@@ -486,15 +486,15 @@ computeWordErrors(const char *sentid, NBestList &nbestList,
 	unsigned numErrors = wordError(reference, nbestList.getHyp(i).words,
 						    sub, ins, del, alignment);
 
-	if (sentid) cout << sentid << ":" << i << " ";
-	cout << numErrors;
+	if (sentid) std::cout << sentid << ":" << i << " ";
+	std::cout << numErrors;
 	for (unsigned j = 0; alignment[j] != END_ALIGN; j ++) {
 	    // @kw false positive: ABV.GENERAL (alignment, j==4)
-	    cout << " " << ((alignment[j] == INS_ALIGN) ? "INS" :
+	    std::cout << " " << ((alignment[j] == INS_ALIGN) ? "INS" :
 	    			(alignment[j] == DEL_ALIGN) ? "DEL" :
 				(alignment[j] == SUB_ALIGN) ? "SUB" : "CORR");
 	}
-	cout << endl;
+	std::cout << endl;
     }
 }
 
@@ -539,10 +539,10 @@ alignLattices(MultiAlign &lat, File &file)
 
 	    double cost = lat.alignAlignment(*newLat, alignmentMap);
 
-	    cout << "lattice " << lname << endl;
-	    cout << "cost " << cost << endl;
+	    std::cout << "lattice " << lname << endl;
+	    std::cout << "cost " << cost << endl;
 	    for (unsigned i = 0; i < alignmentMap.size(); i ++) {
-		cout << "align " << i << " -> " << alignmentMap[i] << endl;
+		std::cout << "align " << i << " -> " << alignmentMap[i] << endl;
 	    }
 	} else {
 	    lat.alignAlignment(*newLat, weight);
@@ -640,8 +640,8 @@ processNbest(NullLM &nullLM, const char *sentid, const char *nbestFile,
 	    unsigned sub, ins, del;
 
 	    unsigned err = nbestList.wordError(reference, sub, ins, del);
-	    if (sentid) cout << sentid << " ";
-	    cout << err
+	    if (sentid) std::cout << sentid << " ";
+	    std::cout << err
 		 << " sub " << sub 
 		 << " ins " << ins
 		 << " del " << del
@@ -676,8 +676,8 @@ processNbest(NullLM &nullLM, const char *sentid, const char *nbestFile,
 	unsigned sub, ins, del;
 	unsigned err = lat->wordError(reference, sub, ins, del);
 
-	if (sentid) cout << sentid << " ";
-	cout << err
+	if (sentid) std::cout << sentid << " ";
+	std::cout << err
 	     << " sub " << sub 
 	     << " ins " << ins
 	     << " del " << del
@@ -903,16 +903,16 @@ main (int argc, char *argv[])
 	    }
 
 	    makeArray(char, writeLatticeName ,
-		      (writeDir ? strlen(writeDir) : 0) + 1
-				  + strlen(sentid) + strlen(GZIP_SUFFIX) + 1);
+		      (writeDir ? std::strlen(writeDir) : 0) + 1
+				  + std::strlen(sentid) + std::strlen(GZIP_SUFFIX) + 1);
 	    if (writeDir) {
 		sprintf(writeLatticeName, "%s/%s%s", writeDir, sentid,
 								GZIP_SUFFIX);
 	    }
 
 	    makeArray(char, writeNbestName,
-		      (writeNbestDir ? strlen(writeNbestDir) : 0) + 1
-				+ strlen(sentid) + strlen(GZIP_SUFFIX) + 1);
+		      (writeNbestDir ? std::strlen(writeNbestDir) : 0) + 1
+				+ std::strlen(sentid) + std::strlen(GZIP_SUFFIX) + 1);
 	    if (writeNbestDir) {
 		sprintf(writeNbestName, "%s/%s%s", writeNbestDir, sentid,
 								GZIP_SUFFIX);

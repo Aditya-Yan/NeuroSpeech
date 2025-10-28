@@ -559,7 +559,7 @@ Lattice::computeNBestViterbi(unsigned N, NBestOptions &nbestOut,
             node->word != vocab.seIndex()) 
           word = getWord(node->word);
         
-        int len = strlen(word);
+        int len = std::strlen(word);
 
         unsigned wcnt = (len > 0 ? 1 : 0); 	// word count (ignore non-words)
 	LogP acoustic = LogP_One;	// acoustic model log score
@@ -629,7 +629,7 @@ Lattice::computeNBestViterbi(unsigned N, NBestOptions &nbestOut,
                 LatticeNBestHyp *hyp = entries[j].hyp;
                 LogP forwardProb = hyp->forwardProb + inTrans->weight;
 
-                char *newkey = new char [strlen(entries[j].key) + len + 2];
+                char *newkey = new char [std::strlen(entries[j].key) + len + 2];
 		assert(newkey != 0);
             
                 if (len) {
@@ -922,80 +922,80 @@ NBestOptions::openFiles(const char *name)
 
     writingFiles = true;
 
-    unsigned basenameLen = 1 + strlen(name) + sizeof(GZIP_SUFFIX);
+    unsigned basenameLen = 1 + std::strlen(name) + sizeof(GZIP_SUFFIX);
     
     if (nbestOutDir) {
-      makeArray(char, outfile, strlen(nbestOutDir) + basenameLen);
+      makeArray(char, outfile, std::strlen(nbestOutDir) + basenameLen);
       sprintf(outfile, "%s/%s%s", nbestOutDir, name, GZIP_SUFFIX);
       nbest = new File(outfile, "w");
     }
     if (nbestOutDirNgram) {
-      makeArray(char, outfile, strlen(nbestOutDirNgram) + basenameLen);
+      makeArray(char, outfile, std::strlen(nbestOutDirNgram) + basenameLen);
       sprintf(outfile, "%s/%s%s", nbestOutDirNgram, name, GZIP_SUFFIX);
       nbestNgram = new File(outfile, "w");
     }
     if (nbestOutDirPron) {
-      makeArray(char, outfile, strlen(nbestOutDirPron) + basenameLen);
+      makeArray(char, outfile, std::strlen(nbestOutDirPron) + basenameLen);
       sprintf(outfile, "%s/%s%s", nbestOutDirPron, name, GZIP_SUFFIX);
       nbestPron = new File(outfile, "w");
     }
     if (nbestOutDirDur) {
-      makeArray(char, outfile, strlen(nbestOutDirDur) + basenameLen);
+      makeArray(char, outfile, std::strlen(nbestOutDirDur) + basenameLen);
       sprintf(outfile, "%s/%s%s", nbestOutDirDur, name, GZIP_SUFFIX);
       nbestDur = new File(outfile, "w");
     }
     if (nbestOutDirXscore1) {
-      makeArray(char, outfile, strlen(nbestOutDirXscore1) + basenameLen);
+      makeArray(char, outfile, std::strlen(nbestOutDirXscore1) + basenameLen);
       sprintf(outfile, "%s/%s%s", nbestOutDirXscore1, name, GZIP_SUFFIX);
       nbestXscore1 = new File(outfile, "w");
     }
     if (nbestOutDirXscore2) {
-      makeArray(char, outfile, strlen(nbestOutDirXscore2) + basenameLen);
+      makeArray(char, outfile, std::strlen(nbestOutDirXscore2) + basenameLen);
       sprintf(outfile, "%s/%s%s", nbestOutDirXscore2, name, GZIP_SUFFIX);
       nbestXscore2 = new File(outfile, "w");
     }
     if (nbestOutDirXscore3) {
-      makeArray(char, outfile, strlen(nbestOutDirXscore3) + basenameLen);
+      makeArray(char, outfile, std::strlen(nbestOutDirXscore3) + basenameLen);
       sprintf(outfile, "%s/%s%s", nbestOutDirXscore3, name, GZIP_SUFFIX);
       nbestXscore3 = new File(outfile, "w");
     }
     if (nbestOutDirXscore4) {
-      makeArray(char, outfile, strlen(nbestOutDirXscore4) + basenameLen);
+      makeArray(char, outfile, std::strlen(nbestOutDirXscore4) + basenameLen);
       sprintf(outfile, "%s/%s%s", nbestOutDirXscore4, name, GZIP_SUFFIX);
       nbestXscore4 = new File(outfile, "w");
     }
     if (nbestOutDirXscore5) {
-      makeArray(char, outfile, strlen(nbestOutDirXscore5) + basenameLen);
+      makeArray(char, outfile, std::strlen(nbestOutDirXscore5) + basenameLen);
       sprintf(outfile, "%s/%s%s", nbestOutDirXscore5, name, GZIP_SUFFIX);
       nbestXscore5 = new File(outfile, "w");
     }
     if (nbestOutDirXscore6) {
-      makeArray(char, outfile, strlen(nbestOutDirXscore6) + basenameLen);
+      makeArray(char, outfile, std::strlen(nbestOutDirXscore6) + basenameLen);
       sprintf(outfile, "%s/%s%s", nbestOutDirXscore6, name, GZIP_SUFFIX);
       nbestXscore6 = new File(outfile, "w");
     }
     if (nbestOutDirXscore7) {
-      makeArray(char, outfile, strlen(nbestOutDirXscore7) + basenameLen);
+      makeArray(char, outfile, std::strlen(nbestOutDirXscore7) + basenameLen);
       sprintf(outfile, "%s/%s%s", nbestOutDirXscore7, name, GZIP_SUFFIX);
       nbestXscore7 = new File(outfile, "w");
     }
     if (nbestOutDirXscore8) {
-      makeArray(char, outfile, strlen(nbestOutDirXscore8) + basenameLen);
+      makeArray(char, outfile, std::strlen(nbestOutDirXscore8) + basenameLen);
       sprintf(outfile, "%s/%s%s", nbestOutDirXscore8, name, GZIP_SUFFIX);
       nbestXscore8 = new File(outfile, "w");
     }
     if (nbestOutDirXscore9) {
-      makeArray(char, outfile, strlen(nbestOutDirXscore9) + basenameLen);
+      makeArray(char, outfile, std::strlen(nbestOutDirXscore9) + basenameLen);
       sprintf(outfile, "%s/%s%s", nbestOutDirXscore9, name, GZIP_SUFFIX);
       nbestXscore9 = new File(outfile, "w");
     }
     if (nbestOutDirRttm) {
-      makeArray(char, outfile, strlen(nbestOutDirRttm) + basenameLen);
+      makeArray(char, outfile, std::strlen(nbestOutDirRttm) + basenameLen);
       sprintf(outfile, "%s/%s%s", nbestOutDirRttm, name, GZIP_SUFFIX);
       nbestRttm = new File(outfile, "w");
     }
     if (nbestOutDirRttm2) {
-      makeArray(char, outfile, strlen(nbestOutDirRttm2) + basenameLen);
+      makeArray(char, outfile, std::strlen(nbestOutDirRttm2) + basenameLen);
       sprintf(outfile, "%s/%s%s", nbestOutDirRttm2, name, GZIP_SUFFIX);
       nbestRttm2 = new File(outfile, "w");
     }
@@ -1378,7 +1378,7 @@ LatticeNBestHyp::getHypFeature(SubVocab &ignoreWords, Lattice &lat,
 	assert(node != 0);
 
         if (!lat.ignoreWord(node->word) && !ignoreWords.getWord(node->word)) {
-	    featureLen += strlen(lat.getWord(node->word)) + 1;
+	    featureLen += std::strlen(lat.getWord(node->word)) + 1;
         }           
     }
 
@@ -1390,7 +1390,7 @@ LatticeNBestHyp::getHypFeature(SubVocab &ignoreWords, Lattice &lat,
         LatticeNode *node = lat.findNode(prev->node);
 
         if (!lat.ignoreWord(node->word) && !ignoreWords.getWord(node->word)) {
-	    unsigned wordLen = strlen(lat.getWord(node->word));
+	    unsigned wordLen = std::strlen(lat.getWord(node->word));
 
 	    featureLen -= wordLen + 1;
 

@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Id: fngram.cc,v 1.76 2013/03/05 05:54:17 stolcke Exp
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdio.h>
 #include <stdlib.h>
@@ -125,7 +125,7 @@ main(int argc, char **argv)
 #endif
 
     // print 0x in front of hex numbers.
-    SHOWBASE(cout);
+    SHOWBASE(std::cout);
     SHOWBASE(cerr);
 
     Opt_Parse(argc, argv, options, Opt_Number(options), 0);
@@ -268,9 +268,9 @@ main(int argc, char **argv)
 	/*
 	 * Send perplexity info to stdout 
 	 */
-	fngramLM->dout(cout);
+	fngramLM->dout(std::cout);
 	fngramLM->pplFile(file, stats, escape);
-	fngramLM->pplPrint(cout, pplFile);
+	fngramLM->pplPrint(std::cout, pplFile);
 	fngramLM->dout(cerr);
     }
 
@@ -283,12 +283,12 @@ main(int argc, char **argv)
 	/*
 	 * Send perplexity info to stdout 
 	 */
-	fngramLM->dout(cout);
+	fngramLM->dout(std::cout);
 	fngramLM->pplCountsFile(file, countOrder ? countOrder : order,
 							    stats, escape);
 	fngramLM->dout(cerr);
 
-	cout << "file " << countFile << ": " << stats;
+	std::cout << "file " << countFile << ": " << stats;
     }
 
     // TODO: add generate option.

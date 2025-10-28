@@ -11,6 +11,7 @@
 #ifndef _SubVocab_h_
 #define _SubVocab_h_
 
+#include <cstring>
 #include "Vocab.h"
 
 /*

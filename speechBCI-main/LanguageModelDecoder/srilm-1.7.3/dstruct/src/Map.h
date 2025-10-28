@@ -53,15 +53,22 @@
 #ifndef _Map_h_
 #define _Map_h_
 
+#include <cstring>
 #include <stddef.h>
+#include <cstring>
 #include <stdlib.h>
+#include <cstring>
 #include <string.h>
+#include <cstring>
 #include <math.h>
 #if !defined(_MSC_VER) && !defined(WIN32)
+#include <cstring>
 #include <sys/param.h>
 #endif
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "MemStats.h"
 
 #ifndef NBBY

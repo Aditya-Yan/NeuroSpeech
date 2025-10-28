@@ -11,7 +11,9 @@
 #ifndef _TaggedNgram_h_
 #define _TaggedNgram_h_
 
+#include <cstring>
 #include "Ngram.h"
+#include <cstring>
 #include "TaggedVocab.h"
 
 class TaggedNgram: public Ngram

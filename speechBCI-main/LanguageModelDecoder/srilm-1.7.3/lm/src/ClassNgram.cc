@@ -12,7 +12,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/ClassNgram.cc,v
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 
@@ -30,7 +30,7 @@ using namespace std;
 #define DEBUG_ESTIMATES			4	/* from Ngram.cc */
 
 /* 
- * We use pairs of strings over VocabIndex (type ClassNgramState)
+ * We use std::pairs of strings over VocabIndex (type ClassNgramState)
  * as keys into the trellis.  Define the necessary support functions.
  */
 

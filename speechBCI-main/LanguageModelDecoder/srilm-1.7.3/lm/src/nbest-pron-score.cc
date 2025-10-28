@@ -172,7 +172,7 @@ processNbest(const char *nbestFile, MultiwordVocab &vocab,
 		 * copy phone string to buffer for parsing
 		 */
 		makeArray(char, phoneString,
-			  strlen(hyp.wordInfo[i].phones) + 1);
+			  std::strlen(hyp.wordInfo[i].phones) + 1);
 		strcpy(phoneString, hyp.wordInfo[i].phones);
 
 		/*
@@ -363,16 +363,16 @@ main (int argc, char *argv[])
 	    RefString sentid = idFromFilename(fname);
 
 	    makeArray(char, pronScoreFile,
-		      (pronScoreDir ? strlen(pronScoreDir) : 0) + 1
-				 + strlen(sentid) + strlen(GZIP_SUFFIX) + 1);
+		      (pronScoreDir ? std::strlen(pronScoreDir) : 0) + 1
+				 + std::strlen(sentid) + std::strlen(GZIP_SUFFIX) + 1);
 	    if (pronScoreDir) {
 		sprintf(pronScoreFile, "%s/%s%s", pronScoreDir, sentid,
 								GZIP_SUFFIX);
 	    }
 
 	    makeArray(char, pauseScoreFile,
-		      (pauseScoreDir ? strlen(pauseScoreDir) : 0) + 1
-				+ strlen(sentid) + strlen(GZIP_SUFFIX) + 1);
+		      (pauseScoreDir ? std::strlen(pauseScoreDir) : 0) + 1
+				+ std::strlen(sentid) + std::strlen(GZIP_SUFFIX) + 1);
 	    if (pauseScoreDir) {
 		sprintf(pauseScoreFile, "%s/%s%s", pauseScoreDir, sentid,
 								GZIP_SUFFIX);

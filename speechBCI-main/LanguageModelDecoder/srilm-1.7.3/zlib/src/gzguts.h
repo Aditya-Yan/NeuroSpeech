@@ -18,7 +18,9 @@
 #  define ZLIB_INTERNAL
 #endif
 
+#include <cstring>
 #include <stdio.h>
+#include <cstring>
 #include "zlib.h"
 #ifdef STDC
 #  include <string.h>
@@ -29,6 +31,7 @@
 #ifndef _POSIX_SOURCE
 #  define _POSIX_SOURCE
 #endif
+#include <cstring>
 #include <fcntl.h>
 
 #ifdef _WIN32

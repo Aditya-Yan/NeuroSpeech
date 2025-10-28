@@ -15,7 +15,9 @@
 #ifndef _TaggedVocab_h_
 #define _TaggedVocab_h_
 
+#include <cstring>
 #include "Vocab.h"
+#include <cstring>
 #include "LHash.h"
 
 /*

@@ -160,7 +160,7 @@ Lattice::packNodeF(NodeIndex nodeIndex, Boolean maxAdd)
 	memset(nodeList + position, 0, (numTransitions - position) * sizeof(VocabIndex));
     }
 
-    // do a pair-wise comparison for all the successor nodes.
+    // do a std::pair-wise comparison for all the successor nodes.
     for (unsigned i = 0; i < numTransitions; i ++) {
 	// check if node has been merged
 	if (Map_noKeyP(nodeList[i])) continue;
@@ -232,7 +232,7 @@ Lattice::packNodeB(NodeIndex nodeIndex, Boolean maxAdd)
 	memset(nodeList + position, 0, (numTransitions - position) * sizeof(VocabIndex));
     }
 
-    // do a pair-wise comparison for all the predecessor nodes.
+    // do a std::pair-wise comparison for all the predecessor nodes.
     for (unsigned i = 0; i < numTransitions; i ++) {
 	// check if node has been merged
 	if (Map_noKeyP(nodeList[i])) continue;
@@ -513,7 +513,7 @@ Lattice::approxRedNodeF(NodeIndex nodeIndex, NodeQueue &nodeQueue,
       list[position++] = toNodeIndex; 
     }
 
-    // do a pair-wise comparison for all the out-nodes.
+    // do a std::pair-wise comparison for all the out-nodes.
     unsigned i, j; 
     for (i = 0; i< position; i++) {
         j = i+1; 
@@ -775,7 +775,7 @@ Lattice::approxRedNodeB(NodeIndex nodeIndex, NodeQueue &nodeQueue,
       list[position++] = fromNodeIndex; 
     }
 
-    // do a pair-wise comparison for all the in-nodes.
+    // do a std::pair-wise comparison for all the in-nodes.
     unsigned i, j; 
     for (i = 0; i< position; i++) {
         j = i+1; 

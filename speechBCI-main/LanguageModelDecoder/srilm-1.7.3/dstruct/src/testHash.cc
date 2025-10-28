@@ -5,7 +5,7 @@
 #else
 # include <new>
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 #include <math.h>

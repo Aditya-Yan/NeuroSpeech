@@ -155,8 +155,8 @@ List(ClientData cd, Tcl_Interp *interp, int argc, char **argv)
 
 	while ((result = iter.next(key))) {
 	    if (result->value()) {
-		cout << "key = " << key << ", value = " << result->value() << endl;
-		//cout << "find = " << *(result->data()) << endl;
+		std::cout << "key = " << key << ", value = " << result->value() << endl;
+		//std::cout << "find = " << *(result->data()) << endl;
 	    }
 	}
    }
@@ -194,11 +194,11 @@ RList(ClientData cd, Tcl_Interp *interp, int argc, char **argv)
 
 	while ((result = iter.next())) {
 	    if (result->value()) {
-		cout << "key =" ;
+		std::cout << "key =" ;
 		for (int i = 0; !Map_noKeyP(keys2[i]); i++) {
-		    cout << " " << keys2[i];
+		    std::cout << " " << keys2[i];
 		}
-		cout << ", value = " << result->value() << endl;
+		std::cout << ", value = " << result->value() << endl;
 	    }
 	}
    }

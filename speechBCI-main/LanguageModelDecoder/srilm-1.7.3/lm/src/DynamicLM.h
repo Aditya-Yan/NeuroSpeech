@@ -15,6 +15,7 @@
 #ifndef _DynamicLM_h_
 #define _DynamicLM_h_
 
+#include <cstring>
 #include "LM.h"
 
 class DynamicLM: public LM

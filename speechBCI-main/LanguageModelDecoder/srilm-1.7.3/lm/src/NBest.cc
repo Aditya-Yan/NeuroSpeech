@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/NBest.cc,v 1.10
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <string.h>
 #include <stdlib.h>
@@ -154,14 +154,14 @@ NBestWordInfo::parse(const char *s)
     acousticScore = aScore;
     languageScore = lScore;
 
-    if (strcmp(phs, phoneSeparator) == 0) {
+    if (std::strcmp(phs, phoneSeparator) == 0) {
         phones = 0;
     } else {
         phones = strdup(phs);
         assert(phones != 0);
     }
 
-    if (strcmp(phDurs, phoneSeparator) == 0) {
+    if (std::strcmp(phDurs, phoneSeparator) == 0) {
         phoneDurs = 0;
     } else {
         phoneDurs = strdup(phDurs);
@@ -510,8 +510,8 @@ NBestHyp::operator= (const NBestHyp &other)
 static Boolean
 addPhones(char *old, const char *ph, Boolean reversed = false) 
 {
-    unsigned oldLen = strlen(old);
-    unsigned newLen = strlen(ph);
+    unsigned oldLen = std::strlen(old);
+    unsigned newLen = std::strlen(ph);
 
     if (oldLen + 1 + newLen + 1 > phoneStringLength) {
 	return false;
@@ -957,7 +957,7 @@ NBestHyp::parseSRInterpFormat(char * line, Vocab &vocab, LHash<VocabString, LogP
     char * eqSign = strchr(field, '=');
     if (!eqSign) {
       
-        if (strcmp(field, Vocab_SentStart) == 0) {
+        if (std::strcmp(field, Vocab_SentStart) == 0) {
 	    if (firstTimeSentStartFlag) {
 	        firstTimeSentStartFlag = false;
 		cerr << location << ": will strip <s> and </s> from hyps" << endl;
@@ -1257,7 +1257,7 @@ NBestList::readSRInterpFormat(File &file, LHash<VocabString, Array<LogP>* > & nb
     
     // first strip the possible headers
     while ((line = file.getline()) != NULL) {
-        if (strncmp(line, start, strlen(start)) == 0) 
+        if (strncmp(line, start, std::strlen(start)) == 0) 
 	  break;
     }
 

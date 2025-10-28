@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Id: ngram-class.cc,v 1.44 2019/09/09 23:13:13 stolck
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 #include <locale.h>
@@ -149,7 +149,7 @@ protected:
     LHash<VocabIndex,LogP> classContribs;	// class contributions to
 						// total log likelihood
     Map2<VocabIndex,VocabIndex,LogP> mergeContribs;
-						// merge-pair contributions
+						// merge-std::pair contributions
 						// to delta log likelihood
     void computeMergeContrib(VocabIndex c1);	// recompute mergeContribs
     LogP computeClassContrib(VocabIndex c);	// recompute classContribs
@@ -729,7 +729,7 @@ UniqueWordClasses::computeClassContrib(VocabIndex c)
 }
 
 /*
- * Compute the contribution of a merge pair to log likelihood difference
+ * Compute the contribution of a merge std::pair to log likelihood difference
  * in an auxiliary array
  * mergeContrib(c1, c2) =
  *	n(c_12,c_12) \log n(c_12,c_12)
@@ -874,7 +874,7 @@ UniqueWordClasses::computeMergeContrib(VocabIndex c1, VocabIndex c2)
 }
 
 /*
- * Find and perform best merge pair
+ * Find and perform best merge std::pair
  */
 LogP
 UniqueWordClasses::bestMerge(Vocab &mergeSet, VocabIndex &b1, VocabIndex &b2)
@@ -924,7 +924,7 @@ static File *
 logFile(const char *basename, unsigned freq, int iter)
 {
     if (freq > 0 && iter >= 0 && basename != 0 && iter % freq == 0) {
-	makeArray(char, filename, strlen(basename) + 10);
+	makeArray(char, filename, std::strlen(basename) + 10);
 
 	if (stdio_filename_p(basename)) {
 	    printf("*** SAVE FOR ITERATION %06d ***\n", iter);
@@ -1184,7 +1184,7 @@ interactiveMerge(UniqueWordClasses &classes)
 	char class1[30], class2[30];
 	class1[0] = class2[0] = '\0';
 
-	cout << "Enter two class names> ";
+	std::cout << "Enter two class names> ";
 	// @kw N/A (non-library): SV.UNBOUND_STRING_INPUT.CIN
 	cin >> class1 >> class2 ;
 
@@ -1207,11 +1207,11 @@ interactiveMerge(UniqueWordClasses &classes)
 	    continue;
 	}
 
-	cout << "Merging class " << classes.classVocab.getWord(c1)
+	std::cout << "Merging class " << classes.classVocab.getWord(c1)
 	     << " and " << classes.classVocab.getWord(c2) << endl;
 
 	LogP delta = classes.diffLogP(c1, c2);
-	cout << "Projected delta = " << delta << endl;
+	std::cout << "Projected delta = " << delta << endl;
 
 	classes.merge(c1, c2);
 
@@ -1239,7 +1239,7 @@ interactiveMerge(UniqueWordClasses &classes)
 
 	    TextStats stats;
 	    classes.getStats(stats);
-	    cout << stats;
+	    std::cout << stats;
 	}
     }
 }

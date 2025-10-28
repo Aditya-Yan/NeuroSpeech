@@ -18,15 +18,21 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "LHash.cc"
+#include <cstring>
 #include "Trie.cc"
+#include <cstring>
 #include "Array.cc"
 
+#include <cstring>
 #include "LMStats.h"
+#include <cstring>
 #include "TLSWrapper.h"
 
 
@@ -47,6 +53,7 @@ const unsigned int maxExtraWordsPerLine = 3;
 // output files with these names are never written
 const VocabString FNGRAM_DEV_NULL_FILE = "_";
 
+#include <cstring>
 #include "FactoredVocab.h"
 
 #ifndef FNgramNode

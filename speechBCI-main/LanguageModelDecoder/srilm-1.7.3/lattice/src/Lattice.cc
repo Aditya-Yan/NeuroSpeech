@@ -399,7 +399,7 @@ Lattice::insertNode(const char *word, NodeIndex nodeIndex)
 {
     VocabIndex windex;
 
-    if (strcmp(word, NullNodeName) == 0) {
+    if (std::strcmp(word, NullNodeName) == 0) {
 	windex = Vocab_None;
     } else if (useUnk || keepUnk) {
 	windex = vocab.getIndex(word, vocab.unkIndex());
@@ -801,7 +801,7 @@ Lattice::latticeOr(Lattice &lat1, Lattice &lat2)
     }
 
     // if name is default, inherit if from the input lattice
-    if (strcmp(name, LATTICE_NONAME) == 0) {
+    if (std::strcmp(name, LATTICE_NONAME) == 0) {
 	free((void *)name);
 	name = strdup(lat1.name);
 	assert(name != 0);
@@ -901,7 +901,7 @@ Lattice::latticeCat(Lattice &lat1, Lattice &lat2, float interSegmentTime)
     } 
 
     // if name is default, inherit if from the input lattice
-    if (strcmp(name, LATTICE_NONAME) == 0) {
+    if (std::strcmp(name, LATTICE_NONAME) == 0) {
 	free((void *)name);
 	name = strdup(lat1.name);
 	assert(name != 0);
@@ -963,7 +963,7 @@ Lattice::latticeCat(Lattice &lat1, Lattice &lat2, float interSegmentTime)
 	newNode->htkinfo = htkinfos[htkinfos.size()] = linkinfo;
 	linkinfo->time = finalTime1;
 	{
-	    makeArray(char, pause, strlen(phoneSeparator)*2 + 12);
+	    makeArray(char, pause, std::strlen(phoneSeparator)*2 + 12);
 	    sprintf(pause,"%s-,%.2f%s",
 		      phoneSeparator, interSegmentTime, phoneSeparator);
 	    linkinfo->div = strdup(pause);
@@ -1523,7 +1523,7 @@ Lattice::readPFSGs(File &file)
 	 * Map word string to VocabIndex
 	 */
 	VocabIndex windex;
-	if (strcmp(fields[n + 2], NullNodeName) == 0) {
+	if (std::strcmp(fields[n + 2], NullNodeName) == 0) {
 	    windex = Vocab_None;
 	} else if (useUnk || keepUnk) {
 	    windex = vocab.getIndex(fields[n + 2], vocab.unkIndex());
@@ -1796,7 +1796,7 @@ Lattice::readPFSG(File &file)
 	 * Map word string to VocabIndex
 	 */
 	VocabIndex windex;
-	if (strcmp(fields[n + 2], NullNodeName) == 0) {
+	if (std::strcmp(fields[n + 2], NullNodeName) == 0) {
 	    windex = Vocab_None;
 	} else if (useUnk || keepUnk) {
 	    windex = vocab.getIndex(fields[n + 2], vocab.unkIndex());
@@ -2242,7 +2242,7 @@ Lattice::printNodeIndexNamePair(File &file)
 {
     if (debug(DebugPrintFunctionality)) {
       dout() << "Lattice::printNodeIndexNamePair: "
-	     << "printing Index-Name pairs!\n";
+	     << "printing Index-Name std::pairs!\n";
     }
 
     LHashIter<NodeIndex, LatticeNode> nodeIter(nodes, nodeSort);

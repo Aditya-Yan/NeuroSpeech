@@ -31,6 +31,7 @@
 #ifndef ZLIB_H
 #define ZLIB_H
 
+#include <cstring>
 #include "zconf.h"
 
 #ifdef __cplusplus
@@ -1009,7 +1010,7 @@ ZEXTERN long ZEXPORT inflateMark OF((z_streamp strm));
    the middle of a stored block, with the lower value equaling the number of
    bytes from the input remaining to copy.  If the upper value is not -1, then
    it is the number of bits back from the current bit position in the input of
-   the code (literal or length/distance pair) currently being processed.  In
+   the code (literal or length/distance std::pair) currently being processed.  In
    that case the lower value is the number of bytes already emitted for that
    code.
 

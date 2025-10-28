@@ -15,7 +15,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/hoeffding.cc,v 
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 #include <math.h>
@@ -38,7 +38,7 @@ main(int argc, char **argv)
 		 
     double val = 2.0 * exp(-2.0 * (delta * delta) * (dev * dev));
 
-    cout << val << endl;
+    std::cout << val << endl;
 
     exit(0);
 }

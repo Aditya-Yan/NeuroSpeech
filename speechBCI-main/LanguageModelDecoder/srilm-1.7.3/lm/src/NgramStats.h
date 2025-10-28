@@ -11,13 +11,19 @@
 #ifndef _NgramStats_h_
 #define _NgramStats_h_
 
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "XCount.h"
+#include <cstring>
 #include "LMStats.h"
 
+#include <cstring>
 #include "Array.h"
+#include <cstring>
 #include "Trie.h"
+#include <cstring>
 #include "TLSWrapper.h"
 
 const unsigned int      maxLineLength = 10000;	/* XXX: no longer used */

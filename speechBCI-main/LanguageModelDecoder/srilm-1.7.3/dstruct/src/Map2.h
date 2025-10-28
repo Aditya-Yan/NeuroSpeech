@@ -3,7 +3,7 @@
  *	Two-dimensional maps
  *
  * Map2<Key1T, Key2T, DataT> is a template container class that implements a
- * mapping from pairs of _keys_ (types Key1T, Key2T) to data items or _values_
+ * mapping from std::pairs of _keys_ (types Key1T, Key2T) to data items or _values_
  * (type DataT).  It is built as an extension of Map and has a similar
  * interface.
  *

@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/BayesMix.cc,v 1
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 #include <string.h>
@@ -173,7 +173,7 @@ BayesMix::readMixLMs(File &file, Boolean limitVocab, Boolean ngramOnly)
 
 	LM *lm = 0;
 
-	if (strcmp(lmType, "ARPA") == 0) {
+	if (std::strcmp(lmType, "ARPA") == 0) {
 	    /*
 	     * Read Ngram LM in ARPA format
 	     */
@@ -209,7 +209,7 @@ BayesMix::readMixLMs(File &file, Boolean limitVocab, Boolean ngramOnly)
 		}
 	    }
 	    lm = ngram;
-	} else if (!ngramOnly && strcmp(lmType, "COUNTLM") == 0) {
+	} else if (!ngramOnly && std::strcmp(lmType, "COUNTLM") == 0) {
 	    /*
 	     * Read an Ngram-count LM
 	     */
@@ -223,7 +223,7 @@ BayesMix::readMixLMs(File &file, Boolean limitVocab, Boolean ngramOnly)
 		return false;
 	    }
 	    lm = countlm;
-	} else if (strcmp(lmType, "MAXENT") == 0) {
+	} else if (std::strcmp(lmType, "MAXENT") == 0) {
 	    /*
 	     * Read a Maxent LM
 	     */
@@ -243,7 +243,7 @@ BayesMix::readMixLMs(File &file, Boolean limitVocab, Boolean ngramOnly)
 	    } else {
 		lm = meLM;
 	    }
-	} else if (!ngramOnly && strcmp(lmType, "LMCLIENT") == 0) {
+	} else if (!ngramOnly && std::strcmp(lmType, "LMCLIENT") == 0) {
 	    /*
 	     * Create an LM client -- the "filename" is the network address
 	     */
@@ -251,7 +251,7 @@ BayesMix::readMixLMs(File &file, Boolean limitVocab, Boolean ngramOnly)
 						cacheServedNgrams ? lmOrder : 0);
 	    assert(lmClient != 0);
 	    lm = lmClient;
-	} else if (!ngramOnly && strcmp(lmType, "MSWEBLM") == 0) {
+	} else if (!ngramOnly && std::strcmp(lmType, "MSWEBLM") == 0) {
 	    /*
 	     * Read a MS Web-Ngram LM
 	     */

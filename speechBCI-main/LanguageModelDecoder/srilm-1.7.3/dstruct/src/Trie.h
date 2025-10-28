@@ -112,6 +112,7 @@
 # include <new>
 #endif
 
+#include <cstring>
 #include "MemStats.h"
 
 #undef TRIE_INDEX_T

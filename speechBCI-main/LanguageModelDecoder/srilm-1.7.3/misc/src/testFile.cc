@@ -14,7 +14,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/misc/src/testFile.cc,v
 
 int hasNL(const char *line)
 {
-	unsigned len = strlen(line);
+	unsigned len = std::strlen(line);
 
 	if (len > 0 && line[len-1] == '\n') {
 		return 1;
@@ -32,13 +32,13 @@ main()
 
 	char *line;
 
-	cout << "=== input data ===\n";
+	std::cout << "=== input data ===\n";
 
 	while ((line = file.getline())) {
-		file.position(cout) << line;
+		file.position(std::cout) << line;
 
 		if (!hasNL(line)) {
-			cout << "(MISSING NEWLINE)\n";
+			std::cout << "(MISSING NEWLINE)\n";
 		}
 
 		// save the line in our buffer
@@ -47,21 +47,21 @@ main()
 
 	buffer.fputs("LINE WITHOUT NEWLINE");
 
-	cout << "=== buffer contents ===\n";
+	std::cout << "=== buffer contents ===\n";
 
-	unsigned len = strlen(buffer.c_str());
-	cout << "(length = " << len << ")\n";
-	cout << buffer.c_str();
+	unsigned len = std::strlen(buffer.c_str());
+	std::cout << "(length = " << len << ")\n";
+	std::cout << buffer.c_str();
 
-	cout << "\n=== buffer read back ===\n";
+	std::cout << "\n=== buffer read back ===\n";
 
 	File sfile(buffer.c_str(), len);
 
 	while ((line = sfile.getline())) {
-		sfile.position(cout) << line;
+		sfile.position(std::cout) << line;
 
 		if (!hasNL(line)) {
-			cout << "(MISSING NEWLINE)\n";
+			std::cout << "(MISSING NEWLINE)\n";
 		}
 	}
 

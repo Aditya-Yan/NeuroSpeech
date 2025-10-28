@@ -15,11 +15,14 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
+#include <cstring>
 #include <math.h>
 
+#include <cstring>
 #include "Prob.h"
+#include <cstring>
 #include "Vocab.h"
 
 const float HTK_undef_float = HUGE_VAL;

@@ -23,9 +23,13 @@
 #ifndef _BayesMix_h_
 #define _BayesMix_h_
 
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "Ngram.h"
+#include <cstring>
 #include "Array.h"
+#include <cstring>
 #include "NgramProbArrayTrie.h"
 
 class BayesMix: public LM

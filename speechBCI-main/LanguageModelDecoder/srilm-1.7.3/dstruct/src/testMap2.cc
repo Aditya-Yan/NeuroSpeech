@@ -153,7 +153,7 @@ List(ClientData cd, Tcl_Interp *interp, int argc, char **argv)
 	DATA_T *data;
 
 	while ((data = myIter2.next(key2))) {
-	    cout << "key = " << key1 << "," << key2 
+	    std::cout << "key = " << key1 << "," << key2 
 		    << ", value = " << *data << endl;
 	}
    }

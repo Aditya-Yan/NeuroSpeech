@@ -18,18 +18,28 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "Prob.h"
+#include <cstring>
 #include "Counts.h"
+#include <cstring>
 #include "File.h"
+#include <cstring>
 #include "Vocab.h"
+#include <cstring>
 #include "SubVocab.h"
+#include <cstring>
 #include "TextStats.h"
+#include <cstring>
 #include "Debug.h"
+#include <cstring>
 #include "MemStats.h"
+#include <cstring>
 #include "NgramStats.h"
 
 class LM;		/* forward declaration */

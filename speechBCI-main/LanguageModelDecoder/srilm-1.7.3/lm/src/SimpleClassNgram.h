@@ -11,8 +11,10 @@
 #ifndef _SimpleClassNgram_h_
 #define _SimpleClassNgram_h_
 
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "ClassNgram.h"
 
 /*

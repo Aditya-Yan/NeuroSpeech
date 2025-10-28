@@ -310,7 +310,7 @@ operator<< (ostream &stream, HTKWordInfo &link)
 
 
 /*
- * Find the next key=value pair in line, return string value, nad 
+ * Find the next key=value std::pair in line, return string value, nad 
  * advance line pointer past it.
  * The string pointed to by line is modified in the process.
  */
@@ -611,7 +611,7 @@ Lattice::readHTK(File &file, HTKHeader *header, Boolean useNullNodes)
 	string savedLine = line;
 
 	/*
-	 * Parse key=value pairs
+	 * Parse key=value std::pairs
 	 * (we test for frequent fields first to save time)
 	 * We assume that header information comes before node information,
 	 * which comes before link information.  However, this is is not
@@ -619,7 +619,7 @@ Lattice::readHTK(File &file, HTKHeader *header, Boolean useNullNodes)
 	 * contains things out of order.
 	 */
 	while ((key = getHTKField(line, value, htkheader.useQuotes))) {
-#define keyis(x)	(strcmp(key, (x)) == 0)
+#define keyis(x)	(std::strcmp(key, (x)) == 0)
 	    /*
 	     * Link fields
 	     */
@@ -661,7 +661,7 @@ Lattice::readHTK(File &file, HTKHeader *header, Boolean useNullNodes)
 			endIndex = *endIndexPtr;
 
 		    } else if (keyis("W") || keyis("WORD")) {
-			if (strcmp(value, HTK_null_word) == 0) {
+			if (std::strcmp(value, HTK_null_word) == 0) {
 			    linkinfo->word = Vocab_None;
 			} else if (useUnk || keepUnk) {
 			    linkinfo->word =
@@ -939,7 +939,7 @@ Lattice::readHTK(File &file, HTKHeader *header, Boolean useNullNodes)
 		    if (keyis("t") || keyis("time")) {
 			nodeinfo.time = atof(value);
 		    } else if (keyis("W") || keyis("WORD")) {
-			if (strcmp(value, HTK_null_word) == 0) {
+			if (std::strcmp(value, HTK_null_word) == 0) {
 			    nodeinfo.word = Vocab_None;
 			} else if (useUnk || keepUnk) {
 			    nodeinfo.word =
@@ -1032,7 +1032,7 @@ Lattice::readHTK(File &file, HTKHeader *header, Boolean useNullNodes)
 		char *p = strstr(value, "(duration=");
 		if (p != 0) *p = '\0';
 		    
-		unsigned uttlen = strlen(value);
+		unsigned uttlen = std::strlen(value);
 
 		// remove HTK double quotes
 		if (value[0] == '"' && uttlen > 1 && value[uttlen-1] == '"') {
@@ -1045,7 +1045,7 @@ Lattice::readHTK(File &file, HTKHeader *header, Boolean useNullNodes)
 		p = strstr(value, "=");
 		if (p != 0) {
 		    *p = '\0';
-		    uttlen = strlen(value);
+		    uttlen = std::strlen(value);
 		}
 
 		name = strdup(idFromFilename(value));
@@ -1861,7 +1861,7 @@ Lattice::scorePronunciations(VocabMultiMap &dictionary, Boolean intlogs)
 		 * d=:#[s]t,0.12:s[t]r,0.03:t[r]ay,0.05:r[ay]k,0.09:ay[k]#,0.09:
 		 * and convert into an index string
 		 */
-		makeArray(char, phoneString, strlen(info->div) + 1);
+		makeArray(char, phoneString, std::strlen(info->div) + 1);
 		strcpy(phoneString, info->div);
 
 		Array<VocabIndex> phones;
@@ -1923,7 +1923,7 @@ splitPhones(const char *phoneString, Array<char *> &phones,
 
     if (phoneString != 0) {
 	const char *index = phoneString;
-	unsigned phoneLen = strlen(phoneString);
+	unsigned phoneLen = std::strlen(phoneString);
 
 	while (index[0] != '\0') {
 	    makeArray(char, tmp, phoneLen+1);
@@ -1969,7 +1969,7 @@ splitPhones(const char *phoneString, Array<char *> &phones,
 			    tmp[tmpIndex++] = *i;
 			}
 			tmp[tmpIndex] = '\0';
-			if (strcmp(tmp,"rej") != 0) {
+			if (std::strcmp(tmp,"rej") != 0) {
 			    // Force phones that are not 'rej' to be treated
 			    // like a rej if their format is bad
 			    // change this to just a warning
@@ -2080,7 +2080,7 @@ Lattice::splitHTKMultiwordNodes(MultiwordVocab &vocab,
 
 	    NBestTimestamp multiStart = fromNode->htkinfo->time;
 
-	    unsigned divLen = strlen(myHtk->div);
+	    unsigned divLen = std::strlen(myHtk->div);
 	    makeArray(char, prePhone, divLen+1);
 	    makeArray(char, postPhone, divLen+1);
 
@@ -2113,14 +2113,14 @@ Lattice::splitHTKMultiwordNodes(MultiwordVocab &vocab,
 		    char *thisPhone = phones[m];
 
 		    if (l < pronunciation->size() &&
-			strcmp((*pronunciation)[l], thisPhone) == 0)
+			std::strcmp((*pronunciation)[l], thisPhone) == 0)
 		    {
 			// right phone
 			l ++;
 			
 			// look for multiword boundary
 			if (l < pronunciation->size() &&
-			    strcmp((*pronunciation)[l], "|") == 0)
+			    std::strcmp((*pronunciation)[l], "|") == 0)
 			{
 			    wordBoundaries[wordBoundaries.size()] = m;
 			    l ++;		    

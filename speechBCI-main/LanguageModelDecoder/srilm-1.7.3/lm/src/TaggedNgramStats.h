@@ -1,6 +1,6 @@
 /*
  * TaggedNgramStats.h --
- *	N-gram statistics on word/tag pairs
+ *	N-gram statistics on word/tag std::pairs
  *
  * Copyright (c) 1995,2002 SRI International.  All Rights Reserved.
  *
@@ -11,7 +11,9 @@
 #ifndef _TaggedNgramStats_h_
 #define _TaggedNgramStats_h_
 
+#include <cstring>
 #include "NgramStats.h"
+#include <cstring>
 #include "TaggedVocab.h"
 
 class TaggedNgramStats: public NgramStats

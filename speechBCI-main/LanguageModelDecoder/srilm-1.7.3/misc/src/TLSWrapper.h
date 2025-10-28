@@ -10,10 +10,14 @@
 #ifndef TLSWrapper_h
 #define TLSWrapper_h
 
+#include <cstring>
 #include <stdlib.h>
+#include <cstring>
 #include <assert.h>
 
+#include <cstring>
 #include "tls.h"
+#include <cstring>
 #include "Boolean.h"
 
 #ifndef NO_TLS

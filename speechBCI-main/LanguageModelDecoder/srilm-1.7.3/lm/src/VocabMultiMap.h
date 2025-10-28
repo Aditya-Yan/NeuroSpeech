@@ -12,9 +12,13 @@
 #ifndef _VocabMultiMap_h_
 #define _VocabMultiMap_h_
 
+#include <cstring>
 #include "Boolean.h"
+#include <cstring>
 #include "Prob.h"
+#include <cstring>
 #include "Vocab.h"
+#include <cstring>
 #include "Map2.h"
 
 class VocabMultiMap

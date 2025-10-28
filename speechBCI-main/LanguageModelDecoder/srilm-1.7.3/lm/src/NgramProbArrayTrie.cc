@@ -16,7 +16,7 @@ static char NgramProbArrayTrie_RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <string.h>
 #include <stdio.h>

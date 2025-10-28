@@ -11,10 +11,14 @@
 #ifndef _NgramCountLM_h_
 #define _NgramCountLM_h_
 
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "NgramStats.h"
+#include <cstring>
 #include "Array.h"
 
 const unsigned defaultNgramCountOrder = 3;

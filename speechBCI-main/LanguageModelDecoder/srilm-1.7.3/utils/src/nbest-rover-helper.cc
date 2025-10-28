@@ -292,7 +292,7 @@ main (int argc, char *argv[])
 							OPT_OPTIONS_FIRST);
 
     /*
-     *  Ensure arguments are in pairs (weight, scorefile)
+     *  Ensure arguments are in std::pairs (weight, scorefile)
      */
     if ((argc-1) % 2 == 1) {
 	cerr << "number of arguments is not even (alternating weights and score files)\n";
@@ -370,7 +370,7 @@ main (int argc, char *argv[])
 	    makeArray(char *, scoreFileNames, nExtraScores);
 
 	    for (unsigned i = 0; i < nExtraScores; i ++) {
-		scoreFileNames[i] = new char[strlen(scoreFiles[i]) + 1 + strlen(sentid) + strlen(GZIP_SUFFIX) + 1];
+		scoreFileNames[i] = new char[std::strlen(scoreFiles[i]) + 1 + std::strlen(sentid) + std::strlen(GZIP_SUFFIX) + 1];
 
 		sprintf(scoreFileNames[i], "%s/%s%s", scoreFiles[i], sentid,
 								GZIP_SUFFIX);
@@ -380,8 +380,8 @@ main (int argc, char *argv[])
 	     * Construct output file names from directory path and sentid
 	     */
 	    makeArray(char, writeNbestName,
-		      (writeNbestDir ? strlen(writeNbestDir) : 0) + 1
-				+ strlen(sentid) + strlen(GZIP_SUFFIX) + 1);
+		      (writeNbestDir ? std::strlen(writeNbestDir) : 0) + 1
+				+ std::strlen(sentid) + std::strlen(GZIP_SUFFIX) + 1);
 
 	    if (writeNbestDir) {
 		sprintf(writeNbestName, "%s/%s%s", writeNbestDir, sentid, GZIP_SUFFIX);
@@ -440,9 +440,9 @@ main (int argc, char *argv[])
 	     * nbest-rover:
 	     *	read dir lmw wtw weight max_nbest scale rest
 	     */
-	    if (sscanf(line, "%255s %lf %9s", scoreDir, &lmw, plus) == 3 && strcmp(plus, "+") == 0) {
+	    if (sscanf(line, "%255s %lf %9s", scoreDir, &lmw, plus) == 3 && std::strcmp(plus, "+") == 0) {
 
-		extraScores[nExtraScores] = new char[strlen(scoreDir) + 1 + strlen(sentid) + strlen(GZIP_SUFFIX) + 1];
+		extraScores[nExtraScores] = new char[std::strlen(scoreDir) + 1 + std::strlen(sentid) + std::strlen(GZIP_SUFFIX) + 1];
 		sprintf(extraScores[nExtraScores], "%s/%s%s", scoreDir, sentid, GZIP_SUFFIX);
 
 		if (access(extraScores[nExtraScores], R_OK) < 0) {
@@ -461,7 +461,7 @@ main (int argc, char *argv[])
 		nExtraScores ++;
 
 	    } else if ((nparsed = sscanf(line, "%255s %lf %lf %29s %u %lf", scoreDir, &lmw, &wtw, weightStr, &maxN, &postScale)) >= 1) {
-		char *nbestFile = new char[strlen(scoreDir) + 1 + strlen(sentid) + strlen(scoreSuffix) + strlen(GZIP_SUFFIX) + 1];
+		char *nbestFile = new char[std::strlen(scoreDir) + 1 + std::strlen(sentid) + std::strlen(scoreSuffix) + std::strlen(GZIP_SUFFIX) + 1];
 
 		sprintf(nbestFile, "%s/%s%s", scoreDir, sentid, GZIP_SUFFIX);
 		if (access(nbestFile, R_OK) < 0) {
@@ -485,7 +485,7 @@ main (int argc, char *argv[])
 		    }
 		}
 
-		if (nparsed >= 4 && strcmp(weightStr, "=") == 0) {
+		if (nparsed >= 4 && std::strcmp(weightStr, "=") == 0) {
 		    weight = lastWeight;
 		} else {
 		    if (!parseProb(weightStr, weight)) {

@@ -21,6 +21,7 @@
 #ifndef _SRILM_ICONV_H
 #define _SRILM_ICONV_H
 
+#include <cstring>
 #include <errno.h>
 
 #undef iconv_open
@@ -45,11 +46,12 @@ typedef void *iconv_t;	// unused
  * Emulate simple iconv() usage using Windows API.
  * (Not pretty, but keeps the code below from being littered with #ifdefs)
  */
+#include <cstring>
 #include "Windows.h"
 
 typedef void *iconv_t;	// unused
 
-#define iconv_open(to, from)	((strcmp(to,"UTF-8")==0 && strcmp(from,"UTF-16LE")==0) ? \
+#define iconv_open(to, from)	((std::strcmp(to,"UTF-8")==0 && std::strcmp(from,"UTF-16LE")==0) ? \
 					(iconv_t)1 : \
 					(errno = EINVAL, (iconv_t)-1))
 #define iconv_close(x)		/* nothing to do */

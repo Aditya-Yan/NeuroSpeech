@@ -36,10 +36,10 @@ main(int argc, char **argv)
 	VocabIndex w1 = vocab.addWord(word1);
 	VocabIndex w2 = vocab.addWord(word2);
 
-	cout << "rel distance = " << d.distance(w1, w2) << endl;
-	cout << "rel penalty = " << d.penalty(w1) << endl;
-	cout << "abs distance = " << dabs.distance(w1, w2) << endl;
-	cout << "abs penalty = " << dabs.penalty(w1) << endl;
+	std::cout << "rel distance = " << d.distance(w1, w2) << endl;
+	std::cout << "rel penalty = " << d.penalty(w1) << endl;
+	std::cout << "abs distance = " << dabs.distance(w1, w2) << endl;
+	std::cout << "abs penalty = " << dabs.penalty(w1) << endl;
     }
 
     exit(0);

@@ -14,15 +14,21 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "Trie.h"
+#include <cstring>
 #include "Array.h"
 
+#include <cstring>
 #include "LMStats.h"
+#include <cstring>
 #include "FactoredVocab.h"
+#include <cstring>
 #include "FNgramSpecs.h"
 
 const unsigned maxNumFactors = maxWordsPerLine + maxExtraWordsPerLine;

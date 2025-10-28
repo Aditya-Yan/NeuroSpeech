@@ -163,7 +163,7 @@ LMClient::LMClient(Vocab &vocab, const char *server,
     char msg[REMOTELM_MAXREQUESTLEN];
     sprintf(msg, "%s\n", REMOTELM_VERSION2);
 
-    if (send(serverSocket, msg, strlen(msg), 0) == SOCKET_ERROR) {
+    if (send(serverSocket, msg, std::strlen(msg), 0) == SOCKET_ERROR) {
 	cerr << "send: server " << serverPort << "@" << serverHost
 	     << ": " << SOCKET_ERROR_STRING << endl;
 	closesocket(serverSocket);
@@ -242,13 +242,13 @@ LMClient::wordProb(VocabIndex word, const VocabIndex *context)
     char msg[REMOTELM_MAXREQUESTLEN], *msgEnd;
 
     sprintf(msg, "%s ", REMOTELM_WORDPROB);
-    msgEnd = msg + strlen(msg);
+    msgEnd = msg + std::strlen(msg);
     for (int i = clen - 1; i >= 0; i --) {
     	sprintf(msgEnd, "%s ", vocab.getWord(context[i]));
-	msgEnd += strlen(msgEnd);
+	msgEnd += std::strlen(msgEnd);
     }
     sprintf(msgEnd, "%s\n", vocab.getWord(word));
-    msgEnd += strlen(msgEnd);
+    msgEnd += std::strlen(msgEnd);
 
     assert(msgEnd - msg < (int)sizeof(msg));
 
@@ -335,11 +335,11 @@ LMClient::contextID(VocabIndex word, const VocabIndex *context,
     char msg[REMOTELM_MAXREQUESTLEN], *msgEnd;
 
     sprintf(msg, "%s ", word == Vocab_None ? REMOTELM_CONTEXTID1 : REMOTELM_CONTEXTID2);
-    msgEnd = msg + strlen(msg);
+    msgEnd = msg + std::strlen(msg);
 
     for (int i = clen - 1; i >= 0; i --) {
     	sprintf(msgEnd, "%s ", vocab.getWord(context[i]));
-	msgEnd += strlen(msgEnd);
+	msgEnd += std::strlen(msgEnd);
     }
 
     if (word == Vocab_None) {
@@ -347,7 +347,7 @@ LMClient::contextID(VocabIndex word, const VocabIndex *context,
     } else {
 	sprintf(msgEnd, "%s\n", vocab.getWord(word));
     }
-    msgEnd += strlen(msgEnd);
+    msgEnd += std::strlen(msgEnd);
 
     assert(msgEnd - msg < (int)sizeof(msg));
 
@@ -434,14 +434,14 @@ LMClient::contextBOW(const VocabIndex *context, unsigned length)
     char msg[REMOTELM_MAXREQUESTLEN], *msgEnd;
 
     sprintf(msg, "%s ", REMOTELM_CONTEXTBOW);
-    msgEnd = msg + strlen(msg);
+    msgEnd = msg + std::strlen(msg);
 
     for (int i = clen - 1; i >= 0; i --) {
     	sprintf(msgEnd, "%s ", vocab.getWord(context[i]));
-	msgEnd += strlen(msgEnd);
+	msgEnd += std::strlen(msgEnd);
     }
     sprintf(msgEnd, "%u\n", length);
-    msgEnd += strlen(msgEnd);
+    msgEnd += std::strlen(msgEnd);
     
     assert(msgEnd - msg < (int)sizeof(msg));
 

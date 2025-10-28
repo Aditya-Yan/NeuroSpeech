@@ -16,10 +16,15 @@
 #ifndef _HMMofNgrams_h_
 #define _HMMofNgrams_h_
 
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "Ngram.h"
+#include <cstring>
 #include "LHash.h"
+#include <cstring>
 #include "Trellis.h"
+#include <cstring>
 #include "Array.h"
 
 typedef VocabIndex HMMIndex;

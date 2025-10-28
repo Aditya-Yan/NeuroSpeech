@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/lm/src/NBestSet.cc,v 1
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <string.h>
 #include <stdlib.h>
@@ -87,7 +87,7 @@ NBestSet::read(File &file)
 	NBestSetElement *elt = lists.insert(id);
 
 	delete [] elt->filename;
-	elt->filename = new char[strlen(filename[0]) + 1];
+	elt->filename = new char[std::strlen(filename[0]) + 1];
 	assert(elt->filename != 0);
 	strcpy((char *)elt->filename, filename[0]);
 
@@ -138,7 +138,7 @@ NBestSet::readSRInterpFormat(File &file, LHash<RefString, NBestScore **> & allSc
 	NBestSetElement *elt = lists.insert(id);
 
 	delete [] elt->filename;
-	elt->filename = new char[strlen(filename[0]) + 1];
+	elt->filename = new char[std::strlen(filename[0]) + 1];
 	assert(elt->filename != 0);
 	strcpy((char *)elt->filename, filename[0]);
 
@@ -198,7 +198,7 @@ NBestSet::readSRInterpCountsFile(File & file, unsigned & numRefWords, unsigned &
     while ((line = file.getline())) {
         string str = line;
 	lno ++;
-	// format is: SENTID HYPID ||| BLEU_COUNTS REF_LEN TER ||| FEATURE Key-val pairs 
+	// format is: SENTID HYPID ||| BLEU_COUNTS REF_LEN TER ||| FEATURE Key-val std::pairs 
 	// we ignore the feature fields as they have been read with SRInterp n-best list
 
 	// the first field is sentid
@@ -206,7 +206,7 @@ NBestSet::readSRInterpCountsFile(File & file, unsigned & numRefWords, unsigned &
 	if (num < 8) {
 	    cerr << "line (" << lno <<") : too few fields: " << str.c_str();
 	    continue;
-	} else if(strcmp(fields[2], sep)) {
+	} else if(std::strcmp(fields[2], sep)) {
 	   cerr << "line (" << lno <<") format error -- 3rd field is not separator: " << str.c_str();
 	   continue;
 	}
@@ -218,7 +218,7 @@ NBestSet::readSRInterpCountsFile(File & file, unsigned & numRefWords, unsigned &
 	    continue;
 	}
 
-	if (strcmp(lastSentID.c_str(), sentid)) {
+	if (std::strcmp(lastSentID.c_str(), sentid)) {
 	    lastSentID = sentid;
 	    if (nh) {
 	      numRefWords += (nr + (nh >>1)) / nh;
@@ -239,7 +239,7 @@ NBestSet::readSRInterpCountsFile(File & file, unsigned & numRefWords, unsigned &
       
 	unsigned i;
 	for (i = num - 1; i > 2; i--) {
-	if (strcmp(fields[i], sep) == 0)
+	if (std::strcmp(fields[i], sep) == 0)
 	  break;
 	}
       
@@ -359,7 +359,7 @@ NBestSet::freeList(NBestSetElement &elt)
  */
 
 NBestSetIter::NBestSetIter(NBestSet &set)
-    : mySet(set), myIter(set.lists, strcmp), lastElt(0)
+    : mySet(set), myIter(set.lists, std::strcmp), lastElt(0)
 {
 }
 

@@ -13,7 +13,7 @@ static char RcsId[] = "@(#)$Id: disambig.cc,v 1.56 2019/09/09 23:13:12 stolcke E
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdio.h>
 #include <stdlib.h>
@@ -499,16 +499,16 @@ disambiguateSentence(Vocab &vocab, VocabIndex *wids, VocabIndex *hiddenWids[],
 	     * Print posterior probabilities
 	     */
 	    if (posteriors) {
-		cout << vocab.getWord(wids[pos]) << "\t";
+		std::cout << vocab.getWord(wids[pos]) << "\t";
 
 		symbolIter.init();
 		while ((symbolProb = symbolIter.next(symbol))) {
 		    LogP2 posterior = *symbolProb - totalPosterior;
 
-		    cout << " " << map.vocab2.getWord(symbol)
+		    std::cout << " " << map.vocab2.getWord(symbol)
 			 << " " << (logMap ? posterior : LogPtoProb(posterior));
 		}
-		cout << endl;
+		std::cout << endl;
 	    }
 
 	    /* 
@@ -545,14 +545,14 @@ disambiguateFile(File &file, VocabMap &map, LM &lm, VocabMap *counts)
     char *line;
     VocabString sentence[maxWordsPerLine];
 
-    unsigned escapeLen = escape ? strlen(escape) : 0;
+    unsigned escapeLen = escape ? std::strlen(escape) : 0;
 
     while ((line = file.getline())) {
 	/*
 	 * Pass escaped lines through unprocessed
 	 */
         if (escape && strncmp(line, escape, escapeLen) == 0) {
-	    cout << line;
+	    std::cout << line;
 	    continue;
 	}
 
@@ -594,13 +594,13 @@ disambiguateFile(File &file, VocabMap &map, LM &lm, VocabMap *counts)
 	    if (!numHyps) {
 		file.position() << "Disambiguation failed\n";
 	    } else if (totals) {
-		cout << totalProb[0] << endl;
+		std::cout << totalProb[0] << endl;
 	    } else if (!posteriors) {
 		for (unsigned n = 0; n < numHyps; n++) {
 		    map.vocab2.getWords(hiddenWids[n], hiddenWords,
 							maxWordsPerLine + 2);
 		    if (numNbest > 1) {
-		      cout << "NBEST_" << n << " " << totalProb[n] << " ";
+		      std::cout << "NBEST_" << n << " " << totalProb[n] << " ";
 		    }
 
 		    if (keepUnk) {
@@ -619,7 +619,7 @@ disambiguateFile(File &file, VocabMap &map, LM &lm, VocabMap *counts)
 			    }
 			}
 		    }
-		    cout << (map.vocab2.use(), hiddenWords) << endl;
+		    std::cout << (map.vocab2.use(), hiddenWords) << endl;
 		}
 	    }
 
@@ -641,7 +641,7 @@ disambiguateFileContinuous(File &file, VocabMap &map, LM &lm,
     char *line;
     Array<VocabIndex> wids;
 
-    unsigned escapeLen = escape ? strlen(escape) : 0;
+    unsigned escapeLen = escape ? std::strlen(escape) : 0;
     unsigned lineStart = 0; // index into the above to mark the offset for the 
 			    // current line's data
 
@@ -651,7 +651,7 @@ disambiguateFileContinuous(File &file, VocabMap &map, LM &lm,
 	 * (although this is pretty useless in continuous mode)
 	 */
         if (escape && strncmp(line, escape, escapeLen) == 0) {
-	    cout << line;
+	    std::cout << line;
 	    continue;
 	}
 
@@ -690,20 +690,20 @@ disambiguateFileContinuous(File &file, VocabMap &map, LM &lm,
     if (!numHyps) {
 	file.position() << "Disambiguation failed\n";
     } else if (totals) {
-	cout << totalProb[0] << endl;
+	std::cout << totalProb[0] << endl;
     } else if (!posteriors) {
 	for (unsigned n = 0; n < numHyps; n++) {
 	    map.vocab2.getWords(hiddenWids[n], hiddenWords,
 							maxWordsPerLine + 2);
 	    if (numNbest > 1) {
-	      cout << "NBEST_" << n << " " << totalProb[n] << " ";
+	      std::cout << "NBEST_" << n << " " << totalProb[n] << " ";
 	    }
 
 	    for (unsigned i = 0; hiddenWids[n][i] != Vocab_None; i++) {
 		// XXX: keepUnk not implemented yet.
-		cout << map.vocab2.getWord(hiddenWids[n][i]) << " ";
+		std::cout << map.vocab2.getWord(hiddenWids[n][i]) << " ";
 	    }
-	    cout << endl;
+	    std::cout << endl;
 	}
     }
 
@@ -722,7 +722,7 @@ disambiguateTextMap(File &file, Vocab &vocab, LM &lm, VocabMap *counts)
 {
     char *line;
 
-    unsigned escapeLen = escape ? strlen(escape) : 0;
+    unsigned escapeLen = escape ? std::strlen(escape) : 0;
 
     while ((line = file.getline())) {
 	/*
@@ -810,17 +810,17 @@ disambiguateTextMap(File &file, Vocab &vocab, LM &lm, VocabMap *counts)
 	    if (!numHyps) {
 		file.position() << "Disambiguation failed\n";
 	    } else if (totals) {
-		cout << totalProb[0] << endl;
+		std::cout << totalProb[0] << endl;
 	    } else if (!posteriors) {
 		for (unsigned n = 0; n < numHyps; n++) {
 		    if (numNbest > 1) {
-			cout << "NBEST_" << n << " " << totalProb[n] << " ";
+			std::cout << "NBEST_" << n << " " << totalProb[n] << " ";
 		    }
 
 		    for (unsigned i = 0; hiddenWids[n][i] != Vocab_None; i++) {
-			cout << map.vocab2.getWord(hiddenWids[n][i]) << " ";
+			std::cout << map.vocab2.getWord(hiddenWids[n][i]) << " ";
 		    }
-		    cout << endl;
+		    std::cout << endl;
 		}
 	    }
 
@@ -830,7 +830,7 @@ disambiguateTextMap(File &file, Vocab &vocab, LM &lm, VocabMap *counts)
 	}
 
 	if (haveEscape) {
-	    cout << line;
+	    std::cout << line;
 	}
     }
 }

@@ -11,10 +11,14 @@
 #ifndef _Ngram_h_
 #define _Ngram_h_
 
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "NgramStats.h"
+#include <cstring>
 #include "Discount.h"
 
 #ifdef USE_SARRAY
@@ -31,6 +35,7 @@
 
 #endif /* USE_SARRAY */
 
+#include <cstring>
 #include "Trie.h"
 
 typedef struct {

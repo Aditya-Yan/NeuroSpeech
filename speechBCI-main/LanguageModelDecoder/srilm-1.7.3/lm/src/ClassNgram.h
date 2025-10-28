@@ -11,12 +11,18 @@
 #ifndef _ClassNgram_h_
 #define _ClassNgram_h_
 
+#include <cstring>
 #include <stdio.h>
 
+#include <cstring>
 #include "Ngram.h"
+#include <cstring>
 #include "Trellis.h"
+#include <cstring>
 #include "SubVocab.h"
+#include <cstring>
 #include "Map2.h"
+#include <cstring>
 #include "Array.h"
 
 /* 

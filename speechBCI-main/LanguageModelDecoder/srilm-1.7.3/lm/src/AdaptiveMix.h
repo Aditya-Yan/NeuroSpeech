@@ -11,7 +11,9 @@
 #ifndef _AdaptiveMix_h_
 #define _AdaptiveMix_h_
 
+#include <cstring>
 #include "LM.h"
+#include <cstring>
 #include "Array.h"
 
 class AdaptiveMix: public LM

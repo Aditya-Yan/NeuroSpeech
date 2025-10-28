@@ -20,10 +20,12 @@
 extern "C" {
 #endif
 
+#include <cstring>
 #include <sys/types.h>
 
 #ifdef NO_BLOCK_MALLOC
 
+#include <cstring>
 #include <stdlib.h>
 
 #define BM_malloc(size)	malloc(size)

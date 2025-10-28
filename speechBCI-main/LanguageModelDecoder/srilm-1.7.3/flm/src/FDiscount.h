@@ -15,10 +15,14 @@
 #ifndef _FDiscount_h_
 #define _FDiscount_h_
 
+#include <cstring>
 #include "Discount.h"
 
+#include <cstring>
 #include "FNgramStats.h"
+#include <cstring>
 #include "FNgramSpecs.h"
+#include <cstring>
 #include "FactoredVocab.h"
 
 /*

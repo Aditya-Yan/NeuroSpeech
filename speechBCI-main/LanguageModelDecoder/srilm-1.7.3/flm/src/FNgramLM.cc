@@ -17,7 +17,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/CVS/srilm/flm/src/FNgramLM.cc,v 
 #else
 # include <new>
 # include <iostream>
-using namespace std;
+
 #endif
 #include <stdlib.h>
 #include <math.h>
@@ -469,7 +469,7 @@ FNgram::clear()
 }
 
 // TODO: but this and other bit routines in one
-// separate pair of .cc .h files.
+// separate std::pair of .cc .h files.
 unsigned int 
 bitGather(register unsigned int mask,register unsigned int bitv)
 {
@@ -2611,8 +2611,8 @@ unsigned int
 FNgram::pplFile(File &file, TextStats &stats, const char *escapeString)
 {
     char *line;
-    unsigned escapeLen = escapeString ? strlen(escapeString) : 0;
-    unsigned stateTagLen = stateTag ? strlen(stateTag) : 0;
+    unsigned escapeLen = escapeString ? std::strlen(escapeString) : 0;
+    unsigned stateTagLen = stateTag ? std::strlen(stateTag) : 0;
     VocabString sentence[maxWordsPerLine + 1];
     unsigned totalWords = 0;
     unsigned sentNo = 0;
@@ -2700,8 +2700,8 @@ FNgram::rescoreFile(File &file, double lmScale, double wtScale,
 		    const char *escapeString)
 {
   char *line;
-  unsigned escapeLen = escapeString ? strlen(escapeString) : 0;
-  unsigned stateTagLen = stateTag ? strlen(stateTag) : 0;
+  unsigned escapeLen = escapeString ? std::strlen(escapeString) : 0;
+  unsigned stateTagLen = stateTag ? std::strlen(stateTag) : 0;
   unsigned sentNo = 0;
   LogP* parr = new LogP[fngs.fnSpecArray.size()];
   assert (parr);
@@ -2742,7 +2742,7 @@ FNgram::rescoreFile(File &file, double lmScale, double wtScale,
 
 
     // make copy to print out better error messages
-    makeArray(char, lineCopy, strlen(line)+1);
+    makeArray(char, lineCopy, std::strlen(line)+1);
     strcpy(lineCopy,line);
 
     actualNumWords =

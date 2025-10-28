@@ -15,8 +15,9 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
+#include <cstring>
 #include <stddef.h>
 
 #define MAX_ALLOC_STATS		256	/* keep track of allocations

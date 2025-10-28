@@ -15,13 +15,15 @@
 # include <iostream.h>
 #else
 # include <iostream>
-using namespace std;
+
 #endif
 
 #if !defined(_MSC_VER) && !defined(WIN32)
+#include <cstring>
 #include <sys/param.h>
 #endif
 
+#include <cstring>
 #include "Boolean.h"
 
 #ifdef USE_LONGLONG_COUNTS
