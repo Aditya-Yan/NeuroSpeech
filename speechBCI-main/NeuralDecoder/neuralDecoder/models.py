@@ -27,11 +27,11 @@ class GRU(Model):
 
         if bidirectional:
             self.initStates = [
-                tf.Variable(initial_value=kernel_init(shape=(1, units))),
-                tf.Variable(initial_value=kernel_init(shape=(1, units))),
+                kernel_init(shape=(1, units)),  # forward
+                kernel_init(shape=(1, units)),  # backward
             ]
         else:
-            self.initStates = tf.Variable(initial_value=kernel_init(shape=(1, units)))
+            self.initStates = kernel_init(shape=(1, units))
 
         self.conv1 = None
         if conv_kwargs is not None:
@@ -44,20 +44,23 @@ class GRU(Model):
 
         self.rnnLayers = []
         for _ in range(nLayers):
-            rnn = tf.keras.layers.GRU(
+            # create cell (cell-level args only)
+            cell = tf.keras.layers.GRUCell(
                 units,
-                return_sequences=True,
-                return_state=True,
                 kernel_regularizer=weightReg,
-                activity_regularizer=actReg,
                 recurrent_initializer=recurrent_init,
                 kernel_initializer=kernel_init,
-                dropout=dropout,
-                reset_after=False
+                # do NOT pass return_sequences/return_state here
             )
+
+            # wrap cell in RNN layer which exposes return_sequences & return_state
+            rnn = tf.keras.layers.RNN(cell, return_sequences=True, return_state=True)
+
+            # if bidirectional, wrap the RNN layer (this returns output, fw_state, bw_state)
+            if bidirectional:
+                rnn = tf.keras.layers.Bidirectional(rnn, merge_mode='concat')
+
             self.rnnLayers.append(rnn)
-        if bidirectional:
-            self.rnnLayers = [tf.keras.layers.Bidirectional(rnn) for rnn in self.rnnLayers]
         self.dense = tf.keras.layers.Dense(nClasses)
 
     def call(self, x, states=None, training=False, returnState=False):
@@ -76,26 +79,33 @@ class GRU(Model):
 
         if states is None:
             states = []
-            if self.bidirectional:
-                states.append([tf.tile(s, [batchSize, 1]) for s in self.initStates])
-            else:
-                states.append(tf.tile(self.initStates, [batchSize, 1]))
-            states.extend([None] * (len(self.rnnLayers) - 1))
+            for layer_idx in range(len(self.rnnLayers)):
+                if self.bidirectional:
+                    # append forward state then backward state for this layer
+                    states.append(tf.tile(self.initStates[0], [batchSize, 1]))  # fw
+                    states.append(tf.tile(self.initStates[1], [batchSize, 1]))  # bw
+                else:
+                    # append single initial state for this layer
+                    states.append(tf.tile(self.initStates, [batchSize, 1]))
+
 
         new_states = []
         if self.bidirectional:
-            for i, rnn in enumerate(self.rnnLayers):
-                x, forward_s, backward_s = rnn(x, training=training, initial_state=states[i])
-                if i == len(self.rnnLayers) - 2:
-                    if self.subsampleFactor > 1:
-                        x = x[:, ::self.subsampleFactor, :]
-                new_states.append([forward_s, backward_s])
+            for layer_idx, rnn in enumerate(self.rnnLayers):
+                # Grab forward & backward state for this layer
+                fw_state = states[2*layer_idx]
+                bw_state = states[2*layer_idx + 1]
+                x, forward_s, backward_s = rnn(x, training=training, initial_state=[fw_state, bw_state])
+                new_states.extend([forward_s, backward_s])
+
+                if layer_idx == len(self.rnnLayers) - 2 and self.subsampleFactor > 1:
+                    x = x[:, ::self.subsampleFactor, :]
         else:
-            for i, rnn in enumerate(self.rnnLayers):
-                x, s = rnn(x, training=training, initial_state=states[i])
-                if i == len(self.rnnLayers) - 2:
-                    if self.subsampleFactor > 1:
-                        x = x[:, ::self.subsampleFactor, :]
+            for layer_idx, rnn in enumerate(self.rnnLayers):
+                st = states[layer_idx]
+                x, s = rnn(x, training=training, initial_state=[st])
+                if layer_idx == len(self.rnnLayers) - 2 and self.subsampleFactor > 1:
+                    x = x[:, ::self.subsampleFactor, :]
                 new_states.append(s)
 
         x = self.dense(x, training=training)

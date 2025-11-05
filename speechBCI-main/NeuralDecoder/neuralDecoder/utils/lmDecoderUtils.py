@@ -4,6 +4,7 @@ from time import time
 import numpy as np
 from tqdm.notebook import trange, tqdm
 import tensorflow as tf
+tf.debugging.set_log_device_placement(True)
 
 import lm_decoder
 import neuralDecoder.utils.rnnEval as rnnEval

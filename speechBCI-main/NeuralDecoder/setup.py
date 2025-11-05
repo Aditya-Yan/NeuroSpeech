@@ -5,7 +5,7 @@ setup(
     version='0.0.1',
     packages=find_packages(include=['neuralDecoder']),
     install_requires=[
-        'tensorflow==2.7.0',
+        'tensorflow-directml-plugin', # for my computer
         'hydra-core==1.3.2',
         'hydra-submitit-launcher==1.1.5',
         'hydra-optuna-sweeper==1.2.0',
@@ -27,6 +27,7 @@ setup(
         'wandb==0.15.5',
         'hiplot',
         'numba',
-        'scikit-learn'
+        'scikit-learn',
+        'protobuf==3.19.*'
     ]
 )

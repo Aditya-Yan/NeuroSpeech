@@ -259,6 +259,8 @@ class NeuralSequenceDecoder(object):
             newTrainDataset, newDatasetForAdapt = newTrainDataset.build(
                 self.args['batchSize'],
                 isTraining=True)
+            
+            newTrainDataset = newTrainDataset.repeat()
 
             testOnTrain = self.args['dataset'].get('testOnTrain', False)
             if 'testDir' in self.args.keys():
