@@ -32,8 +32,8 @@ class GRU(Model):
         super(GRU, self).__init__()
 
         # Regularizers
-        weightReg = tf.keras.regularizers.L2(weightReg)
-        actReg = None  # TF 2.10 compatibility
+        weightReg = tf.keras.regularizers.L2(weightReg) if weightReg else None
+        actReg = None  # placeholder for compatibility
 
         # Initializers
         recurrent_init = tf.keras.initializers.Orthogonal()
@@ -241,7 +241,7 @@ class HMRNN(Model):
         if isinstance(units, int):
             self.layer_units = [units] * nLayers
         else:
-            self.layer_units = units[:nLayers]
+            self.layer_units = list(units)[:nLayers]
 
         # Optional conv preprocessing
         self.conv1 = None
@@ -304,9 +304,6 @@ class HMRNN(Model):
         x_time = tf.unstack(x, axis=1)  # list length T of [batch, features]
 
         # Iterate over time steps
-        # At each time step:
-        #  - Layer 0 always receives x_t and updates (computes z0)
-        #  - Layer l > 0 updates only where z_{l-1} == 1; its input is h_{l-1,t}
         h_states = list(states)  # current states per layer
         for t_idx in tf.range(time_len):
             x_t = x_time[t_idx]  # [batch, features]
@@ -322,9 +319,7 @@ class HMRNN(Model):
             # Higher layers
             for L in range(1, self.nLayers):
                 # If lower-layer z==1 -> update this layer with lower-layer hidden representation
-                z_lower = ta_z[L-1].read(t_idx)  # scalar per batch? it's Tensor shape [batch], but read returns tf.Tensor
-                # read returns shape [batch] (int)
-                # We create mask of which batch elements should update
+                z_lower = ta_z[L-1].read(t_idx)  # shape [batch]
                 z_mask = tf.cast(z_lower, tf.float32)[:, None]  # [batch, 1]
 
                 # Input to this layer (use lower-layer hidden state)
@@ -334,12 +329,7 @@ class HMRNN(Model):
                 # compute candidate and z for this layer using input_L and its previous state
                 h_candidate, z_hard_L, z_prob_L = self.h_layers[L].call_step(input_L, h_prev)
 
-                # Only apply updates where z_lower == 1
-                # If z_lower == 1 -> layer L uses its own z_hard_L to update (true hierarchical)
-                # If z_lower == 0 -> we keep previous state
-                # Implementation detail: we will multiply update by z_lower mask
-                # Combined: h_L = (z_lower * z_hard_L) * h_candidate + (1 - z_lower * z_hard_L) * h_prev
-                # compute combined mask
+                # Combined mask: both lower-layer signaled update AND this layer's own decision
                 comb_mask = z_mask * tf.cast(z_hard_L[:, None], tf.float32)
                 h_L = comb_mask * h_candidate + (1.0 - comb_mask) * h_prev
 
@@ -367,7 +357,6 @@ class HMRNN(Model):
 
         # Optionally return states and z signals if requested
         new_states = h_states
-        # Create z tensors too (if user wants them later)
         z_tensors = [tf.transpose(ta_z[L].stack(), perm=[1, 0]) for L in range(self.nLayers)]  # [batch, time]
         zprob_tensors = [tf.transpose(ta_z_prob[L].stack(), perm=[1, 0]) for L in range(self.nLayers)]  # [batch, time]
 
@@ -378,7 +367,6 @@ class HMRNN(Model):
     def getSubsampledTimeSteps(self, timeSteps):
         """
         Returns predicted number of timesteps after the model's internal subsampling.
-        (This preserves the API used by your decoder.)
         """
         timeSteps = tf.cast(timeSteps / self.subsampleFactor, dtype=tf.int32)
         if self.stack_kwargs is not None:
@@ -387,3 +375,15 @@ class HMRNN(Model):
                 dtype=tf.int32
             )
         return timeSteps
+
+# -------------------------
+# Model factory helper
+# -------------------------
+def get_model(model_type: str, **kwargs):
+    model_type = model_type.lower()
+    if model_type in ['gru']:
+        return GRU(**kwargs)
+    elif model_type in ['hmrnn', 'hm-rnn', 'hm_rnn']:
+        return HMRNN(**kwargs)
+    else:
+        raise ValueError(f"Unknown model type: {model_type}")
